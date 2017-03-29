@@ -1,0 +1,447 @@
+﻿<Page x:Class="CharacterSheetManagement.Main"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CharacterSheetManagement"
+	  mc:Ignorable="d" d:DesignHeight="770" d:DesignWidth="800" Title="Menu" KeyDown="Page_KeyDown">
+
+	<!-- Grille Principale. -->
+	<Grid>
+		<Grid.Background>
+			<ImageBrush ImageSource="Background.jpg" Stretch="UniformToFill"/>
+		</Grid.Background>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+			<RowDefinition Height="35*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+			<ColumnDefinition Width="35*" />
+
+		</Grid.ColumnDefinitions>
+
+		<!-- ### INFORMATIONS PERSONNAGE ### -->
+		<!-- Nom. -->
+		<TextBox x:Name="Nom" IsReadOnly="True" Text="Tavernier" Grid.Column="7" Grid.ColumnSpan="6" Grid.RowSpan="2" FontStyle="Italic" FontSize="20" BorderBrush="Black" BorderThickness="1"    />
+		<!-- Classe. -->
+		<TextBox IsReadOnly="True" Text="Classe :" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" FontWeight="Bold" />
+		<TextBox x:Name="Classe" IsReadOnly="True" Text="Commoner" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" FontStyle="Italic" />
+		<!-- Level. -->
+		<TextBox IsReadOnly="True" Text="Level :" Grid.Column="5" Grid.Row="3" FontWeight="Bold" />
+		<TextBox x:Name="Level" IsReadOnly="True" Text="1" Grid.Column="6" Grid.ColumnSpan="1" Grid.Row="3" FontStyle="Italic" LostFocus="Global_LostFocus" />
+		<!-- Race. -->
+		<TextBox IsReadOnly="True" Text="Race :" Grid.Column="7" Grid.ColumnSpan="1" Grid.Row="3" FontWeight="Bold" />
+		<TextBox x:Name="Race" IsReadOnly="True" Text="Humain" Grid.Column="8" Grid.ColumnSpan="3" Grid.Row="3" FontStyle="Italic"/>
+		<!-- Alignement. -->
+		<TextBox IsReadOnly="True" Text="Alignement :" Grid.Column="11" Grid.ColumnSpan="2" Grid.Row="3" FontWeight="Bold" />
+		<TextBox IsReadOnly="True" Text="/ " Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="3" FontWeight="Bold" Margin="0,0,10,0" />
+		<RadioButton x:Name="Loyal"			GroupName="Loyauté" IsEnabled="False"				Content="L"		Grid.Column="13" Grid.Row="3" VerticalAlignment="Center" />
+		<RadioButton x:Name="FirstNeutre"	GroupName="Loyauté" IsEnabled="False" IsChecked="True" Content="N"	Grid.Column="14" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Center" />
+		<RadioButton x:Name="Chaotique"		GroupName="Loyauté" IsEnabled="False"				Content="C"		Grid.Column="15" Grid.Row="3" VerticalAlignment="Center" />
+		<RadioButton x:Name="Bon"			GroupName="Bonté" IsEnabled="False"					Content="B"		Grid.Column="16" Grid.Row="3" VerticalAlignment="Center" />
+		<RadioButton x:Name="SecondNeutre"	GroupName="Bonté" IsEnabled="False" IsChecked="True" Content="N"	Grid.Column="17" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,5,0" />
+		<RadioButton x:Name="Mauvais"		GroupName="Bonté" IsEnabled="False"					Content="M"		Grid.Column="18" Grid.Row="3" VerticalAlignment="Center" />
+
+		<!-- ### STATS ### -->
+		<!-- Titres. -->
+		<TextBox IsReadOnly="True" Text="Statistiques" Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="5" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+		<TextBox IsReadOnly="True" Text="Caracs" Grid.Column="1" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Total" Grid.Column="2" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Mod" Grid.Column="3" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Base" Grid.Column="4" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Level" Grid.Column="5" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Magie" Grid.Column="6" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Temp" Grid.Column="7" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Force. -->
+		<TextBox IsReadOnly="True" Text="FOR" Grid.Column="1" Grid.Row="7" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="Force" IsReadOnly="True" Text="10" Grid.Column="2" Grid.Row="7" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="ModForce" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="7" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseFor" IsReadOnly="True" Text="10" Grid.Column="4" Grid.Row="7" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="LevelFor" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="7" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="MagicFor" IsReadOnly="True" Text="0" Grid.Column="6" Grid.Row="7" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempFor" IsReadOnly="True" Text="0" Grid.Column="7" Grid.Row="7" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Dextérité. -->
+		<TextBox IsReadOnly="True" Text="DEX" Grid.Column="1" Grid.Row="8" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="Dexterite" IsReadOnly="True" Text="10" Grid.Column="2" Grid.Row="8" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="ModDexterite" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="8" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseDex" IsReadOnly="True" Text="10" Grid.Column="4" Grid.Row="8" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="LevelDex" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="8" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="MagicDex" IsReadOnly="True" Text="0" Grid.Column="6" Grid.Row="8" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempDex" IsReadOnly="True" Text="0" Grid.Column="7" Grid.Row="8" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Constitution. -->
+		<TextBox Text="CON" IsReadOnly="True" Grid.Column="1" Grid.Row="9" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="Constitution" IsReadOnly="True" Text="10" Grid.Column="2" Grid.Row="9" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="ModConstitution" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="9" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseCon" IsReadOnly="True" Text="10" Grid.Column="4" Grid.Row="9" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="LevelCon" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="9" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="MagicCon" IsReadOnly="True" Text="0" Grid.Column="6" Grid.Row="9" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempCon" IsReadOnly="True" Text="0" Grid.Column="7" Grid.Row="9" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Intelligence. -->
+		<TextBox IsReadOnly="True" Text="INT" Grid.Column="1" Grid.Row="10" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="Intelligence" IsReadOnly="True" Text="10" Grid.Column="2" Grid.Row="10" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="ModIntelligence" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="10" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseInt" IsReadOnly="True" Text="10" Grid.Column="4" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="LevelInt" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="10" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="MagicInt" IsReadOnly="True" Text="0" Grid.Column="6" Grid.Row="10" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempInt" IsReadOnly="True" Text="0" Grid.Column="7" Grid.Row="10" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Sagesse. -->
+		<TextBox IsReadOnly="True" Text="SAG" Grid.Column="1" Grid.Row="11" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="Sagesse" IsReadOnly="True" Text="10" Grid.Column="2" Grid.Row="11" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="ModSagesse" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="11" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseSag" IsReadOnly="True" Text="10" Grid.Column="4" Grid.Row="11" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="LevelSag" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="11" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="MagicSag" IsReadOnly="True" Text="0" Grid.Column="6" Grid.Row="11" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempSag" IsReadOnly="True" Text="0" Grid.Column="7" Grid.Row="11" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Charisme. -->
+		<TextBox IsReadOnly="True" Text="CHA" Grid.Column="1" Grid.Row="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="Charisme" IsReadOnly="True" Text="10" Grid.Column="2" Grid.Row="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="ModCharisme" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseCha" IsReadOnly="True" Text="10" Grid.Column="4" Grid.Row="12" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="LevelCha" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="12" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="MagicCha" IsReadOnly="True" Text="0" Grid.Column="6" Grid.Row="12" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempCha" IsReadOnly="True" Text="0" Grid.Column="7" Grid.Row="12" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" />
+
+		<!-- ### JETS DE SAUVEGARDE ### -->
+		<!-- Titres. -->
+		<TextBox IsReadOnly="True" Text="Jets de Sauvegarde" Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" />
+		<TextBox IsReadOnly="True" Text="Caracs" Grid.Column="1" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1"/>
+		<TextBox IsReadOnly="True" Text="Total" Grid.Column="2" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Base" Grid.Column="3" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Magie" Grid.Column="4" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Temp" Grid.Column="5" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Force. -->
+		<TextBox IsReadOnly="True" Text="    FOR" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" HorizontalAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<CheckBox x:Name="MaitriseJDSFor" IsEnabled="False" Grid.Column="1" Grid.Row="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseJDS_Checked" Unchecked="MaitriseJDS_Unchecked"/>
+		<TextBox x:Name="JDSFor" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseJDSFor" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="16" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="MagieJDSFor" IsReadOnly="True" Text="0" Grid.Column="4" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempJDSFor" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Dextérité. -->
+		<TextBox IsReadOnly="True" Text="    DEX" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" HorizontalAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1"  />
+		<CheckBox x:Name="MaitriseJDSDex" IsEnabled="False" Grid.Column="1" Grid.Row="17" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseJDS_Checked" Unchecked="MaitriseJDS_Unchecked"/>
+		<TextBox x:Name="JDSDex" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseJDSDex" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="17" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="MagieJDSDex" IsReadOnly="True" Text="0" Grid.Column="4" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempJDSDex" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Constitution. -->
+		<TextBox IsReadOnly="True" Text="    CON" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="18" HorizontalAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<CheckBox x:Name="MaitriseJDSCon" IsEnabled="False" Grid.Column="1" Grid.Row="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseJDS_Checked" Unchecked="MaitriseJDS_Unchecked"/>
+		<TextBox x:Name="JDSCon" IsReadOnly="True" Text="0"  Grid.Column="2" Grid.Row="18" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseJDSCon" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="18" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="MagieJDSCon" IsReadOnly="True" Text="0" Grid.Column="4" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempJDSCon" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Intelligence. -->
+		<TextBox IsReadOnly="True" Text="    INT" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<CheckBox x:Name="MaitriseJDSInt" IsEnabled="False" Grid.Column="1" Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseJDS_Checked" Unchecked="MaitriseJDS_Unchecked"/>
+		<TextBox x:Name="JDSInt" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="19" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseJDSInt" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="19" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="MagieJDSInt" IsReadOnly="True" Text="0" Grid.Column="4" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempJDSInt" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Sagesse. -->
+		<TextBox IsReadOnly="True" Text="    SAG" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="20" HorizontalAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<CheckBox x:Name="MaitriseJDSSag" IsEnabled="False" Grid.Column="1" Grid.Row="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseJDS_Checked" Unchecked="MaitriseJDS_Unchecked"/>
+		<TextBox x:Name="JDSSag" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseJDSSag" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="20" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="MagieJDSSag" IsReadOnly="True" Text="0" Grid.Column="4" Grid.Row="20" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempJDSSag" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="20" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Charisme. -->
+		<TextBox IsReadOnly="True" Text="    CHA" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="21" HorizontalAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<CheckBox x:Name="MaitriseJDSCha" IsEnabled="False" Grid.Column="1" Grid.Row="21" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseJDS_Checked" Unchecked="MaitriseJDS_Unchecked"/>
+		<TextBox x:Name="JDSCha" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BaseJDSCha" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="21" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="MagieJDSCha" IsReadOnly="True" Text="0" Grid.Column="4" Grid.Row="21" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" />
+		<TextBox x:Name="TempJDSCha" IsReadOnly="True" Text="0" Grid.Column="5" Grid.Row="21" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+
+		<!-- ### MAITRISE ### -->
+		<TextBox IsReadOnly="True" Text="Maîtrise" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+		<TextBox x:Name="Maitrise" IsReadOnly="True" Text="+2" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,1,1,1" />
+
+		<!-- ### DES DE VIE ### -->
+		<!-- Titres. -->
+		<TextBox IsReadOnly="True" Text="Dé(s)" Grid.Column="7" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,0" />
+		<TextBox IsReadOnly="True" Text="Vie" Grid.Column="7" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<!-- Actuel. -->
+		<TextBox IsReadOnly="True" Text="Now" Grid.Column="7" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="DVNow" IsReadOnly="True" Text="1" Grid.Column="7" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+		<!-- Maximum. -->
+		<TextBox IsReadOnly="True" Text="Max" Grid.Column="7" Grid.Row="18" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="DVMax" IsReadOnly="True" Text="1" Grid.Column="7" Grid.Row="19" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<!-- Type de dé. -->
+		<TextBox IsReadOnly="True" Text="Type" Grid.Column="7" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="DVType" IsReadOnly="True" Text="4" Grid.Column="7" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus" />
+
+		<!-- ### POINTS DE VIE (HP) ### -->
+		<!-- Actuel. -->
+		<TextBox IsReadOnly="True" Text="HP" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="5" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+		<TextBox x:Name="HP" IsReadOnly="True" Text="4" Grid.Column="9" Grid.ColumnSpan="1" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" LostFocus="Global_LostFocus" Padding="0,0,0,0" />
+		<!-- Max. -->
+		<TextBox IsReadOnly="True" Text="/" Grid.Column="10" Grid.ColumnSpan="1" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="HPMax" IsReadOnly="True" Text="4" Grid.Column="11" Grid.ColumnSpan="1" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" LostFocus="Global_LostFocus" Padding="0,0,0,0" />
+
+		<!-- ### INITIATIVE ### -->
+		<!-- Titres. -->
+		<TextBox IsReadOnly="True" Text="Initiative" Grid.Column="09" Grid.ColumnSpan="3" Grid.Row="8" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" />
+		<TextBox IsReadOnly="True" Text="Total" Grid.Column="09" Grid.ColumnSpan="1" Grid.Row="9" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Base" Grid.Column="10" Grid.ColumnSpan="1" Grid.Row="9" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox IsReadOnly="True" Text="Bonus" Grid.Column="11" Grid.ColumnSpan="1" Grid.Row="9" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Valeur -->
+		<TextBox x:Name="Initiative" IsReadOnly="True" Text="0" Grid.Column="09" Grid.Row="10" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox x:Name="BaseInit" IsReadOnly="True" Text="0" Grid.Column="10" Grid.Row="10" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox x:Name="BonusInit" IsReadOnly="True" Text="0" Grid.Column="11" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus"/>
+
+		<!-- ### VITESSE ### -->
+		<!-- Titres. -->
+		<TextBox IsReadOnly="True" Text="Vitesse" Grid.Column="09" Grid.ColumnSpan="3" Grid.Row="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" />
+		<TextBox IsReadOnly="True" Text="Ft" Grid.Column="09" Grid.ColumnSpan="1" Grid.Row="13" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox IsReadOnly="True" Text="C" Grid.Column="10" Grid.ColumnSpan="1" Grid.Row="13" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox IsReadOnly="True" Text="M" Grid.Column="11" Grid.ColumnSpan="1" Grid.Row="13" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Valeur -->
+		<TextBox x:Name="Feet" IsReadOnly="True" Text="30" Grid.Column="09" Grid.ColumnSpan="1" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" LostFocus="Global_LostFocus"/>
+		<TextBox x:Name="Cases" IsReadOnly="True" Text="6" Grid.Column="10" Grid.ColumnSpan="1" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="Metres" IsReadOnly="True" Text="9" Grid.Column="11" Grid.ColumnSpan="1" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+
+		<!-- ### CLASSE D'ARMURE (CA) ### -->
+		<!-- Titres. -->
+		<TextBox IsReadOnly="True" Text="Classe d'Armure" Grid.Column="09" Grid.ColumnSpan="3" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" />
+		<TextBox IsReadOnly="True" Text="Armure" Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="18" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox IsReadOnly="True" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox IsReadOnly="True" Text="Bonus Dex" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="20" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox IsReadOnly="True" Text="Bouclier" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="21" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox IsReadOnly="True" Text="Bonus Magic" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="22" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox IsReadOnly="True" Text="Bonus Temp" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="23" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<!-- Valeurs. -->
+		<TextBox x:Name="CA" IsReadOnly="True" Text="10" Grid.Column="09" Grid.ColumnSpan="3" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="Armure" IsReadOnly="True" Text="10" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="18" BorderBrush="Black" HorizontalContentAlignment="Right" BorderThickness="0,0,1,1" Padding="0,0,10,0" LostFocus="Global_LostFocus"/>
+		<CheckBox x:Name="Intermediaire" IsEnabled="False" Content="Inter" Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="Armure_Checked" Unchecked="Armure_Unchecked"/>
+		<CheckBox x:Name="Lourde" IsEnabled="False" Content="Lourde" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Armure_Checked" Unchecked="Armure_Unchecked"/>
+		<TextBox x:Name="BonusDexCa" IsReadOnly="True" Text="0" Grid.Column="11" Grid.Row="20" />
+		<CheckBox x:Name="Bouclier" IsEnabled="False" Grid.Column="11" Grid.Row="21" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Armure_Checked" Unchecked="Armure_Unchecked"/>
+		<TextBox x:Name="MagieCA" IsReadOnly="True" Text="0" Grid.Column="11" Grid.Row="22" LostFocus="Global_LostFocus"/>
+		<TextBox x:Name="TempCA" IsReadOnly="True" Text="0" Grid.Column="11" Grid.Row="23" LostFocus="Global_LostFocus"/>
+
+		<!-- ### COMPETENCES ### -->
+		<!-- Grille des Compétences. -->
+		<ScrollViewer Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="5" Grid.RowSpan="10">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+					<RowDefinition Height="28" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="105*"/>
+					<ColumnDefinition Width="35*"/>
+					<ColumnDefinition Width="35*"/>
+					<ColumnDefinition Width="35*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Titres. -->
+				<TextBox IsReadOnly="True" Text="Compétences" Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1" FontWeight="Bold" />
+				<TextBox IsReadOnly="True" Text="Nom" Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="1,0,0,1" FontWeight="Bold" />
+				<TextBox IsReadOnly="True" Text="Total" Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,1" FontWeight="Bold" />
+				<TextBox IsReadOnly="True" Text="Base" Grid.Column="2" Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,1" FontWeight="Bold" />
+				<TextBox IsReadOnly="True" Text="Magie" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,1,1" HorizontalAlignment="Right" FontWeight="Bold" />
+
+				<!-- Label du nom de la compétence. -->
+				<TextBox IsReadOnly="True" Text="      Acrobatie"	Grid.Row="02" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Arcanes"		Grid.Row="03" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Athlétisme"	Grid.Row="04" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Discrétion"	Grid.Row="05" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Dressage"	Grid.Row="06" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Escamotage"	Grid.Row="07" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Histoire"	Grid.Row="08" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Intimidation" Grid.Row="09" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Intuition"	Grid.Row="10" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Investigation" Grid.Row="11" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Médecine"	Grid.Row="12" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Nature"		Grid.Row="13" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Perception"	Grid.Row="14" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Persuasion"	Grid.Row="15" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Religion"	Grid.Row="16" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Représentation" Grid.Row="17" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Survie"		Grid.Row="18" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+				<TextBox IsReadOnly="True" Text="      Tromperie"	Grid.Row="19" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+
+				<!-- Si la compétence est maitrisée, la case est cochée. -->
+				<CheckBox x:Name="MaitriseAcro" IsEnabled="False" Grid.Row="02" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseArca" IsEnabled="False" Grid.Row="03" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseAthl" IsEnabled="False" Grid.Row="04" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseDisc" IsEnabled="False" Grid.Row="05" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseDres" IsEnabled="False" Grid.Row="06" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseEsca" IsEnabled="False" Grid.Row="07" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseHist" IsEnabled="False" Grid.Row="08" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseInti" IsEnabled="False" Grid.Row="09" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseIntu" IsEnabled="False" Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseInve" IsEnabled="False" Grid.Row="11" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseMede" IsEnabled="False" Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseNatu" IsEnabled="False" Grid.Row="13" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitrisePerc" IsEnabled="False" Grid.Row="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitrisePers" IsEnabled="False" Grid.Row="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseReli" IsEnabled="False" Grid.Row="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseRepr" IsEnabled="False" Grid.Row="17" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseSurv" IsEnabled="False" Grid.Row="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+				<CheckBox x:Name="MaitriseTrom" IsEnabled="False" Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
+
+				<!-- Le bonus total de la compétence. -->
+				<TextBox x:Name="Acrobatie" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="02" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Arcanes" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="03" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Athletisme" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="04" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Discretion" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="05" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Dressage" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="06" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Escamotage" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="07" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Histoire" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="08" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Intimidation" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="09" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Intuition" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="10" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Investigation" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="11" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Medecine" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Nature" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="13" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Perception" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Persuasion" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Religion" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Representation" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Survie" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="18" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="Tromperie" IsReadOnly="True" Text="0" Grid.Column="1" Grid.Row="19" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+
+				<!-- Bonus de base. -->
+				<TextBox x:Name="BaseAcro" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="02" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseArca" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="03" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseAthl" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="04" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseDisc" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="05" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseDres" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="06" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseEsca" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="07" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseHist" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="08" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseInti" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="09" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseIntu" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="10" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseInve" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="11" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseMede" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="12" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseNatu" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="13" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BasePerc" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="14" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BasePers" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="15" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseReli" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="16" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseRepr" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="17" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseSurv" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="18" BorderBrush="Black" BorderThickness="0,0,0,1" />
+				<TextBox x:Name="BaseTrom" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="19" BorderBrush="Black" BorderThickness="0,0,0,1" />
+
+				<!-- Bonus magique. -->
+				<TextBox x:Name="MagieAcro" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="02" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieArca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="03" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieAthl" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="04" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieDisc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="05" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieDres" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="06" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieEsca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="07" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieHist" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="08" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieInti" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="09" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieIntu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieInve" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="11" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieMede" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="12" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieNatu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="13" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagiePerc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="14" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagiePers" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="15" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieReli" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieRepr" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieSurv" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+				<TextBox x:Name="MagieTrom" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+			</Grid>
+		</ScrollViewer>
+
+		<!-- ### BONUS AUX TOUCHERS ### -->
+		<!-- Choix de la caractéristque de lanceur de sorts. -->
+		<TextBox Text="Caractéristique de SpellCaster" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+		<TextBox Grid.Column="13" Grid.ColumnSpan="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<CheckBox x:Name="SortINT" IsEnabled="False" Content="INT" Grid.Column="13" Grid.ColumnSpan="2" Grid.Row="17" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Sort_Checked" Unchecked="Sort_Unchecked"/>
+		<TextBox Grid.Column="15" Grid.ColumnSpan="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<CheckBox x:Name="SortSAG" IsEnabled="False" Content="SAG" Grid.Column="15" Grid.ColumnSpan="2" Grid.Row="17" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Sort_Checked" Unchecked="Sort_Unchecked"/>
+		<TextBox Grid.Column="17" Grid.ColumnSpan="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<CheckBox x:Name="SortCHA" IsEnabled="False" Content="CHA" Grid.Column="17" Grid.ColumnSpan="2" Grid.Row="17" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Sort_Checked" Unchecked="Sort_Unchecked"/>
+		<!-- Titres. -->
+		<TextBox Text="Bonus aux touchers" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="4" Grid.Row="19" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+		<TextBox Text="Type" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+		<TextBox Text="Total" IsReadOnly="True" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox Text="Base" IsReadOnly="True" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
+		<TextBox Text="Magie" IsReadOnly="True" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Mélée. -->
+		<TextBox Text="Mélée" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="Melee" IsReadOnly="True" Text="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="BaseMelee" IsReadOnly="True" Text="0" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="21" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="MagieMelee" IsReadOnly="True" Text="0" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="21" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Distances. -->
+		<TextBox Text="Dist." Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="Distance" IsReadOnly="True" Text="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="BaseDistance" IsReadOnly="True" Text="0" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="22" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="MagieDistance" IsReadOnly="True" Text="0" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="22" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<!-- Sorts. -->
+		<TextBox Text="Sorts" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+		<TextBox x:Name="Sort" IsReadOnly="True" Text="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="BaseSort" IsReadOnly="True" Text="0" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="23" BorderBrush="Black" BorderThickness="0,0,1,1" />
+		<TextBox x:Name="MagieSort" IsReadOnly="True" Text="0" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="23" BorderBrush="Black" BorderThickness="0,0,1,1" />
+
+		<!-- ### BOUTONS ### -->
+		<Button x:Name="Choisir" Content="Choisir un personnage" Click="Button_Click" Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="24" Grid.RowSpan="3" Height="50" Width="160" Cursor="Hand" />
+		<Button x:Name="Creer" Content="Créer un personnage" Click="Button_Click" Grid.Column="14" Grid.ColumnSpan="5" Grid.Row="24"  Grid.RowSpan="3" Height="50" Width="160" Cursor="Hand" />
+
+		<!-- ### COMBOBOX ### -->
+		<ComboBox x:Name="Personnage" Grid.ColumnSpan="4" Grid.Column="8" Grid.Row="25" Height="20" />
+
+	</Grid>
+</Page>
