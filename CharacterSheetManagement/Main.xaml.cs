@@ -116,11 +116,9 @@ namespace CharacterSheetManagement
 		private void SwitchReadOnly()
 		{
 			bool Switch;
-			if (bool_SwitchReadOnly)
-				Switch = false;
-			else
-				Switch = true;
-
+			if (bool_SwitchReadOnly) { Switch = false; Edition.Header = "Mode Edition"; }
+			else { Switch = true; Edition.Header = "Mode Lecture"; }
+				
 			bool_SwitchReadOnly = !bool_SwitchReadOnly;
 
 			/// ### INFORMATIONS PERSONNAGE ###
@@ -614,8 +612,16 @@ namespace CharacterSheetManagement
 			HPMax.Text = CalculHP.ToString();
 		}
 
+		private void RefreshChoixPerso()
+		{
+			using (db db = new db())
+			{
+
+			}
+		}
+
 		// ### Actions des menus ### \\
-		private void SaveCharacter()
+		private void CreateCharacter()
 		{
 			string loyal = "";
 
@@ -733,6 +739,13 @@ namespace CharacterSheetManagement
 			}
 		}
 
+		private void EditionMode()
+		{
+			SwitchReadOnly();
+			SwitchEnable();
+			SwitchCursor();
+		}
+
 		// ### Fonctions de calculs ### \\
 		/// <summary>
 		/// Calcule les modificateurs de la caractéristique entrée en paramètre.
@@ -755,17 +768,43 @@ namespace CharacterSheetManagement
 		/// ### EVENEMENTS ### \\\
 		// ### Clicks ### \\
 		/// <summary>
-		/// Lors d'un click sur les boutons.
+		/// Lors d'un click sur le bouton d'édition.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void Edition_Click(object sender, RoutedEventArgs e)
 		{
-			SwitchReadOnly();
-			SwitchEnable();
-			SwitchCursor();
+			EditionMode();
+		}
 
+		private void New_Click(object sender, RoutedEventArgs e)
+		{
+			CreateCharacter();
+		}
+
+		private void Open_Click(object sender, RoutedEventArgs e)
+		{
+			ChoisirPersonnage();
+		}
+
+		private void Save_Click(object sender, RoutedEventArgs e)
+		{
 			SaveCharacter();
+		}
+
+		private void Delete_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Import_Click(object sender, RoutedEventArgs e)
+		{
+			ImportCharacter();
+		}
+
+		private void Export_Click(object sender, RoutedEventArgs e)
+		{
+			ExportCharacter();
 		}
 
 		// ### Checks ### \\
@@ -907,10 +946,14 @@ namespace CharacterSheetManagement
 		{
 			if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
 			{
-				if (e.Key == Key.S)
-					SaveCharacter();
+				if (e.Key == Key.N)
+					CreateCharacter();
 				else if (e.Key == Key.R)
 					RefreshLinkLevel();
+				else if (e.Key == Key.O)
+					ChoisirPersonnage();
+				else if (e.Key == Key.S)
+					SaveCharacter();
 			}
 
 			if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
@@ -922,6 +965,19 @@ namespace CharacterSheetManagement
 			}
 		}
 
+		private void SaveCharacter()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void ChoisirPersonnage()
+		{
+			Open open = new Open();
+			open.ShowDialog();
+
+			MessageBox.Show(open.Combo.SelectedItem.ToString());
+		}
+
 		private void ImportCharacter()
 		{
 			throw new NotImplementedException();
@@ -931,5 +987,7 @@ namespace CharacterSheetManagement
 		{
 			throw new NotImplementedException();
 		}
+
+		
 	}
 }

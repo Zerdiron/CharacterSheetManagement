@@ -6,10 +6,11 @@
 				  xmlns:local="clr-namespace:FeuillePersonnage"
 				  mc:Ignorable="d"
 				  Title="CharacterSheetManagement" 
-				  MinHeight="770" MinWidth="800"
-				  Height="770" Width="800"
+				  MinHeight="720" MinWidth="800"
+				  Height="720" Width="800"
 				  MaxHeight="900" MaxWidth="900"
 				  x:Name="Menu"
 				  Source="Main.xaml"
-				  ContentRendered="Menu_ContentRendered"	>
+				  ContentRendered="Menu_ContentRendered"
+				  WindowStartupLocation="CenterScreen">
 </NavigationWindow>
