@@ -113,6 +113,7 @@
 			<!-- ### STATS ### -->
 			<!-- Titres. -->
 			<TextBox IsReadOnly="True" Text="Statistiques" Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="5" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+			<TextBox IsReadOnly="True" Text="15" Grid.Column="6" Grid.Row="5" FontWeight="Bold" x:Name="Creation" Visibility="Hidden"/>
 			<TextBox IsReadOnly="True" Text="Caracs" Grid.Column="1" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
 			<TextBox IsReadOnly="True" Text="Total" Grid.Column="2" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
 			<TextBox IsReadOnly="True" Text="Mod" Grid.Column="3" Grid.Row="6" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />

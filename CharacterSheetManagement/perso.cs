@@ -20,7 +20,9 @@ namespace CharacterSheetManagement
         [StringLength(2147483647)]
         public string classe { get; set; }
 
-        [Required]
+		public long level { get; set; }
+
+		[Required]
         [StringLength(2147483647)]
         public string race { get; set; }
 

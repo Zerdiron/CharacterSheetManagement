@@ -1,0 +1,28 @@
+﻿<Window x:Class="CharacterSheetManagement.NewName"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CharacterSheetManagement"
+        mc:Ignorable="d"
+        Title="Choisir un nouveau nom" Height="100" Width="300"
+		WindowStartupLocation="CenterScreen"
+		WindowStyle="None">
+	
+	<Grid Background="Beige">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="50"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="100"/>
+			<ColumnDefinition Width="100"/>
+			<ColumnDefinition Width="100"/>
+		</Grid.ColumnDefinitions>
+
+		<TextBox x:Name="NewName" Text="NouveauNom" Grid.ColumnSpan="3" Width="200" VerticalAlignment="Center" Background="LightSteelBlue" BorderBrush="Black" BorderThickness="1"/>
+
+		<Button x:Name="Valider" Grid.Row="1" Grid.ColumnSpan="3" Content="Valider" VerticalAlignment="Center" Width="80" Click="Valider_Click" Margin="0,0,0,10"  />
+	</Grid>
+
+</Window>

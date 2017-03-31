@@ -40,6 +40,7 @@ namespace CharacterSheetManagement
 
 		// ### Stats du personnage ### \\
 		short _maitrise;
+		long id = 1;
 
 		/// ### CONSTRUCTEUR ### \\\
 		public Main()
@@ -116,9 +117,9 @@ namespace CharacterSheetManagement
 		private void SwitchReadOnly()
 		{
 			bool Switch;
-			if (bool_SwitchReadOnly) { Switch = false; Edition.Header = "Mode Edition"; }
-			else { Switch = true; Edition.Header = "Mode Lecture"; }
-				
+			if (bool_SwitchReadOnly) { Switch = false; Edition.Header = "Mode Edition"; Creation.Visibility = Visibility.Visible; }
+			else { Switch = true; Edition.Header = "Mode Lecture"; Creation.Visibility = Visibility.Hidden; }
+
 			bool_SwitchReadOnly = !bool_SwitchReadOnly;
 
 			/// ### INFORMATIONS PERSONNAGE ###
@@ -520,12 +521,12 @@ namespace CharacterSheetManagement
 			Melee.Text = (int.Parse(BaseMelee.Text) + int.Parse(MagieMelee.Text) + _maitrise).ToString();
 			Distance.Text = (int.Parse(BaseDistance.Text) + int.Parse(MagieDistance.Text) + _maitrise).ToString();
 
-			if (SortINT.IsChecked == true) BaseSort.Text = (int.Parse(ModIntelligence.Text) + _maitrise).ToString();
-			else if (SortSAG.IsChecked == true) BaseSort.Text = (int.Parse(ModSagesse.Text) + _maitrise).ToString();
-			else if (SortCHA.IsChecked == true) BaseSort.Text = (int.Parse(ModCharisme.Text) + _maitrise).ToString();
-			else BaseSort.Text = _maitrise.ToString();
+			if (SortINT.IsChecked == true) BaseSort.Text = (int.Parse(ModIntelligence.Text)).ToString();
+			else if (SortSAG.IsChecked == true) BaseSort.Text = (int.Parse(ModSagesse.Text)).ToString();
+			else if (SortCHA.IsChecked == true) BaseSort.Text = (int.Parse(ModCharisme.Text)).ToString();
+			else BaseSort.Text = "0";
 
-			Sort.Text = (int.Parse(BaseSort.Text) + int.Parse(MagieSort.Text)).ToString();
+			Sort.Text = (int.Parse(BaseSort.Text) + int.Parse(MagieSort.Text) + _maitrise).ToString();
 		}
 
 		/// <summary>
@@ -612,28 +613,47 @@ namespace CharacterSheetManagement
 			HPMax.Text = CalculHP.ToString();
 		}
 
-		private void RefreshChoixPerso()
+		// ### Actions des menus ### \\
+		private void EditionMode()
+		{
+			SwitchReadOnly();
+			SwitchEnable();
+			SwitchCursor();
+		}
+
+		private void CreateCharacter()
 		{
 			using (db db = new db())
 			{
+				bool alreadyExist = false;
+				do
+				{
+					alreadyExist = false;
+					var checkIdentity = from check in db.persoes select check.nom;
 
+					foreach (var item in checkIdentity)
+					{
+						if (Nom.Text == item)
+						{
+							alreadyExist = true;
+							NewName newName = new NewName();
+							Nom.Text = newName.NewName.Text;
+						}
+					}
+				} while (alreadyExist);
 			}
-		}
 
-		// ### Actions des menus ### \\
-		private void CreateCharacter()
-		{
 			string loyal = "";
 
-			if (Loyal.IsChecked == true) loyal = "loyal";
-			else if (FirstNeutre.IsChecked == true) loyal = "firstNeutre";
-			else if (Chaotique.IsChecked == true) loyal = "chaotique";
+			if (Loyal.IsChecked == true) loyal = "L";
+			else if (FirstNeutre.IsChecked == true) loyal = "N";
+			else if (Chaotique.IsChecked == true) loyal = "C";
 
 			string bon = "";
 
-			if (Bon.IsChecked == true) bon = "bon";
-			else if (SecondNeutre.IsChecked == true) bon = "secondNeutre";
-			else if (Mauvais.IsChecked == true) bon = "mauvais";
+			if (Bon.IsChecked == true) bon = "B";
+			else if (SecondNeutre.IsChecked == true) bon = "N";
+			else if (Mauvais.IsChecked == true) bon = "M";
 
 			long lourde = 0;
 			long intermediaire = 0;
@@ -739,16 +759,164 @@ namespace CharacterSheetManagement
 			}
 		}
 
-		private void EditionMode()
+		private void ChooseCharacter()
 		{
-			SwitchReadOnly();
-			SwitchEnable();
-			SwitchCursor();
+			Open open = new Open();
+			open.ShowDialog();
+
+			string nom_perso = open.Combo.SelectedItem.ToString();
+
+			using (db db = new db())
+			{
+				try
+				{
+					var retrieve = from personnage in db.persoes where personnage.nom == nom_perso select personnage;
+
+					retrieve.Single();
+
+					foreach (var item in retrieve)
+					{
+						/// ### INFO PERSONNAGE ###
+						id = item.id_perso;
+						Nom.Text = item.nom;
+						Classe.Text = item.classe;
+						Level.Text = item.level.ToString();
+						Race.Text = item.race;
+						if (item.loyaute == "L") Loyal.IsChecked = true;
+						else if (item.loyaute == "N") FirstNeutre.IsChecked = true;
+						else if (item.loyaute == "C") Chaotique.IsChecked = true;
+						if (item.bonte == "B") Bon.IsChecked = true;
+						else if (item.bonte == "N") SecondNeutre.IsChecked = true;
+						else if (item.bonte == "M") Mauvais.IsChecked = true;
+
+						/// ### STATS ###
+						// Base
+						BaseFor.Text = item.baseFor.ToString();
+						BaseDex.Text = item.baseDex.ToString();
+						BaseCon.Text = item.baseCon.ToString();
+						BaseInt.Text = item.baseInt.ToString();
+						BaseSag.Text = item.baseSag.ToString();
+						BaseCha.Text = item.baseCha.ToString();
+						// Level
+						LevelFor.Text = item.levelFor.ToString();
+						LevelDex.Text = item.levelDex.ToString();
+						LevelCon.Text = item.levelCon.ToString();
+						LevelInt.Text = item.levelInt.ToString();
+						LevelSag.Text = item.levelSag.ToString();
+						LevelCha.Text = item.levelCha.ToString();
+						// Magie
+						MagicFor.Text = item.magicFor.ToString();
+						MagicDex.Text = item.magicDex.ToString();
+						MagicCon.Text = item.magicCon.ToString();
+						MagicInt.Text = item.magicInt.ToString();
+						MagicSag.Text = item.magicSag.ToString();
+						MagicCha.Text = item.magicCha.ToString();
+						// Temp
+						TempFor.Text = item.tempFor.ToString();
+						TempDex.Text = item.tempDex.ToString();
+						TempCon.Text = item.tempCon.ToString();
+						TempInt.Text = item.tempInt.ToString();
+						TempSag.Text = item.tempSag.ToString();
+						TempCha.Text = item.tempCha.ToString();
+
+						/// ### JDS ###
+						// Magie
+						MagieJDSFor.Text = item.magieJDSFor.ToString();
+						MagieJDSDex.Text = item.magieJDSDex.ToString();
+						MagieJDSCon.Text = item.magieJDSCon.ToString();
+						MagieJDSInt.Text = item.magieJDSInt.ToString();
+						MagieJDSSag.Text = item.magieJDSSag.ToString();
+						MagieJDSCha.Text = item.magieJDSCha.ToString();
+						// Temp
+						TempJDSFor.Text = item.tempJDSFor.ToString();
+						TempJDSDex.Text = item.tempJDSDex.ToString();
+						TempJDSCon.Text = item.tempJDSCon.ToString();
+						TempJDSInt.Text = item.tempJDSInt.ToString();
+						TempJDSSag.Text = item.tempJDSSag.ToString();
+						TempJDSCha.Text = item.tempJDSCha.ToString();
+
+						/// ### DV ###
+						DVNow.Text = item.DV.ToString();
+						DVType.Text = item.DVType.ToString();
+
+						/// ### HP ###
+						HP.Text = item.HP.ToString();
+
+						/// ### INIT ###
+						BonusInit.Text = item.bonusInit.ToString();
+
+						/// ### VITESSE ###
+						Feet.Text = item.feet.ToString();
+
+						/// ### CA ###
+						Armure.Text = item.armure.ToString();
+						if (item.bouclier == 1) Bouclier.IsChecked = true;
+						else Bouclier.IsChecked = false;
+						if (item.lourde == 1) Lourde.IsChecked = true;
+						else Lourde.IsChecked = false;
+						if (item.intermediaire == 1) Intermediaire.IsChecked = true;
+						else Intermediaire.IsChecked = false;
+						MagieCA.Text = item.magieCA.ToString();
+						TempCA.Text = item.tempCA.ToString();
+
+						/// ### COMPETENCES ###
+						MagieAcro.Text = item.magieAcro.ToString();
+						MagieArca.Text = item.magieArca.ToString();
+						MagieAthl.Text = item.magieAthl.ToString();
+						MagieDisc.Text = item.magieDisc.ToString();
+						MagieDres.Text = item.magieDres.ToString();
+						MagieEsca.Text = item.magieEsca.ToString();
+						MagieHist.Text = item.magieHist.ToString();
+						MagieInti.Text = item.magieInti.ToString();
+						MagieIntu.Text = item.magieIntu.ToString();
+						MagieInve.Text = item.magieInve.ToString();
+						MagieMede.Text = item.magieMede.ToString();
+						MagieNatu.Text = item.magieNatu.ToString();
+						MagiePerc.Text = item.magiePerc.ToString();
+						MagiePers.Text = item.magiePers.ToString();
+						MagieReli.Text = item.magieReli.ToString();
+						MagieRepr.Text = item.magieRepr.ToString();
+						MagieSurv.Text = item.magieSurv.ToString();
+						MagieTrom.Text = item.magieTrom.ToString();
+
+						/// ### SORTS ###
+						if (item.sortINT == 1) SortINT.IsChecked = true;
+						else SortINT.IsChecked = false;
+						if (item.sortSAG == 1) SortSAG.IsChecked = true;
+						else SortSAG.IsChecked = false;
+						if (item.sortCHA == 1) SortCHA.IsChecked = true;
+						else SortCHA.IsChecked = false;
+
+						/// ### TOUCHERS ###
+						MagieMelee.Text = item.magieMelee.ToString();
+						MagieDistance.Text = item.magieDistance.ToString();
+					}
+				}
+				catch
+				{
+					MessageBox.Show("Erreur de chargement.");
+				}
+			}
+		}
+
+		private void SaveCharacter()
+		{
+			MessageBox.Show("Fonction non implémentée");
+		}
+
+		private void ImportCharacter()
+		{
+			MessageBox.Show("Fonction non implémentée");
+		}
+
+		private void ExportCharacter()
+		{
+			MessageBox.Show("Fonction non implémentée");
 		}
 
 		// ### Fonctions de calculs ### \\
 		/// <summary>
-		/// Calcule les modificateurs de la caractéristique entrée en paramètre.
+		/// Calcul les modificateurs de la caractéristique entrée en paramètre.
 		/// </summary>
 		/// <param name="value">La caractéristique à transformer en modificateur.</param>
 		/// <returns>Renvoue le modificateur.</returns>
@@ -764,6 +932,44 @@ namespace CharacterSheetManagement
 
 			return modif;
 		}
+
+		/// <summary>
+		/// Vérifie les points de créations de toutes les caractéristiques.
+		/// </summary>
+		private void CheckCreation()
+		{
+			int somme = 0;
+
+			somme += CalculCreation(int.Parse(BaseFor.Text));
+			somme += CalculCreation(int.Parse(BaseDex.Text));
+			somme += CalculCreation(int.Parse(BaseCon.Text));
+			somme += CalculCreation(int.Parse(BaseInt.Text));
+			somme += CalculCreation(int.Parse(BaseSag.Text));
+			somme += CalculCreation(int.Parse(BaseCha.Text));
+
+			Creation.Text = (27 - somme).ToString();
+		}
+
+		/// <summary>
+		/// Calcul la valeur en point(s) de création de la caractéristique passée en argument.
+		/// </summary>
+		/// <param name="carac">La caractéristique à calculer.</param>
+		/// <returns>Renvoie la quantité de points de créations consommés.</returns>
+		private int CalculCreation(int carac)
+		{
+			int value = 0;
+
+			if (carac == 9) value = 1;
+			else if (carac == 10) value = 2;
+			else if (carac == 11) value = 3;
+			else if (carac == 12) value = 4;
+			else if (carac == 13) value = 5;
+			else if (carac == 14) value = 7;
+			else if (carac >= 15) value = 9;
+
+			return value;
+		}
+
 
 		/// ### EVENEMENTS ### \\\
 		// ### Clicks ### \\
@@ -784,7 +990,7 @@ namespace CharacterSheetManagement
 
 		private void Open_Click(object sender, RoutedEventArgs e)
 		{
-			ChoisirPersonnage();
+			ChooseCharacter();
 		}
 
 		private void Save_Click(object sender, RoutedEventArgs e)
@@ -794,7 +1000,7 @@ namespace CharacterSheetManagement
 
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
-
+			MessageBox.Show("Fonction non implémentée");
 		}
 
 		private void Import_Click(object sender, RoutedEventArgs e)
@@ -939,6 +1145,9 @@ namespace CharacterSheetManagement
 				|| sender.Equals(MagiePerc) || sender.Equals(MagiePers) || sender.Equals(MagieReli) || sender.Equals(MagieRepr) || sender.Equals(MagieSurv) || sender.Equals(MagieTrom)
 				)
 				RefreshCompetence();
+
+			if (sender.Equals(BaseFor) || sender.Equals(BaseDex) || sender.Equals(BaseCon) || sender.Equals(BaseInt) || sender.Equals(BaseSag) || sender.Equals(BaseCha))
+				CheckCreation();
 		}
 
 		// ### KeyDown (Raccourcis Clavier) ### \\
@@ -951,9 +1160,11 @@ namespace CharacterSheetManagement
 				else if (e.Key == Key.R)
 					RefreshLinkLevel();
 				else if (e.Key == Key.O)
-					ChoisirPersonnage();
+					ChooseCharacter();
 				else if (e.Key == Key.S)
 					SaveCharacter();
+				else if (e.Key == Key.E)
+					EditionMode();
 			}
 
 			if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
@@ -964,30 +1175,5 @@ namespace CharacterSheetManagement
 					ImportCharacter();
 			}
 		}
-
-		private void SaveCharacter()
-		{
-			throw new NotImplementedException();
-		}
-
-		private void ChoisirPersonnage()
-		{
-			Open open = new Open();
-			open.ShowDialog();
-
-			MessageBox.Show(open.Combo.SelectedItem.ToString());
-		}
-
-		private void ImportCharacter()
-		{
-			throw new NotImplementedException();
-		}
-
-		private void ExportCharacter()
-		{
-			throw new NotImplementedException();
-		}
-
-		
 	}
 }
