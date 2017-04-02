@@ -41,6 +41,7 @@ namespace CharacterSheetManagement
 		// ### Stats du personnage ### \\
 		short _maitrise;
 		long id = 1;
+		private object newName;
 
 		/// ### CONSTRUCTEUR ### \\\
 		public Main()
@@ -636,8 +637,8 @@ namespace CharacterSheetManagement
 						if (Nom.Text == item)
 						{
 							alreadyExist = true;
-							NewName newName = new NewName();
-							Nom.Text = newName.NewName.Text;
+							NewName nomNouveau = new NewName();
+							Nom.Text = nomNouveau.LeNouveauNom.Text;
 						}
 					}
 				} while (alreadyExist);

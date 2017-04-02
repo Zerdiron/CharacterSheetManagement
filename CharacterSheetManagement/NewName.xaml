@@ -20,7 +20,7 @@
 			<ColumnDefinition Width="100"/>
 		</Grid.ColumnDefinitions>
 
-		<TextBox x:Name="NewName" Text="NouveauNom" Grid.ColumnSpan="3" Width="200" VerticalAlignment="Center" Background="LightSteelBlue" BorderBrush="Black" BorderThickness="1"/>
+		<TextBox x:Name="LeNouveauNom" Text="NouveauNom" Grid.ColumnSpan="3" Width="200" VerticalAlignment="Center" Background="LightSteelBlue" BorderBrush="Black" BorderThickness="1"/>
 
 		<Button x:Name="Valider" Grid.Row="1" Grid.ColumnSpan="3" Content="Valider" VerticalAlignment="Center" Width="80" Click="Valider_Click" Margin="0,0,0,10"  />
 	</Grid>
