@@ -621,7 +621,7 @@ namespace CharacterSheetManagement
 			SwitchEnable();
 			SwitchCursor();
 		}
-
+		
 		private void CreateCharacter()
 		{
 			using (db db = new db())
@@ -638,6 +638,7 @@ namespace CharacterSheetManagement
 						{
 							alreadyExist = true;
 							NewName nomNouveau = new NewName();
+							nomNouveau.ShowDialog();
 							Nom.Text = nomNouveau.LeNouveauNom.Text;
 						}
 					}
@@ -678,6 +679,7 @@ namespace CharacterSheetManagement
 				{
 					nom = Nom.Text,
 					classe = Classe.Text,
+					level = long.Parse(Level.Text),
 					race = Race.Text,
 					loyaute = loyal,
 					bonte = bon,
