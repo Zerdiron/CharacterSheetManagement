@@ -47,24 +47,17 @@ namespace CharacterSheetManagement
 		public Main()
 		{
 			InitializeComponent();
-			RefreshLinkLevel();
-			
-			using (var db = new db())
-			{
-				try
-				{
-					SaveCharacter();
-				}
-				catch
-				{
-					
+			RefreshLink();
 
-						MessageBox.Show("Error");
-					
-					
-				}
-				
-			}
+			AppDomain currentDomain = AppDomain.CurrentDomain;
+			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+		}
+
+		static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+		{
+			Exception e = (Exception)args.ExceptionObject;
+			MessageBox.Show("MyHandler caught : " + e.Message);
+			MessageBox.Show("Runtime terminating: {0}", args.IsTerminating.ToString());
 		}
 
 		/// ### FONCTIONS ### \\\
@@ -376,6 +369,9 @@ namespace CharacterSheetManagement
 			if (newInput.Length >= max)
 				newInput = newInput.Substring(0, max);
 
+			if (newInput.Length == 0)
+				newInput = "0";
+
 			(sender as TextBox).Text = newInput;
 		}
 
@@ -383,7 +379,7 @@ namespace CharacterSheetManagement
 		/// <summary>
 		/// Lorsque le niveau du personnage est modifié déclenche tous les autres refresh en plus d'actualiser la maîtrise.
 		/// </summary>
-		private void RefreshLinkLevel()
+		private void RefreshLink()
 		{
 			short niveau = short.Parse(Level.Text);
 
@@ -397,7 +393,7 @@ namespace CharacterSheetManagement
 			DVMax.Text = Level.Text;
 
 			RefreshStatistique();
-			RefreshVitesse();
+			RefreshSpeed();
 		}
 
 		/// <summary>
@@ -414,20 +410,20 @@ namespace CharacterSheetManagement
 			Charisme.Text = (int.Parse(BaseCha.Text) + int.Parse(LevelCha.Text) + int.Parse(MagicCha.Text) + int.Parse(TempCha.Text)).ToString();
 
 			// Calcul des modificateurs.
-			ModForce.Text = CalculModif(Force.Text).ToString();
-			ModDexterite.Text = CalculModif(Dexterite.Text).ToString();
-			ModConstitution.Text = CalculModif(Constitution.Text).ToString();
-			ModIntelligence.Text = CalculModif(Intelligence.Text).ToString();
-			ModSagesse.Text = CalculModif(Sagesse.Text).ToString();
-			ModCharisme.Text = CalculModif(Charisme.Text).ToString();
+			ModForce.Text = CalculMod(Force.Text).ToString();
+			ModDexterite.Text = CalculMod(Dexterite.Text).ToString();
+			ModConstitution.Text = CalculMod(Constitution.Text).ToString();
+			ModIntelligence.Text = CalculMod(Intelligence.Text).ToString();
+			ModSagesse.Text = CalculMod(Sagesse.Text).ToString();
+			ModCharisme.Text = CalculMod(Charisme.Text).ToString();
 
 			RefreshBase();
 			RefreshHP();
-			RefreshCompetence();
+			RefreshSkill();
 			RefreshToucher();
 			RefreshJDS();
 			RefreshInitiative();
-			RefreshArmure();
+			RefreshArmor();
 		}
 
 		/// <summary>
@@ -474,7 +470,7 @@ namespace CharacterSheetManagement
 		/// <summary>
 		/// Rafraîchit le bloc des compétences du personnage.
 		/// </summary>
-		private void RefreshCompetence()
+		private void RefreshSkill()
 		{
 			Acrobatie.Text = (int.Parse(BaseAcro.Text) + int.Parse(MagieAcro.Text)).ToString();
 			if (MaitriseAcro.IsChecked == true) Acrobatie.Text = (int.Parse(Acrobatie.Text) + _maitrise).ToString();
@@ -575,7 +571,7 @@ namespace CharacterSheetManagement
 		/// <summary>
 		/// Rafraîchit la vitesse du personnage.
 		/// </summary>
-		private void RefreshVitesse()
+		private void RefreshSpeed()
 		{
 			Cases.Text = (int.Parse(Feet.Text) / 5).ToString();
 			Metres.Text = (double.Parse(Cases.Text) * 1.5).ToString();
@@ -592,7 +588,7 @@ namespace CharacterSheetManagement
 		/// <summary>
 		/// Rafraîchit le bloc de l'armure du personnage.
 		/// </summary>
-		private void RefreshArmure()
+		private void RefreshArmor()
 		{
 			if (Intermediaire.IsChecked == true && int.Parse(ModDexterite.Text) <= 2) BonusDexCa.Text = ModDexterite.Text;
 			else if (Intermediaire.IsChecked == true && int.Parse(ModDexterite.Text) > 2) BonusDexCa.Text = "2";
@@ -632,6 +628,9 @@ namespace CharacterSheetManagement
 		}
 
 		// ### Actions des menus ### \\
+		/// <summary>
+		/// Bascule en mode édition avec le call des fonctions "switch"
+		/// </summary>
 		private void EditionMode()
 		{
 			SwitchReadOnly();
@@ -639,6 +638,9 @@ namespace CharacterSheetManagement
 			SwitchCursor();
 		}
 		
+		/// <summary>
+		/// Créer un personnage par sa sauvegarde dans la base.
+		/// </summary>
 		private void CreateCharacter()
 		{
 			using (db db = new db())
@@ -779,6 +781,9 @@ namespace CharacterSheetManagement
 			}
 		}
 
+		/// <summary>
+		/// Permet de choisir un personnage dans la base local du programme.
+		/// </summary>
 		private void ChooseCharacter()
 		{
 			Open open = new Open();
@@ -788,6 +793,7 @@ namespace CharacterSheetManagement
 
 			using (db db = new db())
 			{
+				
 				try
 				{
 					var retrieve = from personnage in db.persoes where personnage.nom == nom_perso select personnage;
@@ -919,6 +925,9 @@ namespace CharacterSheetManagement
 			}
 		}
 
+		/// <summary>
+		/// Update le personnage dans la BDD (pour l'instant sert de debug).
+		/// </summary>
 		private void SaveCharacter()
 		{
 			using (db db = new db())
@@ -961,11 +970,17 @@ namespace CharacterSheetManagement
 			
 		}
 
+		/// <summary>
+		/// Permet d'importer un personnage exporté par la méthode ExportCharacter();
+		/// </summary>
 		private void ImportCharacter()
 		{
 			MessageBox.Show("Fonction non implémentée");
 		}
 
+		/// <summary>
+		/// Permet d'exporter un personnage.
+		/// </summary>
 		private void ExportCharacter()
 		{
 			MessageBox.Show("Fonction non implémentée");
@@ -977,7 +992,7 @@ namespace CharacterSheetManagement
 		/// </summary>
 		/// <param name="value">La caractéristique à transformer en modificateur.</param>
 		/// <returns>Renvoue le modificateur.</returns>
-		private int CalculModif(string value)
+		private int CalculMod(string value)
 		{
 			int modif = int.Parse(value);
 
@@ -1027,63 +1042,158 @@ namespace CharacterSheetManagement
 			return value;
 		}
 
-
 		/// ### EVENEMENTS ### \\\
 		// ### Clicks ### \\
 		/// <summary>
 		/// Lors d'un click sur le bouton d'édition.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Edition_Click(object sender, RoutedEventArgs e)
 		{
 			EditionMode();
 		}
 
+		/// <summary>
+		/// Lors d'un click sur le bouton nouveau.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void New_Click(object sender, RoutedEventArgs e)
 		{
 			CreateCharacter();
 		}
 
+		/// <summary>
+		/// Lors d'un click sur le bouton ouvrir.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Open_Click(object sender, RoutedEventArgs e)
 		{
 			ChooseCharacter();
 		}
 
+		/// <summary>
+		/// Lors d'un click sur le bouton enregistrer.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
 			SaveCharacter();
 		}
 
+		/// <summary>
+		/// Lors d'un click sur le bouton supprimer.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Delete_Click(object sender, RoutedEventArgs e)
 		{
 			MessageBox.Show("Fonction non implémentée");
 		}
 
+		/// <summary>
+		/// Lors d'un click sur le bouton importer.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Import_Click(object sender, RoutedEventArgs e)
 		{
 			ImportCharacter();
 		}
 
+		/// <summary>
+		/// Lors d'un click sur le bouton exporter.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Export_Click(object sender, RoutedEventArgs e)
 		{
 			ExportCharacter();
 		}
 
-		// ### Checks ### \\
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void Language_Click(object sender, RoutedEventArgs e)
+		{
+			/// ### Character's info ### \\\
+			LabelClass.Text = "Class :";
+			LabelAlignment.Text = "Alignment :";
+			Bon.Content = "G";
+			Mauvais.Content = "E";
+			LabelProficiency.Text = "Proficiency";
+
+			/// ### STATISTICS ### \\\
+			// Titres
+			LabelStatistics.Text = "Statistics";
+			LabelStats.Text = "Stats";
+			LabelMagic.Text = "Magic";
+			// Stats
+			LabelStrength.Text = "STR";
+			LabelWisdom.Text = "WIS";
+
+			/// ### SAVING THROWS ### \\\
+			LabelSavingThrows.Text = "Saving Throws";
+			LabelStrengthST.Text = "    STR";
+			LabelWisdomST.Text = "    WIS";
+
+			/// ### HIT DICE ### \\\
+			LabelHit.Text = "Hit";
+			LabelDice.Text = "Dice";
+
+			/// ### SPEED ### \\\
+			LabelSpeed.Text = "Speed";
+
+			/// ### ARMOR CLASS ### \\\
+			LabelArmorClass.Text = "Armor Class";
+			LabelArmor.Text = "Armor";
+			LabelShield.Text = "Shield";
+
+			/// ### SKILLS ### \\\
+			LabelSkill.Text = "Skills";
+			LabelNameSkill.Text = "Name";
+			// Names;
+			LabelAcro.Text = "   Acrobatics"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
+			LabelAnim.Text = "   Animal Handling"; Grid.SetRow(LabelAnim, 3); Grid.SetRow(MaitriseDres, 3); Grid.SetRow(Dressage, 3); Grid.SetRow(BaseDres, 3); Grid.SetRow(MagieDres, 3);
+			LabelArca.Text = "   Arcana"; Grid.SetRow(LabelArca, 4); Grid.SetRow(MaitriseArca, 4); Grid.SetRow(Arcanes, 4); Grid.SetRow(BaseArca, 4); Grid.SetRow(MagieArca, 4);
+			LabelAthl.Text = "   Athletics"; Grid.SetRow(LabelAthl, 5); Grid.SetRow(MaitriseAthl, 5); Grid.SetRow(Athletisme, 5); Grid.SetRow(BaseAthl, 5); Grid.SetRow(MagieAthl, 5);
+			LabelDece.Text = "   Deception"; Grid.SetRow(LabelDece, 6); Grid.SetRow(MaitriseTrom, 6); Grid.SetRow(Tromperie, 6); Grid.SetRow(BaseTrom, 6); Grid.SetRow(MagieTrom, 6);
+			LabelHist.Text = "   History"; Grid.SetRow(LabelHist, 7); Grid.SetRow(MaitriseHist, 7); Grid.SetRow(Histoire, 7); Grid.SetRow(BaseHist, 7); Grid.SetRow(MagieHist, 7);
+			LabelInsi.Text = "   Insight"; Grid.SetRow(LabelInsi, 8); Grid.SetRow(MaitriseIntu, 8); Grid.SetRow(Intuition, 8); Grid.SetRow(BaseIntu, 8); Grid.SetRow(MagieIntu, 8);
+			LabelInti.Text = "   Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
+			LabelInve.Text = "   Investigation"; Grid.SetRow(LabelInve, 10); Grid.SetRow(MaitriseInve, 10); Grid.SetRow(Investigation, 10); Grid.SetRow(BaseInve, 10); Grid.SetRow(MagieInve, 10);
+			LabelMedi.Text = "   Medicine"; Grid.SetRow(LabelMedi, 11); Grid.SetRow(MaitriseMede, 11); Grid.SetRow(Medecine, 11); Grid.SetRow(BaseMede, 11); Grid.SetRow(MagieMede, 11);
+			LabelNatu.Text = "   Nature"; Grid.SetRow(LabelNatu, 12); Grid.SetRow(MaitriseNatu, 12); Grid.SetRow(Nature, 12); Grid.SetRow(BaseNatu, 12); Grid.SetRow(MagieNatu, 12);
+			LabelPerc.Text = "   Perception"; Grid.SetRow(LabelPerc, 13); Grid.SetRow(MaitrisePerc, 13); Grid.SetRow(Perception, 13); Grid.SetRow(BasePerc, 13); Grid.SetRow(MagiePerc, 13);
+			LabelPerf.Text = "   Performance"; Grid.SetRow(LabelPerf, 14); Grid.SetRow(MaitriseRepr, 14); Grid.SetRow(Representation, 14); Grid.SetRow(BaseRepr, 14); Grid.SetRow(MagieRepr, 14);
+			LabelPers.Text = "   Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
+			LabelReli.Text = "   Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
+			LabelSlei.Text = "   Sleight of hand"; Grid.SetRow(LabelSlei, 17); Grid.SetRow(MaitriseEsca, 17); Grid.SetRow(Escamotage, 17); Grid.SetRow(BaseEsca, 17); Grid.SetRow(MagieEsca, 17);
+			LabelStea.Text = "   Stealth"; Grid.SetRow(LabelStea, 18); Grid.SetRow(MaitriseDisc, 18); Grid.SetRow(Discretion, 18); Grid.SetRow(BaseDisc, 18); Grid.SetRow(MagieDisc, 18);
+			LabelSurv.Text = "   Survival"; Grid.SetRow(LabelSurv, 19); Grid.SetRow(MaitriseSurv, 19); Grid.SetRow(Survie, 19); Grid.SetRow(BaseSurv, 19); Grid.SetRow(MagieSurv, 19);
+
+
+		}
+
+		// ### Checked ### \\
 		/// <summary>
 		/// Quand une des checkbox de l'armure est check.
 		/// </summary>
 		/// <param name="sender">L'objet qui appelle l'évènement.</param>
 		/// <param name="e">L'évènement.</param>
-		private void Armure_Checked(object sender, RoutedEventArgs e)
+		private void Armor_Checked(object sender, RoutedEventArgs e)
 		{
 			if (sender.Equals(Intermediaire))
 				Lourde.IsChecked = false;
 			else if (sender.Equals(Lourde))
 				Intermediaire.IsChecked = false;
 
-			RefreshArmure();
+			RefreshArmor();
 		}
 
 		/// <summary>
@@ -1091,9 +1201,9 @@ namespace CharacterSheetManagement
 		/// </summary>
 		/// <param name="sender">L'objet qui appelle l'évènement.</param>
 		/// <param name="e">L'évènement.</param>
-		private void Armure_Unchecked(object sender, RoutedEventArgs e)
+		private void Armor_Unchecked(object sender, RoutedEventArgs e)
 		{
-			RefreshArmure();
+			RefreshArmor();
 		}
 
 		/// <summary>
@@ -1101,7 +1211,7 @@ namespace CharacterSheetManagement
 		/// </summary>
 		/// <param name="sender">L'objet qui appelle l'évènement.</param>
 		/// <param name="e">L'évènement.</param>
-		private void Sort_Checked(object sender, RoutedEventArgs e)
+		private void Spell_Checked(object sender, RoutedEventArgs e)
 		{
 			if (sender.Equals(SortINT))
 			{
@@ -1124,7 +1234,7 @@ namespace CharacterSheetManagement
 		/// </summary>
 		/// <param name="sender">L'objet qui appelle l'évènement.</param>
 		/// <param name="e">L'évènement.</param>
-		private void Sort_Unchecked(object sender, RoutedEventArgs e)
+		private void Spell_Unchecked(object sender, RoutedEventArgs e)
 		{
 			RefreshToucher();
 		}
@@ -1156,7 +1266,7 @@ namespace CharacterSheetManagement
 		/// <param name="e">L'évènement.</param>
 		private void MaitriseCompetence_Checked(object sender, RoutedEventArgs e)
 		{
-			RefreshCompetence();
+			RefreshSkill();
 		}
 
 		/// <summary>
@@ -1166,27 +1276,27 @@ namespace CharacterSheetManagement
 		/// <param name="e">L'évènement.</param>
 		private void MaitriseCompetence_Unchecked(object sender, RoutedEventArgs e)
 		{
-			RefreshCompetence();
+			RefreshSkill();
 		}
 
-		// ### Lost Focus ### \\
+		// ### Key Up (Check input) ### \\
 		/// <summary>
-		/// Quand une des TextBox perd le focus.
+		/// Quand une des TextBox perd le focus de la souris.
 		/// </summary>
 		/// <param name="sender">L'objet qui appelle l'évènement.</param>
 		/// <param name="e">L'évènement.</param>
-		private void Global_LostFocus(object sender, RoutedEventArgs e)
+		private void Global_KeyUp(object sender, KeyEventArgs e)
 		{
 			// Ici on vérifie qu l'utilisateur a bien entré des chiffres
 			if (sender.Equals(HP) || sender.Equals(Feet)) CheckNumberOnly(sender, 3);
 			else CheckNumberOnly(sender);
 
 			// En fonction de la TextBox qui a appellé l'évènement on refresh le bloc associé.
-			if (sender.Equals(DVMax)) RefreshHP();
-			else if (sender.Equals(Level)) RefreshLinkLevel();
-			else if (sender.Equals(Feet)) RefreshVitesse();
+			if (sender.Equals(DVMax) || sender.Equals(DVType)) RefreshHP();
+			else if (sender.Equals(Level)) RefreshLink();
+			else if (sender.Equals(Feet)) RefreshSpeed();
 			else if (sender.Equals(BonusInit)) RefreshInitiative();
-			else if (sender.Equals(MagieCA) || sender.Equals(TempCA) || sender.Equals(Armure)) RefreshArmure();
+			else if (sender.Equals(MagieCA) || sender.Equals(TempCA) || sender.Equals(Armure)) RefreshArmor();
 			else if (sender.Equals(MagieJDSFor) || sender.Equals(MagieJDSDex) || sender.Equals(MagieJDSCon) || sender.Equals(MagieJDSInt) || sender.Equals(MagieJDSSag) || sender.Equals(MagieJDSCha)
 				|| sender.Equals(TempJDSFor) || sender.Equals(TempJDSDex) || sender.Equals(TempJDSCon) || sender.Equals(TempJDSInt) || sender.Equals(TempJDSSag) || sender.Equals(TempJDSCha)
 				)
@@ -1201,13 +1311,18 @@ namespace CharacterSheetManagement
 				|| sender.Equals(MagieHist) || sender.Equals(MagieInti) || sender.Equals(MagieIntu) || sender.Equals(MagieInve) || sender.Equals(MagieMede) || sender.Equals(MagieNatu)
 				|| sender.Equals(MagiePerc) || sender.Equals(MagiePers) || sender.Equals(MagieReli) || sender.Equals(MagieRepr) || sender.Equals(MagieSurv) || sender.Equals(MagieTrom)
 				)
-				RefreshCompetence();
+				RefreshSkill();
 
 			if (sender.Equals(BaseFor) || sender.Equals(BaseDex) || sender.Equals(BaseCon) || sender.Equals(BaseInt) || sender.Equals(BaseSag) || sender.Equals(BaseCha))
 				CheckCreation();
 		}
 
-		// ### KeyDown (Raccourcis Clavier) ### \\
+		// ### KeyDown (Keyboard Shortcuts) ### \\
+		/// <summary>
+		/// Vérifie les touches qui sont pressées pour les raccourcis clavier.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Page_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
@@ -1215,7 +1330,7 @@ namespace CharacterSheetManagement
 				if (e.Key == Key.N)
 					CreateCharacter();
 				else if (e.Key == Key.R)
-					RefreshLinkLevel();
+					RefreshLink();
 				else if (e.Key == Key.O)
 					ChooseCharacter();
 				else if (e.Key == Key.S)

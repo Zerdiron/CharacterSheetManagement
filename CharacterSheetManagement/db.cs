@@ -4,6 +4,7 @@ namespace CharacterSheetManagement
 	using System.Data.Entity;
 	using System.ComponentModel.DataAnnotations.Schema;
 	using System.Linq;
+	using SQLite.CodeFirst;
 
 	public partial class db : DbContext
 	{
@@ -16,6 +17,8 @@ namespace CharacterSheetManagement
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
+			var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<db>(modelBuilder);
+			Database.SetInitializer(sqliteConnectionInitializer);
 		}
 	}
 }
