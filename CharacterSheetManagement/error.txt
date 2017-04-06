@@ -1,0 +1,80 @@
+Application : CharacterSheetManagement.exe
+Version du Framework : v4.0.30319
+Description : le processus a été arrêté en raison d'une exception non gérée.
+Informations sur l'exception : System.Data.SQLite.SQLiteException
+   à System.Data.SQLite.SQLite3.Open(System.String, System.String, System.Data.SQLite.SQLiteConnectionFlags, System.Data.SQLite.SQLiteOpenFlagsEnum, Int32, Boolean)
+   à System.Data.SQLite.SQLiteConnection.Open()
+   à System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.<Open>b__36(System.Data.Common.DbConnection, System.Data.Entity.Infrastructure.Interception.DbConnectionInterceptionContext)
+   à System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].Dispatch[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](System.__Canon, System.Action`2<System.__Canon,System.__Canon>, System.__Canon, System.Action`3<System.__Canon,System.__Canon,System.__Canon>, System.Action`3<System.__Canon,System.__Canon,System.__Canon>)
+   à System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.Open(System.Data.Common.DbConnection, System.Data.Entity.Infrastructure.Interception.DbInterceptionContext)
+   à System.Data.Entity.Core.EntityClient.EntityConnection.<Open>b__2()
+   à System.Data.Entity.Infrastructure.DefaultExecutionStrategy.Execute(System.Action)
+   à System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+
+Informations sur l'exception : System.Data.Entity.Core.EntityException
+   à System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+   à System.Data.Entity.DbContextTransaction.EnsureOpenConnection()
+   à System.Data.Entity.DbContextTransaction..ctor(System.Data.Entity.Core.EntityClient.EntityConnection)
+   à System.Data.Entity.Database.BeginTransaction()
+   à SQLite.CodeFirst.SqliteInitializerBase`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].InitializeDatabase(System.__Canon)
+   à SQLite.CodeFirst.SqliteCreateDatabaseIfNotExists`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].InitializeDatabase(System.__Canon)
+   à System.Data.Entity.Internal.InternalContext+<>c__DisplayClassf`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].<CreateInitializationAction>b__e()
+   à System.Data.Entity.Internal.InternalContext.PerformInitializationAction(System.Action)
+
+Informations sur l'exception : System.Data.DataException
+   à System.Data.Entity.Internal.InternalContext.PerformInitializationAction(System.Action)
+   à System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   à System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(System.Data.Entity.Internal.InternalContext)
+   à System.Data.Entity.Internal.RetryAction`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].PerformAction(System.__Canon)
+   à System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(System.Action`1<System.Data.Entity.Internal.InternalContext>)
+   à System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   à System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(System.Type)
+   à System.Data.Entity.Internal.Linq.InternalSet`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].Initialize()
+   à System.Data.Entity.Internal.Linq.InternalSet`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].get_InternalContext()
+   à System.Data.Entity.Infrastructure.DbQuery`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].System.Linq.IQueryable.get_Provider()
+   à System.Linq.Queryable.OrderBy[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](System.Linq.IQueryable`1<System.__Canon>, System.Linq.Expressions.Expression`1<System.Func`2<System.__Canon,Int64>>)
+   à CharacterSheetManagement.Open..ctor()
+   à CharacterSheetManagement.Main.ChooseCharacter()
+   à CharacterSheetManagement.Main.Open_Click(System.Object, System.Windows.RoutedEventArgs)
+   à System.Windows.RoutedEventHandlerInfo.InvokeHandler(System.Object, System.Windows.RoutedEventArgs)
+   à System.Windows.EventRoute.InvokeHandlersImpl(System.Object, System.Windows.RoutedEventArgs, Boolean)
+   à System.Windows.UIElement.RaiseEventImpl(System.Windows.DependencyObject, System.Windows.RoutedEventArgs)
+   à System.Windows.UIElement.RaiseEvent(System.Windows.RoutedEventArgs)
+   à System.Windows.Controls.MenuItem.InvokeClickAfterRender(System.Object)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   à System.Windows.Threading.DispatcherOperation.InvokeImpl()
+   à System.Windows.Threading.DispatcherOperation.InvokeInSecurityContext(System.Object)
+   à MS.Internal.CulturePreservingExecutionContext.CallbackWrapper(System.Object)
+   à System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   à System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object, Boolean)
+   à System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext, System.Threading.ContextCallback, System.Object)
+   à MS.Internal.CulturePreservingExecutionContext.Run(MS.Internal.CulturePreservingExecutionContext, System.Threading.ContextCallback, System.Object)
+   à System.Windows.Threading.DispatcherOperation.Invoke()
+   à System.Windows.Threading.Dispatcher.ProcessQueue()
+   à System.Windows.Threading.Dispatcher.WndProcHook(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   à MS.Win32.HwndWrapper.WndProc(IntPtr, Int32, IntPtr, IntPtr, Boolean ByRef)
+   à MS.Win32.HwndSubclass.DispatcherCallbackOperation(System.Object)
+   à System.Windows.Threading.ExceptionWrapper.InternalRealCall(System.Delegate, System.Object, Int32)
+   à System.Windows.Threading.ExceptionWrapper.TryCatchWhen(System.Object, System.Delegate, System.Object, Int32, System.Delegate)
+   à System.Windows.Threading.Dispatcher.LegacyInvokeImpl(System.Windows.Threading.DispatcherPriority, System.TimeSpan, System.Delegate, System.Object, Int32)
+   à MS.Win32.HwndSubclass.SubclassWndProc(IntPtr, Int32, IntPtr, IntPtr)
+   à MS.Win32.UnsafeNativeMethods.DispatchMessage(System.Windows.Interop.MSG ByRef)
+   à System.Windows.Threading.Dispatcher.PushFrameImpl(System.Windows.Threading.DispatcherFrame)
+   à System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
+   à System.Windows.Application.RunDispatcher(System.Object)
+   à System.Windows.Application.RunInternal(System.Windows.Window)
+   à System.Windows.Application.Run(System.Windows.Window)
+   à System.Windows.Application.Run()
+   à CharacterSheetManagement.App.Main()
+Nom de l’application défaillante CharacterSheetManagement.exe, version : 1.0.0.0, horodatage : 0x58e66d38
+Nom du module défaillant : KERNELBASE.dll, version : 10.0.14393.953, horodatage : 0x58ba586d
+Code d’exception : 0xe0434352
+Décalage d’erreur : 0x000da882
+ID du processus défaillant : 0x2780
+Heure de début de l’application défaillante : 0x01d2aef44821d158
+Chemin d’accès de l’application défaillante : C:\Program Files (x86)\Zerdiron\CSM_debug_v7\CharacterSheetManagement.exe
+Chemin d’accès du module défaillant: C:\Windows\System32\KERNELBASE.dll
+ID de rapport : 78da696a-0c90-4249-8b51-51921671ec83
+Nom complet du package défaillant : 
+ID de l’application relative au package défaillant :
