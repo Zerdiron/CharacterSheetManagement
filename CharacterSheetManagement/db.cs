@@ -4,14 +4,14 @@ namespace CharacterSheetManagement
 	using System.Data.Entity;
 	using System.ComponentModel.DataAnnotations.Schema;
 	using System.Linq;
-	using System.Data.SQLite;
-	using SQLite;
 	using SQLite.CodeFirst;
 
 	public partial class db : DbContext
 	{
 		public db()
-			: base("name=db") { }
+			: base("name=db")
+		{
+		}
 
 		public virtual DbSet<perso> persoes { get; set; }
 
