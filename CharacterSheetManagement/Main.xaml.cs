@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace CharacterSheetManagement
 {
@@ -48,7 +49,8 @@ namespace CharacterSheetManagement
 		{
 			InitializeComponent();
 			RefreshLinkLevel();
-			
+
+
 			using (var db = new db())
 			{
 				try
@@ -57,13 +59,9 @@ namespace CharacterSheetManagement
 				}
 				catch
 				{
-					
-
-						MessageBox.Show("Error");
-					
-					
+					MessageBox.Show("Error");
 				}
-				
+
 			}
 		}
 
@@ -638,7 +636,7 @@ namespace CharacterSheetManagement
 			SwitchEnable();
 			SwitchCursor();
 		}
-		
+
 		private void CreateCharacter()
 		{
 			using (db db = new db())
@@ -936,29 +934,33 @@ namespace CharacterSheetManagement
 						SQLiteConnection.CreateFile("db.db");
 						var maConnexion = new SQLiteConnection("Data Source=db.db");
 						maConnexion.Open();
-						SQLiteCommand commande = new SQLiteCommand("CREATE TABLE `perso` (	`id_perso`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,	`nom`	TEXT NOT NULL,	`classe`	TEXT NOT NULL,	`level`	INTEGER NOT NULL,	`race`	TEXT NOT NULL,	`loyaute`	TEXT NOT NULL,	`bonte`	TEXT NOT NULL,	`HP`	INTEGER NOT NULL,	`DV`	INTEGER NOT NULL,	`DVType`	INTEGER NOT NULL,	`baseFor`	INTEGER NOT NULL,	`baseDex`	INTEGER NOT NULL,	`baseCon`	INTEGER NOT NULL,	`baseInt`	INTEGER NOT NULL,	`baseSag`	NUMERIC NOT NULL,	`baseCha`	INTEGER NOT NULL,	`levelFor`	INTEGER NOT NULL,	`levelDex`	INTEGER NOT NULL,	`levelCon`	INTEGER NOT NULL,	`levelInt`	INTEGER NOT NULL,	`levelSag`	INTEGER NOT NULL,	`levelCha`	INTEGER NOT NULL,	`magicFor`	INTEGER NOT NULL,	`magicDex`	INTEGER NOT NULL,	`magicCon`	INTEGER NOT NULL,	`magicInt`	INTEGER NOT NULL,	`magicSag`	INTEGER NOT NULL,	`magicCha`	INTEGER NOT NULL,	`tempFor`	INTEGER NOT NULL,	`tempDex`	INTEGER NOT NULL,	`tempCon`	INTEGER NOT NULL,	`tempInt`	INTEGER NOT NULL,	`tempSag`	INTEGER NOT NULL,	`tempCha`	INTEGER NOT NULL,	`magieJDSFor`	INTEGER NOT NULL,	`magieJDSDex`	INTEGER NOT NULL,	`magieJDSCon`	INTEGER NOT NULL,	`magieJDSInt`	INTEGER NOT NULL,	`magieJDSSag`	INTEGER NOT NULL,	`magieJDSCha`	INTEGER NOT NULL,	`tempJDSFor`	INTEGER NOT NULL,	`tempJDSDex`	INTEGER NOT NULL,	`tempJDSCon`	INTEGER NOT NULL,	`tempJDSInt`	INTEGER NOT NULL,	`tempJDSSag`	INTEGER NOT NULL,	`tempJDSCha`	INTEGER NOT NULL,	`bonusInit`	INTEGER NOT NULL,	`feet`	INTEGER NOT NULL,	`armure`	INTEGER NOT NULL,	`intermediaire`	INTEGER NOT NULL,	`lourde`	INTEGER NOT NULL,	`bouclier`	INTEGER NOT NULL,	`magieCA`	INTEGER NOT NULL,	`tempCA`	INTEGER NOT NULL,	`magieAcro`	INTEGER NOT NULL,	`magieArca`	INTEGER NOT NULL,	`magieAthl`	INTEGER NOT NULL,	`magieDisc`	INTEGER NOT NULL,	`magieDres`	INTEGER NOT NULL,	`magieEsca`	INTEGER NOT NULL,	`magieHist`	INTEGER NOT NULL,	`magieInti`	INTEGER NOT NULL,	`magieIntu`	INTEGER NOT NULL,	`magieInve`	INTEGER NOT NULL,	`magieMede`	INTEGER NOT NULL,	`magieNatu`	INTEGER NOT NULL,	`magiePerc`	INTEGER NOT NULL,	`magiePers`	INTEGER NOT NULL,	`magieReli`	INTEGER NOT NULL,	`magieRepr`	INTEGER NOT NULL,	`magieSurv`	INTEGER NOT NULL,	`magieTrom`	INTEGER NOT NULL,	`sortINT`	INTEGER NOT NULL,	`sortSAG`	INTEGER NOT NULL,	`sortCHA`	INTEGER NOT NULL,	`magieMelee`	INTEGER NOT NULL,	`magieDistance`	INTEGER NOT NULL,	`magieSort`	INTEGER NOT NULL)", maConnexion);
+						//SQLiteCommand commande = new SQLiteCommand("CREATE TABLE `perso` (	`id_perso`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,	`nom`	TEXT NOT NULL,	`classe`	TEXT NOT NULL,	`level`	INTEGER NOT NULL,	`race`	TEXT NOT NULL,	`loyaute`	TEXT NOT NULL,	`bonte`	TEXT NOT NULL,	`HP`	INTEGER NOT NULL,	`DV`	INTEGER NOT NULL,	`DVType`	INTEGER NOT NULL,	`baseFor`	INTEGER NOT NULL,	`baseDex`	INTEGER NOT NULL,	`baseCon`	INTEGER NOT NULL,	`baseInt`	INTEGER NOT NULL,	`baseSag`	NUMERIC NOT NULL,	`baseCha`	INTEGER NOT NULL,	`levelFor`	INTEGER NOT NULL,	`levelDex`	INTEGER NOT NULL,	`levelCon`	INTEGER NOT NULL,	`levelInt`	INTEGER NOT NULL,	`levelSag`	INTEGER NOT NULL,	`levelCha`	INTEGER NOT NULL,	`magicFor`	INTEGER NOT NULL,	`magicDex`	INTEGER NOT NULL,	`magicCon`	INTEGER NOT NULL,	`magicInt`	INTEGER NOT NULL,	`magicSag`	INTEGER NOT NULL,	`magicCha`	INTEGER NOT NULL,	`tempFor`	INTEGER NOT NULL,	`tempDex`	INTEGER NOT NULL,	`tempCon`	INTEGER NOT NULL,	`tempInt`	INTEGER NOT NULL,	`tempSag`	INTEGER NOT NULL,	`tempCha`	INTEGER NOT NULL,	`magieJDSFor`	INTEGER NOT NULL,	`magieJDSDex`	INTEGER NOT NULL,	`magieJDSCon`	INTEGER NOT NULL,	`magieJDSInt`	INTEGER NOT NULL,	`magieJDSSag`	INTEGER NOT NULL,	`magieJDSCha`	INTEGER NOT NULL,	`tempJDSFor`	INTEGER NOT NULL,	`tempJDSDex`	INTEGER NOT NULL,	`tempJDSCon`	INTEGER NOT NULL,	`tempJDSInt`	INTEGER NOT NULL,	`tempJDSSag`	INTEGER NOT NULL,	`tempJDSCha`	INTEGER NOT NULL,	`bonusInit`	INTEGER NOT NULL,	`feet`	INTEGER NOT NULL,	`armure`	INTEGER NOT NULL,	`intermediaire`	INTEGER NOT NULL,	`lourde`	INTEGER NOT NULL,	`bouclier`	INTEGER NOT NULL,	`magieCA`	INTEGER NOT NULL,	`tempCA`	INTEGER NOT NULL,	`magieAcro`	INTEGER NOT NULL,	`magieArca`	INTEGER NOT NULL,	`magieAthl`	INTEGER NOT NULL,	`magieDisc`	INTEGER NOT NULL,	`magieDres`	INTEGER NOT NULL,	`magieEsca`	INTEGER NOT NULL,	`magieHist`	INTEGER NOT NULL,	`magieInti`	INTEGER NOT NULL,	`magieIntu`	INTEGER NOT NULL,	`magieInve`	INTEGER NOT NULL,	`magieMede`	INTEGER NOT NULL,	`magieNatu`	INTEGER NOT NULL,	`magiePerc`	INTEGER NOT NULL,	`magiePers`	INTEGER NOT NULL,	`magieReli`	INTEGER NOT NULL,	`magieRepr`	INTEGER NOT NULL,	`magieSurv`	INTEGER NOT NULL,	`magieTrom`	INTEGER NOT NULL,	`sortINT`	INTEGER NOT NULL,	`sortSAG`	INTEGER NOT NULL,	`sortCHA`	INTEGER NOT NULL,	`magieMelee`	INTEGER NOT NULL,	`magieDistance`	INTEGER NOT NULL,	`magieSort`	INTEGER NOT NULL)", maConnexion);
 						// db.Database.ExecuteSqlCommand("CREATE TABLE `perso` (	`id_perso`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,	`nom`	TEXT NOT NULL,	`classe`	TEXT NOT NULL,	`level`	INTEGER NOT NULL,	`race`	TEXT NOT NULL,	`loyaute`	TEXT NOT NULL,	`bonte`	TEXT NOT NULL,	`HP`	INTEGER NOT NULL,	`DV`	INTEGER NOT NULL,	`DVType`	INTEGER NOT NULL,	`baseFor`	INTEGER NOT NULL,	`baseDex`	INTEGER NOT NULL,	`baseCon`	INTEGER NOT NULL,	`baseInt`	INTEGER NOT NULL,	`baseSag`	NUMERIC NOT NULL,	`baseCha`	INTEGER NOT NULL,	`levelFor`	INTEGER NOT NULL,	`levelDex`	INTEGER NOT NULL,	`levelCon`	INTEGER NOT NULL,	`levelInt`	INTEGER NOT NULL,	`levelSag`	INTEGER NOT NULL,	`levelCha`	INTEGER NOT NULL,	`magicFor`	INTEGER NOT NULL,	`magicDex`	INTEGER NOT NULL,	`magicCon`	INTEGER NOT NULL,	`magicInt`	INTEGER NOT NULL,	`magicSag`	INTEGER NOT NULL,	`magicCha`	INTEGER NOT NULL,	`tempFor`	INTEGER NOT NULL,	`tempDex`	INTEGER NOT NULL,	`tempCon`	INTEGER NOT NULL,	`tempInt`	INTEGER NOT NULL,	`tempSag`	INTEGER NOT NULL,	`tempCha`	INTEGER NOT NULL,	`magieJDSFor`	INTEGER NOT NULL,	`magieJDSDex`	INTEGER NOT NULL,	`magieJDSCon`	INTEGER NOT NULL,	`magieJDSInt`	INTEGER NOT NULL,	`magieJDSSag`	INTEGER NOT NULL,	`magieJDSCha`	INTEGER NOT NULL,	`tempJDSFor`	INTEGER NOT NULL,	`tempJDSDex`	INTEGER NOT NULL,	`tempJDSCon`	INTEGER NOT NULL,	`tempJDSInt`	INTEGER NOT NULL,	`tempJDSSag`	INTEGER NOT NULL,	`tempJDSCha`	INTEGER NOT NULL,	`bonusInit`	INTEGER NOT NULL,	`feet`	INTEGER NOT NULL,	`armure`	INTEGER NOT NULL,	`intermediaire`	INTEGER NOT NULL,	`lourde`	INTEGER NOT NULL,	`bouclier`	INTEGER NOT NULL,	`magieCA`	INTEGER NOT NULL,	`tempCA`	INTEGER NOT NULL,	`magieAcro`	INTEGER NOT NULL,	`magieArca`	INTEGER NOT NULL,	`magieAthl`	INTEGER NOT NULL,	`magieDisc`	INTEGER NOT NULL,	`magieDres`	INTEGER NOT NULL,	`magieEsca`	INTEGER NOT NULL,	`magieHist`	INTEGER NOT NULL,	`magieInti`	INTEGER NOT NULL,	`magieIntu`	INTEGER NOT NULL,	`magieInve`	INTEGER NOT NULL,	`magieMede`	INTEGER NOT NULL,	`magieNatu`	INTEGER NOT NULL,	`magiePerc`	INTEGER NOT NULL,	`magiePers`	INTEGER NOT NULL,	`magieReli`	INTEGER NOT NULL,	`magieRepr`	INTEGER NOT NULL,	`magieSurv`	INTEGER NOT NULL,	`magieTrom`	INTEGER NOT NULL,	`sortINT`	INTEGER NOT NULL,	`sortSAG`	INTEGER NOT NULL,	`sortCHA`	INTEGER NOT NULL,	`magieMelee`	INTEGER NOT NULL,	`magieDistance`	INTEGER NOT NULL,	`magieSort`	INTEGER NOT NULL)");
 						maConnexion.Close();
 						MessageBox.Show("Base Créée");
 						try
 						{
-							
+							ConfigurationManager.ConnectionStrings["db"].ConnectionString = "Data source=db.db";
 						}
-						catch 
+						catch (Exception)
 						{
-							
+
+							throw;
 						}
+
+
 					}
 					catch
 					{
+						throw;
 						MessageBox.Show("Création ratée.");
 					}
 				}
-				
-				
+
+
 			}
 
-			
+
 		}
 
 		private void ImportCharacter()

@@ -10,6 +10,7 @@ namespace CharacterSheetManagement
     public partial class perso
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long id_perso { get; set; }
 
         [Required]
@@ -20,9 +21,9 @@ namespace CharacterSheetManagement
         [StringLength(2147483647)]
         public string classe { get; set; }
 
-		public long level { get; set; }
+        public long level { get; set; }
 
-		[Required]
+        [Required]
         [StringLength(2147483647)]
         public string race { get; set; }
 
