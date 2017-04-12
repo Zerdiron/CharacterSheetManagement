@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CharacterSheetManagement
 {
@@ -39,6 +29,11 @@ namespace CharacterSheetManagement
 		/// </summary>
 		bool bool_SwitchCursor = true;
 
+		/// <summary>
+		/// Indique si la langue doit être modifiré ou non.
+		/// </summary>
+		bool bool_SwitchLanguage = true;
+
 		// ### Stats du personnage ### \\
 		short _maitrise;
 		long id = 1;
@@ -56,8 +51,7 @@ namespace CharacterSheetManagement
 		static void MyHandler(object sender, UnhandledExceptionEventArgs args)
 		{
 			Exception e = (Exception)args.ExceptionObject;
-			MessageBox.Show("MyHandler caught : " + e.Message);
-			MessageBox.Show("Runtime terminating: {0}", args.IsTerminating.ToString());
+			MessageBox.Show("MyHandler caught : " + e.Message + " \n InnerException : " + e.InnerException);
 		}
 
 		/// ### FONCTIONS ### \\\
@@ -353,6 +347,153 @@ namespace CharacterSheetManagement
 			MagieSort.Cursor = Switch;
 		}
 
+		/// <summary>
+		/// Switch la langue des labels.
+		/// </summary>
+		private void SwitchLanguage()
+		{
+			if (bool_SwitchLanguage)
+			{
+				/// ### CHARACTER'S INFO ### \\\
+				LabelClass.Text = "Class :";
+				LabelAlignment.Text = "Alignment :";
+				Bon.Content = "G";
+				Mauvais.Content = "E";
+				LabelProficiency.Text = "Proficiency";
+
+				/// ### STATISTICS ### \\\
+				// Titles.
+				LabelStatistics.Text = "Statistics";
+				LabelStats.Text = "Stats";
+				LabelMagic.Text = "Magic";
+				// Stats.
+				LabelStrength.Text = "STR";
+				LabelWisdom.Text = "WIS";
+
+				/// ### SAVING THROWS ### \\\
+				LabelSavingThrows.Text = "Saving Throws";
+				LabelStrengthST.Text = "    STR";
+				LabelWisdomST.Text = "    WIS";
+
+				/// ### HIT DICE ### \\\
+				LabelHit.Text = "Hit";
+				LabelDice.Text = "Dice";
+
+				/// ### SPEED ### \\\
+				LabelSpeed.Text = "Speed";
+
+				/// ### ARMOR CLASS ### \\\
+				LabelArmorClass.Text = "Armor Class";
+				LabelArmor.Text = "Armor";
+				LabelShield.Text = "Shield";
+				Intermediaire.Content = "Medium";
+				Lourde.Content = "Heavy"; Lourde.Margin = new Thickness(20, 0, 0, 0);
+
+				/// ### SKILLS ### \\\
+				LabelSkill.Text = "Skills";
+				LabelNameSkill.Text = "Name";
+				// Names.
+				LabelAcro.Text = "   Acrobatics"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
+				LabelAnim.Text = "   Animal Handling"; Grid.SetRow(LabelAnim, 3); Grid.SetRow(MaitriseDres, 3); Grid.SetRow(Dressage, 3); Grid.SetRow(BaseDres, 3); Grid.SetRow(MagieDres, 3);
+				LabelArca.Text = "   Arcana"; Grid.SetRow(LabelArca, 4); Grid.SetRow(MaitriseArca, 4); Grid.SetRow(Arcanes, 4); Grid.SetRow(BaseArca, 4); Grid.SetRow(MagieArca, 4);
+				LabelAthl.Text = "   Athletics"; Grid.SetRow(LabelAthl, 5); Grid.SetRow(MaitriseAthl, 5); Grid.SetRow(Athletisme, 5); Grid.SetRow(BaseAthl, 5); Grid.SetRow(MagieAthl, 5);
+				LabelDece.Text = "   Deception"; Grid.SetRow(LabelDece, 6); Grid.SetRow(MaitriseTrom, 6); Grid.SetRow(Tromperie, 6); Grid.SetRow(BaseTrom, 6); Grid.SetRow(MagieTrom, 6);
+				LabelHist.Text = "   History"; Grid.SetRow(LabelHist, 7); Grid.SetRow(MaitriseHist, 7); Grid.SetRow(Histoire, 7); Grid.SetRow(BaseHist, 7); Grid.SetRow(MagieHist, 7);
+				LabelInsi.Text = "   Insight"; Grid.SetRow(LabelInsi, 8); Grid.SetRow(MaitriseIntu, 8); Grid.SetRow(Intuition, 8); Grid.SetRow(BaseIntu, 8); Grid.SetRow(MagieIntu, 8);
+				LabelInti.Text = "   Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
+				LabelInve.Text = "   Investigation"; Grid.SetRow(LabelInve, 10); Grid.SetRow(MaitriseInve, 10); Grid.SetRow(Investigation, 10); Grid.SetRow(BaseInve, 10); Grid.SetRow(MagieInve, 10);
+				LabelMedi.Text = "   Medicine"; Grid.SetRow(LabelMedi, 11); Grid.SetRow(MaitriseMede, 11); Grid.SetRow(Medecine, 11); Grid.SetRow(BaseMede, 11); Grid.SetRow(MagieMede, 11);
+				LabelNatu.Text = "   Nature"; Grid.SetRow(LabelNatu, 12); Grid.SetRow(MaitriseNatu, 12); Grid.SetRow(Nature, 12); Grid.SetRow(BaseNatu, 12); Grid.SetRow(MagieNatu, 12);
+				LabelPerc.Text = "   Perception"; Grid.SetRow(LabelPerc, 13); Grid.SetRow(MaitrisePerc, 13); Grid.SetRow(Perception, 13); Grid.SetRow(BasePerc, 13); Grid.SetRow(MagiePerc, 13);
+				LabelPerf.Text = "   Performance"; Grid.SetRow(LabelPerf, 14); Grid.SetRow(MaitriseRepr, 14); Grid.SetRow(Representation, 14); Grid.SetRow(BaseRepr, 14); Grid.SetRow(MagieRepr, 14);
+				LabelPers.Text = "   Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
+				LabelReli.Text = "   Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
+				LabelSlei.Text = "   Sleight of hand"; Grid.SetRow(LabelSlei, 17); Grid.SetRow(MaitriseEsca, 17); Grid.SetRow(Escamotage, 17); Grid.SetRow(BaseEsca, 17); Grid.SetRow(MagieEsca, 17);
+				LabelStea.Text = "   Stealth"; Grid.SetRow(LabelStea, 18); Grid.SetRow(MaitriseDisc, 18); Grid.SetRow(Discretion, 18); Grid.SetRow(BaseDisc, 18); Grid.SetRow(MagieDisc, 18);
+				LabelSurv.Text = "   Survival"; Grid.SetRow(LabelSurv, 19); Grid.SetRow(MaitriseSurv, 19); Grid.SetRow(Survie, 19); Grid.SetRow(BaseSurv, 19); Grid.SetRow(MagieSurv, 19);
+
+				/// ### SPELL ### \\\
+				SpellcasterLabel.Text = "Spellcasting Ability";
+
+				/// ### ATTACK ROLL ### \\\
+				LabelHits.Text = "Attack Roll";
+				LabelMelee.Text = "Melee";
+				LabelRanged.Text = "Range"; LabelRanged.Padding = new Thickness(-1);
+				LabelSpell.Text = "Spell";
+			}
+			else
+			{
+				/// ### CHARACTER'S INFO ### \\\
+				LabelClass.Text = "Classe :";
+				LabelAlignment.Text = "Alignement :";
+				Bon.Content = "B";
+				Mauvais.Content = "M";
+				LabelProficiency.Text = "Maîtrise";
+
+				/// ### STATISTICS ### \\\
+				// Titles.
+				LabelStatistics.Text = "Statistiques";
+				LabelStats.Text = "Stats";
+				LabelMagic.Text = "Magie";
+				// Stats.
+				LabelStrength.Text = "FOR";
+				LabelWisdom.Text = "SAG";
+
+				/// ### SAVING THROWS ### \\\
+				LabelSavingThrows.Text = "Jets de Sauvegarde";
+				LabelStrengthST.Text = "    FOR";
+				LabelWisdomST.Text = "    SAG";
+
+				/// ### HIT DICE ### \\\
+				LabelHit.Text = "Dé";
+				LabelDice.Text = "Vie";
+
+				/// ### SPEED ### \\\
+				LabelSpeed.Text = "Vitesse";
+
+				/// ### ARMOR CLASS ### \\\
+				LabelArmorClass.Text = "Classe d'Armure";
+				LabelArmor.Text = "Armure";
+				LabelShield.Text = "Bouclier";
+				Intermediaire.Content = "Inter";
+				Lourde.Content = "Lourde"; Lourde.Margin = new Thickness(0, 0, 0, 0);
+
+				/// ### SKILLS ### \\\
+				LabelSkill.Text = "Compétences";
+				LabelNameSkill.Text = "Nom";
+				// Names.
+				LabelAcro.Text = "   Acrobatie"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
+				LabelArca.Text = "   Arcanes"; Grid.SetRow(LabelArca, 3); Grid.SetRow(MaitriseArca, 3); Grid.SetRow(Arcanes, 3); Grid.SetRow(BaseArca, 3); Grid.SetRow(MagieArca, 3);
+				LabelAthl.Text = "   Athlétisme"; Grid.SetRow(LabelAthl, 4); Grid.SetRow(MaitriseAthl, 4); Grid.SetRow(Athletisme, 4); Grid.SetRow(BaseAthl, 4); Grid.SetRow(MagieAthl, 4);
+				LabelStea.Text = "   Discrétion"; Grid.SetRow(LabelStea, 5); Grid.SetRow(MaitriseDisc, 5); Grid.SetRow(Discretion, 5); Grid.SetRow(BaseDisc, 5); Grid.SetRow(MagieDisc, 5);
+				LabelAnim.Text = "   Dressage"; Grid.SetRow(LabelAnim, 6); Grid.SetRow(MaitriseDres, 6); Grid.SetRow(Dressage, 6); Grid.SetRow(BaseDres, 6); Grid.SetRow(MagieDres, 6);
+				LabelSlei.Text = "   Escamotage"; Grid.SetRow(LabelSlei, 7); Grid.SetRow(MaitriseEsca, 7); Grid.SetRow(Escamotage, 7); Grid.SetRow(BaseEsca, 7); Grid.SetRow(MagieEsca, 7);
+				LabelHist.Text = "   Histoire"; Grid.SetRow(LabelHist, 8); Grid.SetRow(MaitriseHist, 8); Grid.SetRow(Histoire, 8); Grid.SetRow(BaseHist, 8); Grid.SetRow(MagieHist, 8);
+				LabelInti.Text = "   Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
+				LabelInsi.Text = "   Intuition"; Grid.SetRow(LabelInsi, 10); Grid.SetRow(MaitriseIntu, 10); Grid.SetRow(Intuition, 10); Grid.SetRow(BaseIntu, 10); Grid.SetRow(MagieIntu, 10);
+				LabelInve.Text = "   Investigation"; Grid.SetRow(LabelInve, 11); Grid.SetRow(MaitriseInve, 11); Grid.SetRow(Investigation, 11); Grid.SetRow(BaseInve, 11); Grid.SetRow(MagieInve, 11);
+				LabelMedi.Text = "   Médecine"; Grid.SetRow(LabelMedi, 12); Grid.SetRow(MaitriseMede, 12); Grid.SetRow(Medecine, 12); Grid.SetRow(BaseMede, 12); Grid.SetRow(MagieMede, 12);
+				LabelNatu.Text = "   Nature"; Grid.SetRow(LabelNatu, 13); Grid.SetRow(MaitriseNatu, 13); Grid.SetRow(Nature, 13); Grid.SetRow(BaseNatu, 13); Grid.SetRow(MagieNatu, 13);
+				LabelPerc.Text = "   Perception"; Grid.SetRow(LabelPerc, 14); Grid.SetRow(MaitrisePerc, 14); Grid.SetRow(Perception, 14); Grid.SetRow(BasePerc, 14); Grid.SetRow(MagiePerc, 14);
+				LabelPers.Text = "   Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
+				LabelReli.Text = "   Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
+				LabelPerf.Text = "   Représentation"; Grid.SetRow(LabelPerf, 17); Grid.SetRow(MaitriseRepr, 17); Grid.SetRow(Representation, 17); Grid.SetRow(BaseRepr, 17); Grid.SetRow(MagieRepr, 17);
+				LabelSurv.Text = "   Survie"; Grid.SetRow(LabelSurv, 18); Grid.SetRow(MaitriseSurv, 18); Grid.SetRow(Survie, 18); Grid.SetRow(BaseSurv, 18); Grid.SetRow(MagieSurv, 18);
+				LabelDece.Text = "   Tromperie"; Grid.SetRow(LabelDece, 19); Grid.SetRow(MaitriseTrom, 19); Grid.SetRow(Tromperie, 19); Grid.SetRow(BaseTrom, 19); Grid.SetRow(MagieTrom, 19);
+
+				/// ### SPELL ### \\\
+				SpellcasterLabel.Text = "Caractéristique de lanceur de sort";
+
+				/// ### ATTACK ROLL ### \\\
+				LabelHits.Text = "Bonus aux Touchers";
+				LabelMelee.Text = "Mélée";
+				LabelRanged.Text = "Dist."; LabelRanged.Padding = new Thickness(0);
+				LabelSpell.Text = "Sorts";
+			}
+
+			bool_SwitchLanguage = !bool_SwitchLanguage;
+		}
+
 		// ### Vérification des entrées de l'utilisateur ### \\
 		/// <summary>
 		/// Vérifie que ce ne sont que des nombres qui sont renseignés.
@@ -637,147 +778,164 @@ namespace CharacterSheetManagement
 			SwitchEnable();
 			SwitchCursor();
 		}
-		
+
 		/// <summary>
 		/// Créer un personnage par sa sauvegarde dans la base.
 		/// </summary>
 		private void CreateCharacter()
 		{
-			using (db db = new db())
+			try
 			{
-				bool alreadyExist = false;
-				do
+				using (db db = new db())
 				{
-					alreadyExist = false;
-					var checkIdentity = from check in db.persoes select check.nom;
+					var retrieve = from personnage in db.persoes where personnage.nom == Nom.Text select personnage;
 
-					foreach (var item in checkIdentity)
-					{
-						if (Nom.Text == item)
-						{
-							alreadyExist = true;
-							NewName nomNouveau = new NewName();
-							nomNouveau.ShowDialog();
-							Nom.Text = nomNouveau.LeNouveauNom.Text;
-						}
-					}
-				} while (alreadyExist);
+					retrieve.Single();
+				}
 			}
-
-			string loyal = "";
-
-			if (Loyal.IsChecked == true) loyal = "L";
-			else if (FirstNeutre.IsChecked == true) loyal = "N";
-			else if (Chaotique.IsChecked == true) loyal = "C";
-
-			string bon = "";
-
-			if (Bon.IsChecked == true) bon = "B";
-			else if (SecondNeutre.IsChecked == true) bon = "N";
-			else if (Mauvais.IsChecked == true) bon = "M";
-
-			long lourde = 0;
-			long intermediaire = 0;
-			long bouclier = 0;
-
-			if (Lourde.IsChecked == true) lourde = 1;
-			else if (Intermediaire.IsChecked == true) intermediaire = 1;
-			else if (Bouclier.IsChecked == true) bouclier = 1;
-
-			long sortint = 0;
-			long sortsag = 0;
-			long sortcha = 0;
-
-			if (SortINT.IsChecked == true) sortint = 1;
-			else if (SortSAG.IsChecked == true) sortsag = 1;
-			else if (SortCHA.IsChecked == true) sortcha = 1;
-
-			using (db db = new db())
+			catch (Exception)
 			{
-				var ajoutPerso = new perso()
-				{
-					nom = Nom.Text,
-					classe = Classe.Text,
-					level = long.Parse(Level.Text),
-					race = Race.Text,
-					loyaute = loyal,
-					bonte = bon,
-					HP = long.Parse(HP.Text),
-					DV = long.Parse(DVNow.Text),
-					DVType = long.Parse(DVType.Text),
-					baseFor = long.Parse(BaseFor.Text),
-					baseDex = long.Parse(BaseDex.Text),
-					baseCon = long.Parse(BaseCon.Text),
-					baseInt = long.Parse(BaseInt.Text),
-					baseSag = long.Parse(BaseSag.Text),
-					baseCha = long.Parse(BaseCha.Text),
-					levelFor = long.Parse(LevelFor.Text),
-					levelDex = long.Parse(LevelDex.Text),
-					levelCon = long.Parse(LevelCon.Text),
-					levelInt = long.Parse(LevelInt.Text),
-					levelSag = long.Parse(LevelSag.Text),
-					levelCha = long.Parse(LevelCha.Text),
-					magicFor = long.Parse(MagicFor.Text),
-					magicDex = long.Parse(MagicDex.Text),
-					magicCon = long.Parse(MagicCon.Text),
-					magicInt = long.Parse(MagicInt.Text),
-					magicSag = long.Parse(MagicSag.Text),
-					magicCha = long.Parse(MagicCha.Text),
-					tempFor = long.Parse(TempFor.Text),
-					tempDex = long.Parse(TempDex.Text),
-					tempCon = long.Parse(TempCon.Text),
-					tempInt = long.Parse(TempInt.Text),
-					tempSag = long.Parse(TempSag.Text),
-					tempCha = long.Parse(TempCha.Text),
-					magieJDSFor = long.Parse(MagieJDSFor.Text),
-					magieJDSDex = long.Parse(MagieJDSDex.Text),
-					magieJDSCon = long.Parse(MagieJDSCon.Text),
-					magieJDSInt = long.Parse(MagieJDSInt.Text),
-					magieJDSSag = long.Parse(MagieJDSSag.Text),
-					magieJDSCha = long.Parse(MagieJDSCha.Text),
-					tempJDSFor = long.Parse(TempJDSFor.Text),
-					tempJDSDex = long.Parse(TempJDSDex.Text),
-					tempJDSCon = long.Parse(TempJDSCon.Text),
-					tempJDSInt = long.Parse(TempJDSInt.Text),
-					tempJDSSag = long.Parse(TempJDSSag.Text),
-					tempJDSCha = long.Parse(TempJDSCha.Text),
-					bonusInit = long.Parse(BonusInit.Text),
-					feet = long.Parse(Feet.Text),
-					armure = long.Parse(Armure.Text),
-					lourde = lourde,
-					intermediaire = intermediaire,
-					bouclier = bouclier,
-					magieCA = long.Parse(MagieCA.Text),
-					tempCA = long.Parse(TempCA.Text),
-					magieAcro = long.Parse(MagieAcro.Text),
-					magieArca = long.Parse(MagieArca.Text),
-					magieAthl = long.Parse(MagieAthl.Text),
-					magieDisc = long.Parse(MagieDisc.Text),
-					magieDres = long.Parse(MagieDres.Text),
-					magieEsca = long.Parse(MagieEsca.Text),
-					magieHist = long.Parse(MagieHist.Text),
-					magieInti = long.Parse(MagieInti.Text),
-					magieIntu = long.Parse(MagieIntu.Text),
-					magieInve = long.Parse(MagieInve.Text),
-					magieMede = long.Parse(MagieMede.Text),
-					magieNatu = long.Parse(MagieNatu.Text),
-					magiePerc = long.Parse(MagiePerc.Text),
-					magiePers = long.Parse(MagiePers.Text),
-					magieReli = long.Parse(MagieReli.Text),
-					magieRepr = long.Parse(MagieRepr.Text),
-					magieSurv = long.Parse(MagieSurv.Text),
-					magieTrom = long.Parse(MagieTrom.Text),
-					sortINT = sortint,
-					sortSAG = sortsag,
-					sortCHA = sortcha,
-					magieMelee = long.Parse(MagieMelee.Text),
-					magieDistance = long.Parse(MagieDistance.Text),
-					magieSort = long.Parse(MagieSort.Text),
-				};
-				db.persoes.Add(ajoutPerso);
-				db.SaveChanges();
+				MessageBox.Show("Erreur de Chargement.");
+			}
+			finally
+			{
 
-				MessageBox.Show("Saved");
+				using (db db = new db())
+				{
+					bool alreadyExist = false;
+					do
+					{
+						alreadyExist = false;
+						var checkIdentity = from check in db.persoes select check.nom;
+
+						foreach (var item in checkIdentity)
+						{
+							if (Nom.Text == item)
+							{
+								alreadyExist = true;
+								NewName nomNouveau = new NewName();
+								nomNouveau.ShowDialog();
+								Nom.Text = nomNouveau.LeNouveauNom.Text;
+							}
+						}
+					} while (alreadyExist);
+				}
+
+				string loyal = "";
+
+				if (Loyal.IsChecked == true) loyal = "L";
+				else if (FirstNeutre.IsChecked == true) loyal = "N";
+				else if (Chaotique.IsChecked == true) loyal = "C";
+
+				string bon = "";
+
+				if (Bon.IsChecked == true) bon = "B";
+				else if (SecondNeutre.IsChecked == true) bon = "N";
+				else if (Mauvais.IsChecked == true) bon = "M";
+
+				long lourde = 0;
+				long intermediaire = 0;
+				long bouclier = 0;
+
+				if (Lourde.IsChecked == true) lourde = 1;
+				else if (Intermediaire.IsChecked == true) intermediaire = 1;
+				else if (Bouclier.IsChecked == true) bouclier = 1;
+
+				long sortint = 0;
+				long sortsag = 0;
+				long sortcha = 0;
+
+				if (SortINT.IsChecked == true) sortint = 1;
+				else if (SortSAG.IsChecked == true) sortsag = 1;
+				else if (SortCHA.IsChecked == true) sortcha = 1;
+
+				using (db db = new db())
+				{
+					var ajoutPerso = new perso()
+					{
+						nom = Nom.Text,
+						classe = Classe.Text,
+						level = long.Parse(Level.Text),
+						race = Race.Text,
+						loyaute = loyal,
+						bonte = bon,
+						HP = long.Parse(HP.Text),
+						DV = long.Parse(DVNow.Text),
+						DVType = long.Parse(DVType.Text),
+						baseFor = long.Parse(BaseFor.Text),
+						baseDex = long.Parse(BaseDex.Text),
+						baseCon = long.Parse(BaseCon.Text),
+						baseInt = long.Parse(BaseInt.Text),
+						baseSag = long.Parse(BaseSag.Text),
+						baseCha = long.Parse(BaseCha.Text),
+						levelFor = long.Parse(LevelFor.Text),
+						levelDex = long.Parse(LevelDex.Text),
+						levelCon = long.Parse(LevelCon.Text),
+						levelInt = long.Parse(LevelInt.Text),
+						levelSag = long.Parse(LevelSag.Text),
+						levelCha = long.Parse(LevelCha.Text),
+						magicFor = long.Parse(MagicFor.Text),
+						magicDex = long.Parse(MagicDex.Text),
+						magicCon = long.Parse(MagicCon.Text),
+						magicInt = long.Parse(MagicInt.Text),
+						magicSag = long.Parse(MagicSag.Text),
+						magicCha = long.Parse(MagicCha.Text),
+						tempFor = long.Parse(TempFor.Text),
+						tempDex = long.Parse(TempDex.Text),
+						tempCon = long.Parse(TempCon.Text),
+						tempInt = long.Parse(TempInt.Text),
+						tempSag = long.Parse(TempSag.Text),
+						tempCha = long.Parse(TempCha.Text),
+						magieJDSFor = long.Parse(MagieJDSFor.Text),
+						magieJDSDex = long.Parse(MagieJDSDex.Text),
+						magieJDSCon = long.Parse(MagieJDSCon.Text),
+						magieJDSInt = long.Parse(MagieJDSInt.Text),
+						magieJDSSag = long.Parse(MagieJDSSag.Text),
+						magieJDSCha = long.Parse(MagieJDSCha.Text),
+						tempJDSFor = long.Parse(TempJDSFor.Text),
+						tempJDSDex = long.Parse(TempJDSDex.Text),
+						tempJDSCon = long.Parse(TempJDSCon.Text),
+						tempJDSInt = long.Parse(TempJDSInt.Text),
+						tempJDSSag = long.Parse(TempJDSSag.Text),
+						tempJDSCha = long.Parse(TempJDSCha.Text),
+						bonusInit = long.Parse(BonusInit.Text),
+						feet = long.Parse(Feet.Text),
+						armure = long.Parse(Armure.Text),
+						lourde = lourde,
+						intermediaire = intermediaire,
+						bouclier = bouclier,
+						magieCA = long.Parse(MagieCA.Text),
+						tempCA = long.Parse(TempCA.Text),
+						magieAcro = long.Parse(MagieAcro.Text),
+						magieArca = long.Parse(MagieArca.Text),
+						magieAthl = long.Parse(MagieAthl.Text),
+						magieDisc = long.Parse(MagieDisc.Text),
+						magieDres = long.Parse(MagieDres.Text),
+						magieEsca = long.Parse(MagieEsca.Text),
+						magieHist = long.Parse(MagieHist.Text),
+						magieInti = long.Parse(MagieInti.Text),
+						magieIntu = long.Parse(MagieIntu.Text),
+						magieInve = long.Parse(MagieInve.Text),
+						magieMede = long.Parse(MagieMede.Text),
+						magieNatu = long.Parse(MagieNatu.Text),
+						magiePerc = long.Parse(MagiePerc.Text),
+						magiePers = long.Parse(MagiePers.Text),
+						magieReli = long.Parse(MagieReli.Text),
+						magieRepr = long.Parse(MagieRepr.Text),
+						magieSurv = long.Parse(MagieSurv.Text),
+						magieTrom = long.Parse(MagieTrom.Text),
+						sortINT = sortint,
+						sortSAG = sortsag,
+						sortCHA = sortcha,
+						magieMelee = long.Parse(MagieMelee.Text),
+						magieDistance = long.Parse(MagieDistance.Text),
+						magieSort = long.Parse(MagieSort.Text),
+					};
+					db.persoes.Add(ajoutPerso);
+					db.SaveChanges();
+
+					MessageBox.Show("Saved");
+				}
 			}
 		}
 
@@ -793,140 +951,152 @@ namespace CharacterSheetManagement
 
 			using (db db = new db())
 			{
-				
 				try
 				{
 					var retrieve = from personnage in db.persoes where personnage.nom == nom_perso select personnage;
 
 					retrieve.Single();
-
-					foreach (var item in retrieve)
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("Erreur de Chargement.");
+				}
+				finally
+				{
+					try
 					{
-						/// ### INFO PERSONNAGE ###
-						id = item.id_perso;
-						Nom.Text = item.nom;
-						Classe.Text = item.classe;
-						Level.Text = item.level.ToString();
-						Race.Text = item.race;
-						if (item.loyaute == "L") Loyal.IsChecked = true;
-						else if (item.loyaute == "N") FirstNeutre.IsChecked = true;
-						else if (item.loyaute == "C") Chaotique.IsChecked = true;
-						if (item.bonte == "B") Bon.IsChecked = true;
-						else if (item.bonte == "N") SecondNeutre.IsChecked = true;
-						else if (item.bonte == "M") Mauvais.IsChecked = true;
+						var retrieve = from personnage in db.persoes where personnage.nom == nom_perso select personnage;
 
-						/// ### STATS ###
-						// Base
-						BaseFor.Text = item.baseFor.ToString();
-						BaseDex.Text = item.baseDex.ToString();
-						BaseCon.Text = item.baseCon.ToString();
-						BaseInt.Text = item.baseInt.ToString();
-						BaseSag.Text = item.baseSag.ToString();
-						BaseCha.Text = item.baseCha.ToString();
-						// Level
-						LevelFor.Text = item.levelFor.ToString();
-						LevelDex.Text = item.levelDex.ToString();
-						LevelCon.Text = item.levelCon.ToString();
-						LevelInt.Text = item.levelInt.ToString();
-						LevelSag.Text = item.levelSag.ToString();
-						LevelCha.Text = item.levelCha.ToString();
-						// Magie
-						MagicFor.Text = item.magicFor.ToString();
-						MagicDex.Text = item.magicDex.ToString();
-						MagicCon.Text = item.magicCon.ToString();
-						MagicInt.Text = item.magicInt.ToString();
-						MagicSag.Text = item.magicSag.ToString();
-						MagicCha.Text = item.magicCha.ToString();
-						// Temp
-						TempFor.Text = item.tempFor.ToString();
-						TempDex.Text = item.tempDex.ToString();
-						TempCon.Text = item.tempCon.ToString();
-						TempInt.Text = item.tempInt.ToString();
-						TempSag.Text = item.tempSag.ToString();
-						TempCha.Text = item.tempCha.ToString();
+						retrieve.Single();
+						foreach (var item in retrieve)
+						{
+							/// ### INFO PERSONNAGE ###
+							id = item.id_perso;
+							Nom.Text = item.nom;
+							Classe.Text = item.classe;
+							Level.Text = item.level.ToString();
+							Race.Text = item.race;
+							if (item.loyaute == "L") Loyal.IsChecked = true;
+							else if (item.loyaute == "N") FirstNeutre.IsChecked = true;
+							else if (item.loyaute == "C") Chaotique.IsChecked = true;
+							if (item.bonte == "B") Bon.IsChecked = true;
+							else if (item.bonte == "N") SecondNeutre.IsChecked = true;
+							else if (item.bonte == "M") Mauvais.IsChecked = true;
 
-						/// ### JDS ###
-						// Magie
-						MagieJDSFor.Text = item.magieJDSFor.ToString();
-						MagieJDSDex.Text = item.magieJDSDex.ToString();
-						MagieJDSCon.Text = item.magieJDSCon.ToString();
-						MagieJDSInt.Text = item.magieJDSInt.ToString();
-						MagieJDSSag.Text = item.magieJDSSag.ToString();
-						MagieJDSCha.Text = item.magieJDSCha.ToString();
-						// Temp
-						TempJDSFor.Text = item.tempJDSFor.ToString();
-						TempJDSDex.Text = item.tempJDSDex.ToString();
-						TempJDSCon.Text = item.tempJDSCon.ToString();
-						TempJDSInt.Text = item.tempJDSInt.ToString();
-						TempJDSSag.Text = item.tempJDSSag.ToString();
-						TempJDSCha.Text = item.tempJDSCha.ToString();
+							/// ### STATS ###
+							// Base
+							BaseFor.Text = item.baseFor.ToString();
+							BaseDex.Text = item.baseDex.ToString();
+							BaseCon.Text = item.baseCon.ToString();
+							BaseInt.Text = item.baseInt.ToString();
+							BaseSag.Text = item.baseSag.ToString();
+							BaseCha.Text = item.baseCha.ToString();
+							// Level
+							LevelFor.Text = item.levelFor.ToString();
+							LevelDex.Text = item.levelDex.ToString();
+							LevelCon.Text = item.levelCon.ToString();
+							LevelInt.Text = item.levelInt.ToString();
+							LevelSag.Text = item.levelSag.ToString();
+							LevelCha.Text = item.levelCha.ToString();
+							// Magie
+							MagicFor.Text = item.magicFor.ToString();
+							MagicDex.Text = item.magicDex.ToString();
+							MagicCon.Text = item.magicCon.ToString();
+							MagicInt.Text = item.magicInt.ToString();
+							MagicSag.Text = item.magicSag.ToString();
+							MagicCha.Text = item.magicCha.ToString();
+							// Temp
+							TempFor.Text = item.tempFor.ToString();
+							TempDex.Text = item.tempDex.ToString();
+							TempCon.Text = item.tempCon.ToString();
+							TempInt.Text = item.tempInt.ToString();
+							TempSag.Text = item.tempSag.ToString();
+							TempCha.Text = item.tempCha.ToString();
 
-						/// ### DV ###
-						DVNow.Text = item.DV.ToString();
-						DVType.Text = item.DVType.ToString();
+							/// ### JDS ###
+							// Magie
+							MagieJDSFor.Text = item.magieJDSFor.ToString();
+							MagieJDSDex.Text = item.magieJDSDex.ToString();
+							MagieJDSCon.Text = item.magieJDSCon.ToString();
+							MagieJDSInt.Text = item.magieJDSInt.ToString();
+							MagieJDSSag.Text = item.magieJDSSag.ToString();
+							MagieJDSCha.Text = item.magieJDSCha.ToString();
+							// Temp
+							TempJDSFor.Text = item.tempJDSFor.ToString();
+							TempJDSDex.Text = item.tempJDSDex.ToString();
+							TempJDSCon.Text = item.tempJDSCon.ToString();
+							TempJDSInt.Text = item.tempJDSInt.ToString();
+							TempJDSSag.Text = item.tempJDSSag.ToString();
+							TempJDSCha.Text = item.tempJDSCha.ToString();
 
-						/// ### HP ###
-						HP.Text = item.HP.ToString();
+							/// ### DV ###
+							DVNow.Text = item.DV.ToString();
+							DVType.Text = item.DVType.ToString();
 
-						/// ### INIT ###
-						BonusInit.Text = item.bonusInit.ToString();
+							/// ### HP ###
+							HP.Text = item.HP.ToString();
 
-						/// ### VITESSE ###
-						Feet.Text = item.feet.ToString();
+							/// ### INIT ###
+							BonusInit.Text = item.bonusInit.ToString();
 
-						/// ### CA ###
-						Armure.Text = item.armure.ToString();
-						if (item.bouclier == 1) Bouclier.IsChecked = true;
-						else Bouclier.IsChecked = false;
-						if (item.lourde == 1) Lourde.IsChecked = true;
-						else Lourde.IsChecked = false;
-						if (item.intermediaire == 1) Intermediaire.IsChecked = true;
-						else Intermediaire.IsChecked = false;
-						MagieCA.Text = item.magieCA.ToString();
-						TempCA.Text = item.tempCA.ToString();
+							/// ### VITESSE ###
+							Feet.Text = item.feet.ToString();
 
-						/// ### COMPETENCES ###
-						MagieAcro.Text = item.magieAcro.ToString();
-						MagieArca.Text = item.magieArca.ToString();
-						MagieAthl.Text = item.magieAthl.ToString();
-						MagieDisc.Text = item.magieDisc.ToString();
-						MagieDres.Text = item.magieDres.ToString();
-						MagieEsca.Text = item.magieEsca.ToString();
-						MagieHist.Text = item.magieHist.ToString();
-						MagieInti.Text = item.magieInti.ToString();
-						MagieIntu.Text = item.magieIntu.ToString();
-						MagieInve.Text = item.magieInve.ToString();
-						MagieMede.Text = item.magieMede.ToString();
-						MagieNatu.Text = item.magieNatu.ToString();
-						MagiePerc.Text = item.magiePerc.ToString();
-						MagiePers.Text = item.magiePers.ToString();
-						MagieReli.Text = item.magieReli.ToString();
-						MagieRepr.Text = item.magieRepr.ToString();
-						MagieSurv.Text = item.magieSurv.ToString();
-						MagieTrom.Text = item.magieTrom.ToString();
+							/// ### CA ###
+							Armure.Text = item.armure.ToString();
+							if (item.bouclier == 1) Bouclier.IsChecked = true;
+							else Bouclier.IsChecked = false;
+							if (item.lourde == 1) Lourde.IsChecked = true;
+							else Lourde.IsChecked = false;
+							if (item.intermediaire == 1) Intermediaire.IsChecked = true;
+							else Intermediaire.IsChecked = false;
+							MagieCA.Text = item.magieCA.ToString();
+							TempCA.Text = item.tempCA.ToString();
 
-						/// ### SORTS ###
-						if (item.sortINT == 1) SortINT.IsChecked = true;
-						else SortINT.IsChecked = false;
-						if (item.sortSAG == 1) SortSAG.IsChecked = true;
-						else SortSAG.IsChecked = false;
-						if (item.sortCHA == 1) SortCHA.IsChecked = true;
-						else SortCHA.IsChecked = false;
+							/// ### COMPETENCES ###
+							MagieAcro.Text = item.magieAcro.ToString();
+							MagieArca.Text = item.magieArca.ToString();
+							MagieAthl.Text = item.magieAthl.ToString();
+							MagieDisc.Text = item.magieDisc.ToString();
+							MagieDres.Text = item.magieDres.ToString();
+							MagieEsca.Text = item.magieEsca.ToString();
+							MagieHist.Text = item.magieHist.ToString();
+							MagieInti.Text = item.magieInti.ToString();
+							MagieIntu.Text = item.magieIntu.ToString();
+							MagieInve.Text = item.magieInve.ToString();
+							MagieMede.Text = item.magieMede.ToString();
+							MagieNatu.Text = item.magieNatu.ToString();
+							MagiePerc.Text = item.magiePerc.ToString();
+							MagiePers.Text = item.magiePers.ToString();
+							MagieReli.Text = item.magieReli.ToString();
+							MagieRepr.Text = item.magieRepr.ToString();
+							MagieSurv.Text = item.magieSurv.ToString();
+							MagieTrom.Text = item.magieTrom.ToString();
 
-						/// ### TOUCHERS ###
-						MagieMelee.Text = item.magieMelee.ToString();
-						MagieDistance.Text = item.magieDistance.ToString();
+							/// ### SORTS ###
+							if (item.sortINT == 1) SortINT.IsChecked = true;
+							else SortINT.IsChecked = false;
+							if (item.sortSAG == 1) SortSAG.IsChecked = true;
+							else SortSAG.IsChecked = false;
+							if (item.sortCHA == 1) SortCHA.IsChecked = true;
+							else SortCHA.IsChecked = false;
+
+							/// ### TOUCHERS ###
+							MagieMelee.Text = item.magieMelee.ToString();
+							MagieDistance.Text = item.magieDistance.ToString();
+						}
+					}
+					catch (Exception)
+					{
+
 					}
 				}
-				catch
-				{
-					MessageBox.Show("Erreur de chargement.");
-				}
+				RefreshLink();
 			}
 		}
 
 		/// <summary>
-		/// Update le personnage dans la BDD (pour l'instant sert de debug).
+		/// Update le personnage dans la BDD.
 		/// </summary>
 		private void SaveCharacter()
 		{
@@ -934,40 +1104,127 @@ namespace CharacterSheetManagement
 			{
 				try
 				{
-					var checkIdentity = from check in db.persoes select check.nom;
-					MessageBox.Show("Base Trouvée.");
+					var checkIdentity = from check in db.persoes where check.id_perso == id select check;
 				}
 				catch (Exception)
 				{
-					MessageBox.Show("Pas de Base.");
-					try
-					{
-						SQLiteConnection.CreateFile("db.db");
-						var maConnexion = new SQLiteConnection("Data Source=db.db");
-						maConnexion.Open();
-						SQLiteCommand commande = new SQLiteCommand("CREATE TABLE `perso` (	`id_perso`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,	`nom`	TEXT NOT NULL,	`classe`	TEXT NOT NULL,	`level`	INTEGER NOT NULL,	`race`	TEXT NOT NULL,	`loyaute`	TEXT NOT NULL,	`bonte`	TEXT NOT NULL,	`HP`	INTEGER NOT NULL,	`DV`	INTEGER NOT NULL,	`DVType`	INTEGER NOT NULL,	`baseFor`	INTEGER NOT NULL,	`baseDex`	INTEGER NOT NULL,	`baseCon`	INTEGER NOT NULL,	`baseInt`	INTEGER NOT NULL,	`baseSag`	NUMERIC NOT NULL,	`baseCha`	INTEGER NOT NULL,	`levelFor`	INTEGER NOT NULL,	`levelDex`	INTEGER NOT NULL,	`levelCon`	INTEGER NOT NULL,	`levelInt`	INTEGER NOT NULL,	`levelSag`	INTEGER NOT NULL,	`levelCha`	INTEGER NOT NULL,	`magicFor`	INTEGER NOT NULL,	`magicDex`	INTEGER NOT NULL,	`magicCon`	INTEGER NOT NULL,	`magicInt`	INTEGER NOT NULL,	`magicSag`	INTEGER NOT NULL,	`magicCha`	INTEGER NOT NULL,	`tempFor`	INTEGER NOT NULL,	`tempDex`	INTEGER NOT NULL,	`tempCon`	INTEGER NOT NULL,	`tempInt`	INTEGER NOT NULL,	`tempSag`	INTEGER NOT NULL,	`tempCha`	INTEGER NOT NULL,	`magieJDSFor`	INTEGER NOT NULL,	`magieJDSDex`	INTEGER NOT NULL,	`magieJDSCon`	INTEGER NOT NULL,	`magieJDSInt`	INTEGER NOT NULL,	`magieJDSSag`	INTEGER NOT NULL,	`magieJDSCha`	INTEGER NOT NULL,	`tempJDSFor`	INTEGER NOT NULL,	`tempJDSDex`	INTEGER NOT NULL,	`tempJDSCon`	INTEGER NOT NULL,	`tempJDSInt`	INTEGER NOT NULL,	`tempJDSSag`	INTEGER NOT NULL,	`tempJDSCha`	INTEGER NOT NULL,	`bonusInit`	INTEGER NOT NULL,	`feet`	INTEGER NOT NULL,	`armure`	INTEGER NOT NULL,	`intermediaire`	INTEGER NOT NULL,	`lourde`	INTEGER NOT NULL,	`bouclier`	INTEGER NOT NULL,	`magieCA`	INTEGER NOT NULL,	`tempCA`	INTEGER NOT NULL,	`magieAcro`	INTEGER NOT NULL,	`magieArca`	INTEGER NOT NULL,	`magieAthl`	INTEGER NOT NULL,	`magieDisc`	INTEGER NOT NULL,	`magieDres`	INTEGER NOT NULL,	`magieEsca`	INTEGER NOT NULL,	`magieHist`	INTEGER NOT NULL,	`magieInti`	INTEGER NOT NULL,	`magieIntu`	INTEGER NOT NULL,	`magieInve`	INTEGER NOT NULL,	`magieMede`	INTEGER NOT NULL,	`magieNatu`	INTEGER NOT NULL,	`magiePerc`	INTEGER NOT NULL,	`magiePers`	INTEGER NOT NULL,	`magieReli`	INTEGER NOT NULL,	`magieRepr`	INTEGER NOT NULL,	`magieSurv`	INTEGER NOT NULL,	`magieTrom`	INTEGER NOT NULL,	`sortINT`	INTEGER NOT NULL,	`sortSAG`	INTEGER NOT NULL,	`sortCHA`	INTEGER NOT NULL,	`magieMelee`	INTEGER NOT NULL,	`magieDistance`	INTEGER NOT NULL,	`magieSort`	INTEGER NOT NULL)", maConnexion);
-						// db.Database.ExecuteSqlCommand("CREATE TABLE `perso` (	`id_perso`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,	`nom`	TEXT NOT NULL,	`classe`	TEXT NOT NULL,	`level`	INTEGER NOT NULL,	`race`	TEXT NOT NULL,	`loyaute`	TEXT NOT NULL,	`bonte`	TEXT NOT NULL,	`HP`	INTEGER NOT NULL,	`DV`	INTEGER NOT NULL,	`DVType`	INTEGER NOT NULL,	`baseFor`	INTEGER NOT NULL,	`baseDex`	INTEGER NOT NULL,	`baseCon`	INTEGER NOT NULL,	`baseInt`	INTEGER NOT NULL,	`baseSag`	NUMERIC NOT NULL,	`baseCha`	INTEGER NOT NULL,	`levelFor`	INTEGER NOT NULL,	`levelDex`	INTEGER NOT NULL,	`levelCon`	INTEGER NOT NULL,	`levelInt`	INTEGER NOT NULL,	`levelSag`	INTEGER NOT NULL,	`levelCha`	INTEGER NOT NULL,	`magicFor`	INTEGER NOT NULL,	`magicDex`	INTEGER NOT NULL,	`magicCon`	INTEGER NOT NULL,	`magicInt`	INTEGER NOT NULL,	`magicSag`	INTEGER NOT NULL,	`magicCha`	INTEGER NOT NULL,	`tempFor`	INTEGER NOT NULL,	`tempDex`	INTEGER NOT NULL,	`tempCon`	INTEGER NOT NULL,	`tempInt`	INTEGER NOT NULL,	`tempSag`	INTEGER NOT NULL,	`tempCha`	INTEGER NOT NULL,	`magieJDSFor`	INTEGER NOT NULL,	`magieJDSDex`	INTEGER NOT NULL,	`magieJDSCon`	INTEGER NOT NULL,	`magieJDSInt`	INTEGER NOT NULL,	`magieJDSSag`	INTEGER NOT NULL,	`magieJDSCha`	INTEGER NOT NULL,	`tempJDSFor`	INTEGER NOT NULL,	`tempJDSDex`	INTEGER NOT NULL,	`tempJDSCon`	INTEGER NOT NULL,	`tempJDSInt`	INTEGER NOT NULL,	`tempJDSSag`	INTEGER NOT NULL,	`tempJDSCha`	INTEGER NOT NULL,	`bonusInit`	INTEGER NOT NULL,	`feet`	INTEGER NOT NULL,	`armure`	INTEGER NOT NULL,	`intermediaire`	INTEGER NOT NULL,	`lourde`	INTEGER NOT NULL,	`bouclier`	INTEGER NOT NULL,	`magieCA`	INTEGER NOT NULL,	`tempCA`	INTEGER NOT NULL,	`magieAcro`	INTEGER NOT NULL,	`magieArca`	INTEGER NOT NULL,	`magieAthl`	INTEGER NOT NULL,	`magieDisc`	INTEGER NOT NULL,	`magieDres`	INTEGER NOT NULL,	`magieEsca`	INTEGER NOT NULL,	`magieHist`	INTEGER NOT NULL,	`magieInti`	INTEGER NOT NULL,	`magieIntu`	INTEGER NOT NULL,	`magieInve`	INTEGER NOT NULL,	`magieMede`	INTEGER NOT NULL,	`magieNatu`	INTEGER NOT NULL,	`magiePerc`	INTEGER NOT NULL,	`magiePers`	INTEGER NOT NULL,	`magieReli`	INTEGER NOT NULL,	`magieRepr`	INTEGER NOT NULL,	`magieSurv`	INTEGER NOT NULL,	`magieTrom`	INTEGER NOT NULL,	`sortINT`	INTEGER NOT NULL,	`sortSAG`	INTEGER NOT NULL,	`sortCHA`	INTEGER NOT NULL,	`magieMelee`	INTEGER NOT NULL,	`magieDistance`	INTEGER NOT NULL,	`magieSort`	INTEGER NOT NULL)");
-						maConnexion.Close();
-						MessageBox.Show("Base Créée");
-						try
-						{
-							
-						}
-						catch 
-						{
-							
-						}
-					}
-					catch
-					{
-						MessageBox.Show("Création ratée.");
-					}
+					MessageBox.Show("Base Absente.");
 				}
-				
-				
-			}
+				finally
+				{
+					var perso = new perso { id_perso = id };
 
-			
+					string loyal = "";
+
+					if (Loyal.IsChecked == true) loyal = "L";
+					else if (FirstNeutre.IsChecked == true) loyal = "N";
+					else if (Chaotique.IsChecked == true) loyal = "C";
+
+					string bon = "";
+
+					if (Bon.IsChecked == true) bon = "B";
+					else if (SecondNeutre.IsChecked == true) bon = "N";
+					else if (Mauvais.IsChecked == true) bon = "M";
+
+					long lourde = 0;
+					long intermediaire = 0;
+					long bouclier = 0;
+
+					if (Lourde.IsChecked == true) lourde = 1;
+					else if (Intermediaire.IsChecked == true) intermediaire = 1;
+					else if (Bouclier.IsChecked == true) bouclier = 1;
+
+					long sortint = 0;
+					long sortsag = 0;
+					long sortcha = 0;
+
+					if (SortINT.IsChecked == true) sortint = 1;
+					else if (SortSAG.IsChecked == true) sortsag = 1;
+					else if (SortCHA.IsChecked == true) sortcha = 1;
+
+					var dbperso = db.persoes.Find(perso.id_perso);
+
+					dbperso.nom = Nom.Text;
+					dbperso.classe = Classe.Text;
+					dbperso.level = long.Parse(Level.Text);
+					dbperso.race = Race.Text;
+					dbperso.loyaute = loyal;
+					dbperso.bonte = bon;
+					dbperso.HP = long.Parse(HP.Text);
+					dbperso.DV = long.Parse(DVNow.Text);
+					dbperso.DVType = long.Parse(DVType.Text);
+					dbperso.baseFor = long.Parse(BaseFor.Text);
+					dbperso.baseDex = long.Parse(BaseDex.Text);
+					dbperso.baseCon = long.Parse(BaseCon.Text);
+					dbperso.baseInt = long.Parse(BaseInt.Text);
+					dbperso.baseSag = long.Parse(BaseSag.Text);
+					dbperso.baseCha = long.Parse(BaseCha.Text);
+					dbperso.levelFor = long.Parse(LevelFor.Text);
+					dbperso.levelDex = long.Parse(LevelDex.Text);
+					dbperso.levelCon = long.Parse(LevelCon.Text);
+					dbperso.levelInt = long.Parse(LevelInt.Text);
+					dbperso.levelSag = long.Parse(LevelSag.Text);
+					dbperso.levelCha = long.Parse(LevelCha.Text);
+					dbperso.magicFor = long.Parse(MagicFor.Text);
+					dbperso.magicDex = long.Parse(MagicDex.Text);
+					dbperso.magicCon = long.Parse(MagicCon.Text);
+					dbperso.magicInt = long.Parse(MagicInt.Text);
+					dbperso.magicSag = long.Parse(MagicSag.Text);
+					dbperso.magicCha = long.Parse(MagicCha.Text);
+					dbperso.tempFor = long.Parse(TempFor.Text);
+					dbperso.tempDex = long.Parse(TempDex.Text);
+					dbperso.tempCon = long.Parse(TempCon.Text);
+					dbperso.tempInt = long.Parse(TempInt.Text);
+					dbperso.tempSag = long.Parse(TempSag.Text);
+					dbperso.tempCha = long.Parse(TempCha.Text);
+					dbperso.magieJDSFor = long.Parse(MagieJDSFor.Text);
+					dbperso.magieJDSDex = long.Parse(MagieJDSDex.Text);
+					dbperso.magieJDSCon = long.Parse(MagieJDSCon.Text);
+					dbperso.magieJDSInt = long.Parse(MagieJDSInt.Text);
+					dbperso.magieJDSSag = long.Parse(MagieJDSSag.Text);
+					dbperso.magieJDSCha = long.Parse(MagieJDSCha.Text);
+					dbperso.tempJDSFor = long.Parse(TempJDSFor.Text);
+					dbperso.tempJDSDex = long.Parse(TempJDSDex.Text);
+					dbperso.tempJDSCon = long.Parse(TempJDSCon.Text);
+					dbperso.tempJDSInt = long.Parse(TempJDSInt.Text);
+					dbperso.tempJDSSag = long.Parse(TempJDSSag.Text);
+					dbperso.tempJDSCha = long.Parse(TempJDSCha.Text);
+					dbperso.bonusInit = long.Parse(BonusInit.Text);
+					dbperso.feet = long.Parse(Feet.Text);
+					dbperso.armure = long.Parse(Armure.Text);
+					dbperso.lourde = lourde;
+					dbperso.intermediaire = intermediaire;
+					dbperso.bouclier = bouclier;
+					dbperso.magieCA = long.Parse(MagieCA.Text);
+					dbperso.tempCA = long.Parse(TempCA.Text);
+					dbperso.magieAcro = long.Parse(MagieAcro.Text);
+					dbperso.magieArca = long.Parse(MagieArca.Text);
+					dbperso.magieAthl = long.Parse(MagieAthl.Text);
+					dbperso.magieDisc = long.Parse(MagieDisc.Text);
+					dbperso.magieDres = long.Parse(MagieDres.Text);
+					dbperso.magieEsca = long.Parse(MagieEsca.Text);
+					dbperso.magieHist = long.Parse(MagieHist.Text);
+					dbperso.magieInti = long.Parse(MagieInti.Text);
+					dbperso.magieIntu = long.Parse(MagieIntu.Text);
+					dbperso.magieInve = long.Parse(MagieInve.Text);
+					dbperso.magieMede = long.Parse(MagieMede.Text);
+					dbperso.magieNatu = long.Parse(MagieNatu.Text);
+					dbperso.magiePerc = long.Parse(MagiePerc.Text);
+					dbperso.magiePers = long.Parse(MagiePers.Text);
+					dbperso.magieReli = long.Parse(MagieReli.Text);
+					dbperso.magieRepr = long.Parse(MagieRepr.Text);
+					dbperso.magieSurv = long.Parse(MagieSurv.Text);
+					dbperso.magieTrom = long.Parse(MagieTrom.Text);
+					dbperso.sortINT = sortint;
+					dbperso.sortSAG = sortsag;
+					dbperso.sortCHA = sortcha;
+					dbperso.magieMelee = long.Parse(MagieMelee.Text);
+					dbperso.magieDistance = long.Parse(MagieDistance.Text);
+					dbperso.magieSort = long.Parse(MagieSort.Text);
+
+					db.SaveChanges();
+				}
+			}
 		}
 
 		/// <summary>
@@ -1115,71 +1372,15 @@ namespace CharacterSheetManagement
 		}
 
 		/// <summary>
-		/// 
+		/// Lors du click sur le bouton de changement de langue.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
 		private void Language_Click(object sender, RoutedEventArgs e)
 		{
-			/// ### Character's info ### \\\
-			LabelClass.Text = "Class :";
-			LabelAlignment.Text = "Alignment :";
-			Bon.Content = "G";
-			Mauvais.Content = "E";
-			LabelProficiency.Text = "Proficiency";
-
-			/// ### STATISTICS ### \\\
-			// Titres
-			LabelStatistics.Text = "Statistics";
-			LabelStats.Text = "Stats";
-			LabelMagic.Text = "Magic";
-			// Stats
-			LabelStrength.Text = "STR";
-			LabelWisdom.Text = "WIS";
-
-			/// ### SAVING THROWS ### \\\
-			LabelSavingThrows.Text = "Saving Throws";
-			LabelStrengthST.Text = "    STR";
-			LabelWisdomST.Text = "    WIS";
-
-			/// ### HIT DICE ### \\\
-			LabelHit.Text = "Hit";
-			LabelDice.Text = "Dice";
-
-			/// ### SPEED ### \\\
-			LabelSpeed.Text = "Speed";
-
-			/// ### ARMOR CLASS ### \\\
-			LabelArmorClass.Text = "Armor Class";
-			LabelArmor.Text = "Armor";
-			LabelShield.Text = "Shield";
-
-			/// ### SKILLS ### \\\
-			LabelSkill.Text = "Skills";
-			LabelNameSkill.Text = "Name";
-			// Names;
-			LabelAcro.Text = "   Acrobatics"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
-			LabelAnim.Text = "   Animal Handling"; Grid.SetRow(LabelAnim, 3); Grid.SetRow(MaitriseDres, 3); Grid.SetRow(Dressage, 3); Grid.SetRow(BaseDres, 3); Grid.SetRow(MagieDres, 3);
-			LabelArca.Text = "   Arcana"; Grid.SetRow(LabelArca, 4); Grid.SetRow(MaitriseArca, 4); Grid.SetRow(Arcanes, 4); Grid.SetRow(BaseArca, 4); Grid.SetRow(MagieArca, 4);
-			LabelAthl.Text = "   Athletics"; Grid.SetRow(LabelAthl, 5); Grid.SetRow(MaitriseAthl, 5); Grid.SetRow(Athletisme, 5); Grid.SetRow(BaseAthl, 5); Grid.SetRow(MagieAthl, 5);
-			LabelDece.Text = "   Deception"; Grid.SetRow(LabelDece, 6); Grid.SetRow(MaitriseTrom, 6); Grid.SetRow(Tromperie, 6); Grid.SetRow(BaseTrom, 6); Grid.SetRow(MagieTrom, 6);
-			LabelHist.Text = "   History"; Grid.SetRow(LabelHist, 7); Grid.SetRow(MaitriseHist, 7); Grid.SetRow(Histoire, 7); Grid.SetRow(BaseHist, 7); Grid.SetRow(MagieHist, 7);
-			LabelInsi.Text = "   Insight"; Grid.SetRow(LabelInsi, 8); Grid.SetRow(MaitriseIntu, 8); Grid.SetRow(Intuition, 8); Grid.SetRow(BaseIntu, 8); Grid.SetRow(MagieIntu, 8);
-			LabelInti.Text = "   Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
-			LabelInve.Text = "   Investigation"; Grid.SetRow(LabelInve, 10); Grid.SetRow(MaitriseInve, 10); Grid.SetRow(Investigation, 10); Grid.SetRow(BaseInve, 10); Grid.SetRow(MagieInve, 10);
-			LabelMedi.Text = "   Medicine"; Grid.SetRow(LabelMedi, 11); Grid.SetRow(MaitriseMede, 11); Grid.SetRow(Medecine, 11); Grid.SetRow(BaseMede, 11); Grid.SetRow(MagieMede, 11);
-			LabelNatu.Text = "   Nature"; Grid.SetRow(LabelNatu, 12); Grid.SetRow(MaitriseNatu, 12); Grid.SetRow(Nature, 12); Grid.SetRow(BaseNatu, 12); Grid.SetRow(MagieNatu, 12);
-			LabelPerc.Text = "   Perception"; Grid.SetRow(LabelPerc, 13); Grid.SetRow(MaitrisePerc, 13); Grid.SetRow(Perception, 13); Grid.SetRow(BasePerc, 13); Grid.SetRow(MagiePerc, 13);
-			LabelPerf.Text = "   Performance"; Grid.SetRow(LabelPerf, 14); Grid.SetRow(MaitriseRepr, 14); Grid.SetRow(Representation, 14); Grid.SetRow(BaseRepr, 14); Grid.SetRow(MagieRepr, 14);
-			LabelPers.Text = "   Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
-			LabelReli.Text = "   Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
-			LabelSlei.Text = "   Sleight of hand"; Grid.SetRow(LabelSlei, 17); Grid.SetRow(MaitriseEsca, 17); Grid.SetRow(Escamotage, 17); Grid.SetRow(BaseEsca, 17); Grid.SetRow(MagieEsca, 17);
-			LabelStea.Text = "   Stealth"; Grid.SetRow(LabelStea, 18); Grid.SetRow(MaitriseDisc, 18); Grid.SetRow(Discretion, 18); Grid.SetRow(BaseDisc, 18); Grid.SetRow(MagieDisc, 18);
-			LabelSurv.Text = "   Survival"; Grid.SetRow(LabelSurv, 19); Grid.SetRow(MaitriseSurv, 19); Grid.SetRow(Survie, 19); Grid.SetRow(BaseSurv, 19); Grid.SetRow(MagieSurv, 19);
-
-
+			SwitchLanguage();
 		}
-
+		
 		// ### Checked ### \\
 		/// <summary>
 		/// Quand une des checkbox de l'armure est check.

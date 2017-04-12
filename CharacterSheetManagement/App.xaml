@@ -14,11 +14,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate>
-						<Border x:Name="Bd"
-                        BorderBrush="{TemplateBinding BorderBrush}" 
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        SnapsToDevicePixels="True"
-                        Background="{TemplateBinding Background}">
+						<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
 							<ScrollViewer Name="PART_ContentHost"/>
 						</Border>
 					</ControlTemplate>

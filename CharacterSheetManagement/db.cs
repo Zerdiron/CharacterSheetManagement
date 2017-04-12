@@ -1,9 +1,6 @@
 namespace CharacterSheetManagement
 {
-	using System;
 	using System.Data.Entity;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using System.Linq;
 	using SQLite.CodeFirst;
 
 	public partial class db : DbContext

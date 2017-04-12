@@ -433,7 +433,7 @@
 
 			<!-- ### BONUS AUX TOUCHERS ### -->
 			<!-- Choix de la caractéristque de lanceur de sorts. -->
-			<TextBox Text="Caractéristique de SpellCaster" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+			<TextBox x:Name="SpellcasterLabel" Text="Caractéristique de lanceur de sort" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
 			<TextBox Grid.Column="13" Grid.ColumnSpan="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<CheckBox x:Name="SortINT" IsEnabled="False" Content="INT" Grid.Column="13" Grid.ColumnSpan="2" Grid.Row="17" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Spell_Checked" Unchecked="Spell_Unchecked"/>
 			<TextBox Grid.Column="15" Grid.ColumnSpan="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
@@ -441,23 +441,23 @@
 			<TextBox Grid.Column="17" Grid.ColumnSpan="2" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<CheckBox x:Name="SortCHA" IsEnabled="False" Content="CHA" Grid.Column="17" Grid.ColumnSpan="2" Grid.Row="17" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Spell_Checked" Unchecked="Spell_Unchecked"/>
 			<!-- Titres. -->
-			<TextBox Text="Bonus aux touchers" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="4" Grid.Row="19" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
+			<TextBox x:Name="LabelHits" Text="Bonus aux touchers" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="4" Grid.Row="19" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,1" />
 			<TextBox Text="Type" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
 			<TextBox Text="Total" IsReadOnly="True" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
 			<TextBox Text="Base" IsReadOnly="True" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,0,1" />
-			<TextBox Text="Magie" IsReadOnly="True" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
+			<TextBox Text="{Binding ElementName=LabelMagic, Path=Text, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="20" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<!-- Mélée. -->
-			<TextBox Text="Mélée" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+			<TextBox x:Name="LabelMelee" Text="Mélée" IsReadOnly="True" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox x:Name="Melee" IsReadOnly="True" Text="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="21" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<TextBox x:Name="BaseMelee" IsReadOnly="True" Text="0" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="21" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<TextBox x:Name="MagieMelee" IsReadOnly="True" Text="0" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="21" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<!-- Distances. -->
-			<TextBox Text="Dist." Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+			<TextBox x:Name="LabelRanged" Text="Dist." Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox x:Name="Distance" IsReadOnly="True" Text="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<TextBox x:Name="BaseDistance" IsReadOnly="True" Text="0" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="22" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<TextBox x:Name="MagieDistance" IsReadOnly="True" Text="0" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="22" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<!-- Sorts. -->
-			<TextBox Text="Sorts" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+			<TextBox x:Name="LabelSpell" Text="Sorts" Grid.Column="14" Grid.ColumnSpan="1" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox x:Name="Sort" IsReadOnly="True" Text="0" Grid.Column="15" Grid.ColumnSpan="1" Grid.Row="23" FontWeight="Bold" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<TextBox x:Name="BaseSort" IsReadOnly="True" Text="0" Grid.Column="16" Grid.ColumnSpan="1" Grid.Row="23" BorderBrush="Black" BorderThickness="0,0,1,1" />
 			<TextBox x:Name="MagieSort" IsReadOnly="True" Text="0" Grid.Column="17" Grid.ColumnSpan="1" Grid.Row="23" BorderBrush="Black" BorderThickness="0,0,1,1" />
