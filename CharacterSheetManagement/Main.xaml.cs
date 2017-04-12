@@ -837,6 +837,9 @@ namespace CharacterSheetManagement
 		/// </summary>
 		private void CreateCharacter()
 		{
+			MessageBox.Show("Fontionnalité en maintenance.");
+			return;
+
 			try
 			{
 				using (db db = new db())
@@ -997,6 +1000,9 @@ namespace CharacterSheetManagement
 		/// </summary>
 		private void ChooseCharacter()
 		{
+			MessageBox.Show("Fontionnalité en maintenance.");
+			return;
+
 			Open open = new Open();
 			open.ShowDialog();
 
@@ -1153,6 +1159,9 @@ namespace CharacterSheetManagement
 		/// </summary>
 		private void SaveCharacter()
 		{
+			MessageBox.Show("Fontionnalité en maintenance.");
+			return;
+
 			using (db db = new db())
 			{
 				try
@@ -1403,15 +1412,45 @@ namespace CharacterSheetManagement
 					/// ### TOUCHERS ###
 					MagieMelee.Text = Imported[75];
 					MagieDistance.Text = Imported[76];
+					MagieSort.Text = Imported[77];
+
+					/// ### MAÎTRISE COMPETENCES ###
+					if (Imported[78] == "1") MaitriseAcro.IsChecked = true; else MaitriseAcro.IsChecked = false;
+					if (Imported[79] == "1") MaitriseArca.IsChecked = true; else MaitriseArca.IsChecked = false;
+					if (Imported[80] == "1") MaitriseAthl.IsChecked = true; else MaitriseAthl.IsChecked = false;
+					if (Imported[81] == "1") MaitriseDisc.IsChecked = true; else MaitriseDisc.IsChecked = false;
+					if (Imported[82] == "1") MaitriseDres.IsChecked = true; else MaitriseDres.IsChecked = false;
+					if (Imported[83] == "1") MaitriseEsca.IsChecked = true; else MaitriseEsca.IsChecked = false;
+					if (Imported[84] == "1") MaitriseHist.IsChecked = true; else MaitriseHist.IsChecked = false;
+					if (Imported[85] == "1") MaitriseInti.IsChecked = true; else MaitriseInti.IsChecked = false;
+					if (Imported[86] == "1") MaitriseIntu.IsChecked = true; else MaitriseIntu.IsChecked = false;
+					if (Imported[87] == "1") MaitriseInve.IsChecked = true; else MaitriseInve.IsChecked = false;
+					if (Imported[88] == "1") MaitriseMede.IsChecked = true; else MaitriseMede.IsChecked = false;
+					if (Imported[89] == "1") MaitriseNatu.IsChecked = true; else MaitriseNatu.IsChecked = false;
+					if (Imported[90] == "1") MaitrisePerc.IsChecked = true; else MaitrisePerc.IsChecked = false;
+					if (Imported[91] == "1") MaitrisePers.IsChecked = true; else MaitrisePers.IsChecked = false;
+					if (Imported[92] == "1") MaitriseReli.IsChecked = true; else MaitriseReli.IsChecked = false;
+					if (Imported[93] == "1") MaitriseRepr.IsChecked = true; else MaitriseRepr.IsChecked = false;
+					if (Imported[94] == "1") MaitriseSurv.IsChecked = true; else MaitriseSurv.IsChecked = false;
+					if (Imported[95] == "1") MaitriseTrom.IsChecked = true; else MaitriseTrom.IsChecked = false;
+
+					/// ### MAÎTRISE JETS DE SAUVEGARDE ###
+					if (Imported[96] == "1") MaitriseJDSFor.IsChecked = true; else MaitriseJDSFor.IsChecked = false;
+					if (Imported[97] == "1") MaitriseJDSDex.IsChecked = true; else MaitriseJDSDex.IsChecked = false;
+					if (Imported[98] == "1") MaitriseJDSCon.IsChecked = true; else MaitriseJDSCon.IsChecked = false;
+					if (Imported[99] == "1") MaitriseJDSInt.IsChecked = true; else MaitriseJDSInt.IsChecked = false;
+					if (Imported[100] == "1") MaitriseJDSSag.IsChecked = true; else MaitriseJDSSag.IsChecked = false;
+					if (Imported[101] == "1") MaitriseJDSCha.IsChecked = true; else MaitriseJDSCha.IsChecked = false;
+
 
 					RefreshLink();
 
-					MessageBox.Show("Importation Réussie du personnage " + NoSpace(Imported[1], true));
+					MessageBox.Show("Importation réussie du personnage " + NoSpace(Imported[1], true));
 				}
 			}
 			catch (FileNotFoundException)
 			{
-				MessageBox.Show("Fichier non trouvé ! Pour importer un personnage activez le mode édition, renseignez son nom dans le champs nom, ajoutez le fichier .dd5 dans le répertoire d'installation puis cliquez sur  \"Importer\"");
+				MessageBox.Show("\t\tFichier non trouvé ! \n\nPour importer un personnage : \n-Ajoutez le fichier .dd5 dans le répertoire d'installation \n-Activez le mode édition \n-Renseignez son nom dans le champs \"Nom\" \n-Puis cliquez sur \"Importer\"");
 			}
 			catch
 			{
@@ -1453,6 +1492,38 @@ namespace CharacterSheetManagement
 			if (SortINT.IsChecked == true) sortint = 1;
 			else if (SortSAG.IsChecked == true) sortsag = 1;
 			else if (SortCHA.IsChecked == true) sortcha = 1;
+
+			string maitriseAcro, maitriseArca, maitriseAthl, maitriseDisc, maitriseDres, maitriseEsca, maitriseHist, maitriseInti, maitriseIntu,
+				maitriseInve, maitriseMede, maitriseNatu, maitrisePerc, maitrisePers, maitriseReli, maitriseRepr, maitriseSurv, maitriseTrom,
+				maitrisejdsfor, maitrisejdsdex, maitrisejdscon, maitrisejdsint, maitrisejdssag, maitrisejdscha;
+
+			// Stockage des maîtrises des compétences.
+			if (MaitriseAcro.IsChecked == true) maitriseAcro = "1"; else maitriseAcro = "0";
+			if (MaitriseArca.IsChecked == true) maitriseArca = "1"; else maitriseArca = "0";
+			if (MaitriseAthl.IsChecked == true) maitriseAthl = "1"; else maitriseAthl = "0";
+			if (MaitriseDisc.IsChecked == true) maitriseDisc = "1"; else maitriseDisc = "0";
+			if (MaitriseDres.IsChecked == true) maitriseDres = "1"; else maitriseDres = "0";
+			if (MaitriseEsca.IsChecked == true) maitriseEsca = "1"; else maitriseEsca = "0";
+			if (MaitriseHist.IsChecked == true) maitriseHist = "1"; else maitriseHist = "0";
+			if (MaitriseInti.IsChecked == true) maitriseInti = "1"; else maitriseInti = "0";
+			if (MaitriseIntu.IsChecked == true) maitriseIntu = "1"; else maitriseIntu = "0";
+			if (MaitriseInve.IsChecked == true) maitriseInve = "1"; else maitriseInve = "0";
+			if (MaitriseMede.IsChecked == true) maitriseMede = "1"; else maitriseMede = "0";
+			if (MaitriseNatu.IsChecked == true) maitriseNatu = "1"; else maitriseNatu = "0";
+			if (MaitrisePerc.IsChecked == true) maitrisePerc = "1"; else maitrisePerc = "0";
+			if (MaitrisePers.IsChecked == true) maitrisePers = "1"; else maitrisePers = "0";
+			if (MaitriseReli.IsChecked == true) maitriseReli = "1"; else maitriseReli = "0";
+			if (MaitriseRepr.IsChecked == true) maitriseRepr = "1"; else maitriseRepr = "0";
+			if (MaitriseSurv.IsChecked == true) maitriseSurv = "1"; else maitriseSurv = "0";
+			if (MaitriseTrom.IsChecked == true) maitriseTrom = "1"; else maitriseTrom = "0";
+
+			// Stockage des maîtrises des jets de sauvegardes.
+			if (MaitriseJDSFor.IsChecked == true) maitrisejdsfor = "1"; else maitrisejdsfor = "0";
+			if (MaitriseJDSDex.IsChecked == true) maitrisejdsdex = "1"; else maitrisejdsdex = "0";
+			if (MaitriseJDSCon.IsChecked == true) maitrisejdscon = "1"; else maitrisejdscon = "0";
+			if (MaitriseJDSInt.IsChecked == true) maitrisejdsint = "1"; else maitrisejdsint = "0";
+			if (MaitriseJDSSag.IsChecked == true) maitrisejdssag = "1"; else maitrisejdssag = "0";
+			if (MaitriseJDSCha.IsChecked == true) maitrisejdscha = "1"; else maitrisejdscha = "0";
 
 			string[] Tableau = {
 				"FromCSM",
@@ -1533,7 +1604,31 @@ namespace CharacterSheetManagement
 				MagieMelee.Text,
 				MagieDistance.Text,
 				MagieSort.Text,
-			};
+				maitriseAcro,
+				maitriseArca,
+				maitriseAthl,
+				maitriseDisc,
+				maitriseDres,
+				maitriseEsca,
+				maitriseHist,
+				maitriseInti,
+				maitriseIntu,
+				maitriseInve,
+				maitriseMede,
+				maitriseNatu,
+				maitrisePerc,
+				maitrisePers,
+				maitriseReli,
+				maitriseRepr,
+				maitriseSurv,
+				maitriseTrom,
+				maitrisejdsfor,
+				maitrisejdsdex,
+				maitrisejdscon,
+				maitrisejdsint,
+				maitrisejdssag,
+				maitrisejdscha
+		};
 
 			System.IO.File.WriteAllLines("./" + NameFile + ".dd5", Tableau);
 
@@ -1690,7 +1785,7 @@ namespace CharacterSheetManagement
 			SwitchLanguage();
 		}
 
-		// ### Checked ### \\
+		// ### Checked | Unchecked ### \\
 		/// <summary>
 		/// Quand une des checkbox de l'armure est check.
 		/// </summary>

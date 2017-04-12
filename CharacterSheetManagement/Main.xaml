@@ -282,8 +282,8 @@
 			<!-- Valeurs. -->
 			<TextBox x:Name="CA" IsReadOnly="True" Text="10" Grid.Column="09" Grid.ColumnSpan="3" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox x:Name="Armure" IsReadOnly="True" Text="10" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="18" BorderBrush="Black" HorizontalContentAlignment="Right" BorderThickness="0,0,1,1" Padding="0,0,10,0" KeyUp="Global_KeyUp"/>
-			<CheckBox x:Name="Intermediaire" IsEnabled="False" Content="Inter" Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="Armor_Checked" Unchecked="Armor_Unchecked"/>
-			<CheckBox x:Name="Lourde" IsEnabled="False" Content="Lourde" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Armor_Checked" Unchecked="Armor_Unchecked"/>
+			<CheckBox x:Name="Intermediaire" IsEnabled="False" Content="Inter" Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Padding="-1" Checked="Armor_Checked" Unchecked="Armor_Unchecked"/>
+			<CheckBox x:Name="Lourde" IsEnabled="False" Content="Lourde" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="19" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-1" Checked="Armor_Checked" Unchecked="Armor_Unchecked"/>
 			<TextBox x:Name="BonusDexCa" IsReadOnly="True" Text="0" Grid.Column="11" Grid.Row="20" />
 			<CheckBox x:Name="Bouclier" IsEnabled="False" Grid.Column="11" Grid.Row="21" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="Armor_Checked" Unchecked="Armor_Unchecked"/>
 			<TextBox x:Name="MagieCA" IsReadOnly="True" Text="0" Grid.Column="11" Grid.Row="22" KeyUp="Global_KeyUp"/>
@@ -410,24 +410,24 @@
 					<TextBox x:Name="BaseTrom" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="19" BorderBrush="Black" BorderThickness="0,0,0,1" />
 
 					<!-- Bonus magique. -->
-					<TextBox x:Name="MagieAcro" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="02" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieArca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="03" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieAthl" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="04" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieDisc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="05" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieDres" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="06" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieEsca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="07" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieHist" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="08" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieInti" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="09" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieIntu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieInve" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="11" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieMede" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="12" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieNatu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="13" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagiePerc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="14" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagiePers" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="15" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieReli" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieRepr" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieSurv" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,1,1"/>
-					<TextBox x:Name="MagieTrom" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieAcro" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="02" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieArca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="03" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieAthl" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="04" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieDisc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="05" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieDres" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="06" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieEsca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="07" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieHist" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="08" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieInti" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="09" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieIntu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieInve" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="11" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieMede" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="12" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieNatu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="13" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagiePerc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="14" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagiePers" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="15" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieReli" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieRepr" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieSurv" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
+					<TextBox x:Name="MagieTrom" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp"/>
 				</Grid>
 			</ScrollViewer>
 
