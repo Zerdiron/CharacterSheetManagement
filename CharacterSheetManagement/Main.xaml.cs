@@ -44,14 +44,9 @@ namespace CharacterSheetManagement
 			InitializeComponent();
 			RefreshLink();
 
+			/// Décommenter pour le débuggage. (Affiche les exceptions non-gérées.
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
-		}
-
-		static void MyHandler(object sender, UnhandledExceptionEventArgs args)
-		{
-			Exception e = (Exception)args.ExceptionObject;
-			MessageBox.Show("MyHandler caught : " + e.Message + " \n InnerException : " + e.InnerException);
 		}
 
 		/// ### FONCTIONS ### \\\
@@ -122,8 +117,8 @@ namespace CharacterSheetManagement
 		private void SwitchReadOnly()
 		{
 			bool Switch;
-			if (bool_SwitchReadOnly) { Switch = false; Edition.Header = "Mode Edition"; Creation.Visibility = Visibility.Visible; }
-			else { Switch = true; Edition.Header = "Mode Lecture"; Creation.Visibility = Visibility.Hidden; }
+			if (bool_SwitchReadOnly) { Switch = false; if (bool_SwitchLanguage) { Edition.Header = "Mode Edition"; } else { Edition.Header = "Edition Enabled"; } Creation.Visibility = Visibility.Visible; }
+			else { Switch = true; if (bool_SwitchLanguage) { Edition.Header = "Mode Lecture"; } else { Edition.Header = "Read Only"; } Creation.Visibility = Visibility.Hidden; }
 
 			bool_SwitchReadOnly = !bool_SwitchReadOnly;
 
@@ -354,6 +349,22 @@ namespace CharacterSheetManagement
 		{
 			if (bool_SwitchLanguage)
 			{
+				/// ### Menu ### \\\
+				// File Menu.
+				File.Header = "File";
+				New.Header = "New";
+				Opener.Header = "Open";
+				Save.Header = "Save";
+				Delete.Header = "Delete";
+				// Import/Export Menu.
+				Import.Header = "Import";
+				Export.Header = "Export";
+				// Edition Menu.
+				if (bool_SwitchReadOnly) { Edition.Header = "Read Only"; } else { Edition.Header = "Edition Enabled"; }
+				// Language Menu.
+				Language.Header = "Language : ENG";
+				
+
 				/// ### CHARACTER'S INFO ### \\\
 				LabelClass.Text = "Class :";
 				LabelAlignment.Text = "Alignment :";
@@ -376,6 +387,7 @@ namespace CharacterSheetManagement
 				LabelWisdomST.Text = "    WIS";
 
 				/// ### HIT DICE ### \\\
+				LabelActualDice.Text = "Actual";
 				LabelHit.Text = "Hit";
 				LabelDice.Text = "Dice";
 
@@ -385,6 +397,7 @@ namespace CharacterSheetManagement
 				/// ### ARMOR CLASS ### \\\
 				LabelArmorClass.Text = "Armor Class";
 				LabelArmor.Text = "Armor";
+				LabelBonusMagieCA.Text = "Bonus Magic";
 				LabelShield.Text = "Shield";
 				Intermediaire.Content = "Medium";
 				Lourde.Content = "Heavy"; Lourde.Margin = new Thickness(20, 0, 0, 0);
@@ -392,7 +405,7 @@ namespace CharacterSheetManagement
 				/// ### SKILLS ### \\\
 				LabelSkill.Text = "Skills";
 				LabelNameSkill.Text = "Name";
-				// Names.
+				// Names. (Ordered by alphabetical order.)
 				LabelAcro.Text = "   Acrobatics"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
 				LabelAnim.Text = "   Animal Handling"; Grid.SetRow(LabelAnim, 3); Grid.SetRow(MaitriseDres, 3); Grid.SetRow(Dressage, 3); Grid.SetRow(BaseDres, 3); Grid.SetRow(MagieDres, 3);
 				LabelArca.Text = "   Arcana"; Grid.SetRow(LabelArca, 4); Grid.SetRow(MaitriseArca, 4); Grid.SetRow(Arcanes, 4); Grid.SetRow(BaseArca, 4); Grid.SetRow(MagieArca, 4);
@@ -423,6 +436,21 @@ namespace CharacterSheetManagement
 			}
 			else
 			{
+				/// ### Menu ### \\\
+				// File Menu.
+				File.Header = "Fichier";
+				New.Header = "Nouveau";
+				Opener.Header = "Ouvrir";
+				Save.Header = "Sauvegarder";
+				Delete.Header = "Supprimer";
+				// Import/Export Menu.
+				Import.Header = "Importer";
+				Export.Header = "Exporter";
+				// Edition Menu.
+				if (bool_SwitchReadOnly) { Edition.Header = "Mode Lecture"; } else { Edition.Header = "Mode Edition"; }
+				// Language Menu.
+				Language.Header = "Langue : FR";
+
 				/// ### CHARACTER'S INFO ### \\\
 				LabelClass.Text = "Classe :";
 				LabelAlignment.Text = "Alignement :";
@@ -445,6 +473,7 @@ namespace CharacterSheetManagement
 				LabelWisdomST.Text = "    SAG";
 
 				/// ### HIT DICE ### \\\
+				LabelActualDice.Text = "Actuel";
 				LabelHit.Text = "Dé";
 				LabelDice.Text = "Vie";
 
@@ -457,11 +486,12 @@ namespace CharacterSheetManagement
 				LabelShield.Text = "Bouclier";
 				Intermediaire.Content = "Inter";
 				Lourde.Content = "Lourde"; Lourde.Margin = new Thickness(0, 0, 0, 0);
+				LabelBonusMagieCA.Text = "Bonus Magie";
 
 				/// ### SKILLS ### \\\
 				LabelSkill.Text = "Compétences";
 				LabelNameSkill.Text = "Nom";
-				// Names.
+				// Names. (Ordered by alphabetical order.)
 				LabelAcro.Text = "   Acrobatie"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
 				LabelArca.Text = "   Arcanes"; Grid.SetRow(LabelArca, 3); Grid.SetRow(MaitriseArca, 3); Grid.SetRow(Arcanes, 3); Grid.SetRow(BaseArca, 3); Grid.SetRow(MagieArca, 3);
 				LabelAthl.Text = "   Athlétisme"; Grid.SetRow(LabelAthl, 4); Grid.SetRow(MaitriseAthl, 4); Grid.SetRow(Athletisme, 4); Grid.SetRow(BaseAthl, 4); Grid.SetRow(MagieAthl, 4);
@@ -1300,6 +1330,18 @@ namespace CharacterSheetManagement
 		}
 
 		/// ### EVENEMENTS ### \\\
+		// ### Affichage des Exceptions non-Gérées ### \\
+		/// <summary>
+		/// Affiche les erreurs non gérées.
+		/// </summary>
+		/// <param name="sender">L'objet qui appelle l'évènement.</param>
+		/// <param name="e">L'évènement.</param>
+		static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+		{
+			Exception e = (Exception)args.ExceptionObject;
+			MessageBox.Show("MyHandler caught : " + e.Message + " \n InnerException : " + e.InnerException);
+		}
+
 		// ### Clicks ### \\
 		/// <summary>
 		/// Lors d'un click sur le bouton d'édition.

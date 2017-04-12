@@ -1,38 +1,38 @@
 ﻿<Page x:Class="CharacterSheetManagement.Main"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:CharacterSheetManagement"
-	  mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="800" Title="Menu" KeyDown="Page_KeyDown">
-	
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+		xmlns:local="clr-namespace:CharacterSheetManagement"
+		mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="800" Title="Menu" KeyDown="Page_KeyDown">
+
 	<!-- Grille qui découpe le menu de la grille principale. -->
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20" />
 			<RowDefinition Height="700*" />
 		</Grid.RowDefinitions>
-		
+
 		<!-- Menu -->
 		<Menu Background="White" Height="20">
-			<MenuItem Header="Fichier">
+			<MenuItem x:Name="File" Header="Fichier">
 				<MenuItem x:Name="New" Header="Nouveau" Click="New_Click" InputGestureText="CTRL+N"/>
-				<MenuItem x:Name="Open" Header="Ouvrir" Click="Open_Click" InputGestureText="CTRL+O"/>
+				<MenuItem x:Name="Opener" Header="Ouvrir" Click="Open_Click" InputGestureText="CTRL+O"/>
 				<MenuItem Height="5" IsEnabled="False"/>
 				<MenuItem x:Name="Save" Header="Enregistrer" Click="Save_Click" InputGestureText="CTRL+S"/>
 				<MenuItem Height="5" IsEnabled="False"/>
 				<MenuItem x:Name="Delete" Header="Supprimer" Click="Delete_Click"/>
 			</MenuItem>
-			
+
 			<MenuItem Header="Import/Export">
 				<MenuItem x:Name="Import" Header="Importer" Click="Import_Click" InputGestureText="ALT+I"/>
 				<MenuItem x:Name="Export" Header="Exporter" Click="Export_Click" InputGestureText="ALT+E"/>
 			</MenuItem>
 
 			<MenuItem x:Name="Edition" Header="Mode Lecture" Click="Edition_Click" InputGestureText="CTRL+E" HorizontalAlignment="Right"  />
-			<MenuItem x:Name="Language" Header="Language" Click="Language_Click"></MenuItem>
+			<MenuItem x:Name="Language" Header="Langue FR" Click="Language_Click"></MenuItem>
 		</Menu>
-		
+
 		<!-- Grille Principale. -->
 		<Grid Grid.Row="1">
 			<Grid.Background>
@@ -91,7 +91,7 @@
 
 			<!-- ### INFORMATIONS PERSONNAGE ### -->
 			<!-- Nom. -->
-			<TextBox x:Name="Nom" IsReadOnly="True" Text="Tavernier" Grid.Column="7" Grid.ColumnSpan="6" Grid.RowSpan="2" FontStyle="Italic" FontSize="20" BorderBrush="Black" BorderThickness="1"    />
+			<TextBox x:Name="Nom" IsReadOnly="True" Text="Tavernier" Grid.Column="7" Grid.ColumnSpan="6" Grid.RowSpan="2" FontStyle="Italic" FontSize="20" BorderBrush="Black" BorderThickness="1"/>
 			<!-- Classe. -->
 			<TextBox x:Name="LabelClass" IsReadOnly="True" Text="Classe :" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" FontWeight="Bold" />
 			<TextBox x:Name="Classe" IsReadOnly="True" Text="Commoner" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" FontStyle="Italic" />
@@ -231,7 +231,7 @@
 			<TextBox x:Name="LabelHit" IsReadOnly="True" Text="Dé(s)" Grid.Column="7" Grid.Row="14" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,1,1,0" />
 			<TextBox x:Name="LabelDice" IsReadOnly="True" Text="Vie" Grid.Column="7" Grid.Row="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<!-- Actuel. -->
-			<TextBox IsReadOnly="True" Text="Now" Grid.Column="7" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+			<TextBox x:Name="LabelActualDice" IsReadOnly="True" Text="Actuel" Grid.Column="7" Grid.Row="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" Padding="-1" />
 			<TextBox x:Name="DVNow" IsReadOnly="True" Text="1" Grid.Column="7" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" KeyUp="Global_KeyUp" />
 			<!-- Maximum. -->
 			<TextBox IsReadOnly="True" Text="Total" Grid.Column="7" Grid.Row="18" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
@@ -277,7 +277,7 @@
 			<TextBox IsReadOnly="True" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox IsReadOnly="True" Text="Bonus Dex" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="20" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox x:Name="LabelShield" IsReadOnly="True" Text="Bouclier" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="21" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
-			<TextBox IsReadOnly="True" Text="Bonus Magic" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="22" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
+			<TextBox x:Name="LabelBonusMagieCA" IsReadOnly="True" Text="Bonus Magie" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="22" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<TextBox IsReadOnly="True" Text="Bonus Temp" Grid.Column="9" Grid.ColumnSpan="3" Grid.Row="23" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
 			<!-- Valeurs. -->
 			<TextBox x:Name="CA" IsReadOnly="True" Text="10" Grid.Column="09" Grid.ColumnSpan="3" Grid.Row="17" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,1,1" />
@@ -330,24 +330,24 @@
 					<TextBox IsReadOnly="True" Text="{Binding ElementName=LabelMagic, Path=Text, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,1,1" HorizontalAlignment="Right" FontWeight="Bold" />
 
 					<!-- Label du nom de la compétence. -->
-					<TextBox x:Name="LabelAcro" IsReadOnly="True" Text="    Acrobatie"	Grid.Row="02" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelArca" IsReadOnly="True" Text="    Arcanes"		Grid.Row="03" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelAthl" IsReadOnly="True" Text="    Athlétisme"	Grid.Row="04" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelStea" IsReadOnly="True" Text="    Discrétion"	Grid.Row="05" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelAnim" IsReadOnly="True" Text="    Dressage"	Grid.Row="06" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelSlei" IsReadOnly="True" Text="    Escamotage"	Grid.Row="07" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelHist" IsReadOnly="True" Text="    Histoire"	Grid.Row="08" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelInti" IsReadOnly="True" Text="    Intimidation" Grid.Row="09" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelInsi" IsReadOnly="True" Text="    Intuition"	Grid.Row="10" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelInve" IsReadOnly="True" Text="    Investigation" Grid.Row="11" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelMedi" IsReadOnly="True" Text="    Médecine"	Grid.Row="12" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelNatu" IsReadOnly="True" Text="    Nature"		Grid.Row="13" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelPerc" IsReadOnly="True" Text="    Perception"	Grid.Row="14" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelPers" IsReadOnly="True" Text="    Persuasion"	Grid.Row="15" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelReli" IsReadOnly="True" Text="    Religion"	Grid.Row="16" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelPerf" IsReadOnly="True" Text="    Représentation" Grid.Row="17" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelSurv" IsReadOnly="True" Text="    Survie"		Grid.Row="18" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
-					<TextBox x:Name="LabelDece" IsReadOnly="True" Text="    Tromperie"	Grid.Row="19" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelAcro" IsReadOnly="True" Text="   Acrobatie"	Grid.Row="02" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelArca" IsReadOnly="True" Text="   Arcanes"		Grid.Row="03" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelAthl" IsReadOnly="True" Text="   Athlétisme"	Grid.Row="04" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelStea" IsReadOnly="True" Text="   Discrétion"	Grid.Row="05" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelAnim" IsReadOnly="True" Text="   Dressage"	Grid.Row="06" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelSlei" IsReadOnly="True" Text="   Escamotage"	Grid.Row="07" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelHist" IsReadOnly="True" Text="   Histoire"	Grid.Row="08" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelInti" IsReadOnly="True" Text="   Intimidation" Grid.Row="09" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelInsi" IsReadOnly="True" Text="   Intuition"	Grid.Row="10" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelInve" IsReadOnly="True" Text="   Investigation" Grid.Row="11" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelMedi" IsReadOnly="True" Text="   Médecine"	Grid.Row="12" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelNatu" IsReadOnly="True" Text="   Nature"		Grid.Row="13" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelPerc" IsReadOnly="True" Text="   Perception"	Grid.Row="14" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelPers" IsReadOnly="True" Text="   Persuasion"	Grid.Row="15" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelReli" IsReadOnly="True" Text="   Religion"	Grid.Row="16" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelPerf" IsReadOnly="True" Text="   Représentation" Grid.Row="17" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelSurv" IsReadOnly="True" Text="   Survie"		Grid.Row="18" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
+					<TextBox x:Name="LabelDece" IsReadOnly="True" Text="   Tromperie"	Grid.Row="19" HorizontalContentAlignment="Left" FontWeight="Bold" BorderBrush="Black" BorderThickness="1,0,0,1" />
 
 					<!-- Si la compétence est maitrisée, la case est cochée. -->
 					<CheckBox x:Name="MaitriseAcro" IsEnabled="False" Grid.Row="02" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Checked="MaitriseCompetence_Checked" Unchecked="MaitriseCompetence_Unchecked"/>
@@ -410,24 +410,24 @@
 					<TextBox x:Name="BaseTrom" IsReadOnly="True" Text="0" Grid.Column="2" Grid.Row="19" BorderBrush="Black" BorderThickness="0,0,0,1" />
 
 					<!-- Bonus magique. -->
-					<TextBox x:Name="MagieAcro" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="02" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieArca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="03" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieAthl" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="04" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieDisc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="05" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieDres" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="06" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieEsca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="07" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieHist" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="08" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieInti" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="09" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieIntu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieInve" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="11" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieMede" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="12" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieNatu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="13" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagiePerc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="14" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagiePers" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="15" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieReli" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieRepr" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieSurv" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,1,1"    />
-					<TextBox x:Name="MagieTrom" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1"    />
+					<TextBox x:Name="MagieAcro" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="02" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieArca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="03" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieAthl" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="04" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieDisc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="05" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieDres" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="06" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieEsca" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="07" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieHist" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="08" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieInti" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="09" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieIntu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="10" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieInve" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="11" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieMede" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="12" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieNatu" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="13" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagiePerc" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="14" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagiePers" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="15" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieReli" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="16" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieRepr" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="17" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieSurv" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="18" BorderBrush="Black" BorderThickness="1,0,1,1"/>
+					<TextBox x:Name="MagieTrom" IsReadOnly="True" Text="0" Grid.Column="3" Grid.Row="19" BorderBrush="Black" BorderThickness="1,0,1,1"/>
 				</Grid>
 			</ScrollViewer>
 
