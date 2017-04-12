@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.IO;
 
 namespace CharacterSheetManagement
 {
@@ -363,7 +364,7 @@ namespace CharacterSheetManagement
 				if (bool_SwitchReadOnly) { Edition.Header = "Read Only"; } else { Edition.Header = "Edition Enabled"; }
 				// Language Menu.
 				Language.Header = "Language : ENG";
-				
+
 
 				/// ### CHARACTER'S INFO ### \\\
 				LabelClass.Text = "Class :";
@@ -406,24 +407,24 @@ namespace CharacterSheetManagement
 				LabelSkill.Text = "Skills";
 				LabelNameSkill.Text = "Name";
 				// Names. (Ordered by alphabetical order.)
-				LabelAcro.Text = "   Acrobatics"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
-				LabelAnim.Text = "   Animal Handling"; Grid.SetRow(LabelAnim, 3); Grid.SetRow(MaitriseDres, 3); Grid.SetRow(Dressage, 3); Grid.SetRow(BaseDres, 3); Grid.SetRow(MagieDres, 3);
-				LabelArca.Text = "   Arcana"; Grid.SetRow(LabelArca, 4); Grid.SetRow(MaitriseArca, 4); Grid.SetRow(Arcanes, 4); Grid.SetRow(BaseArca, 4); Grid.SetRow(MagieArca, 4);
-				LabelAthl.Text = "   Athletics"; Grid.SetRow(LabelAthl, 5); Grid.SetRow(MaitriseAthl, 5); Grid.SetRow(Athletisme, 5); Grid.SetRow(BaseAthl, 5); Grid.SetRow(MagieAthl, 5);
-				LabelDece.Text = "   Deception"; Grid.SetRow(LabelDece, 6); Grid.SetRow(MaitriseTrom, 6); Grid.SetRow(Tromperie, 6); Grid.SetRow(BaseTrom, 6); Grid.SetRow(MagieTrom, 6);
-				LabelHist.Text = "   History"; Grid.SetRow(LabelHist, 7); Grid.SetRow(MaitriseHist, 7); Grid.SetRow(Histoire, 7); Grid.SetRow(BaseHist, 7); Grid.SetRow(MagieHist, 7);
-				LabelInsi.Text = "   Insight"; Grid.SetRow(LabelInsi, 8); Grid.SetRow(MaitriseIntu, 8); Grid.SetRow(Intuition, 8); Grid.SetRow(BaseIntu, 8); Grid.SetRow(MagieIntu, 8);
-				LabelInti.Text = "   Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
-				LabelInve.Text = "   Investigation"; Grid.SetRow(LabelInve, 10); Grid.SetRow(MaitriseInve, 10); Grid.SetRow(Investigation, 10); Grid.SetRow(BaseInve, 10); Grid.SetRow(MagieInve, 10);
-				LabelMedi.Text = "   Medicine"; Grid.SetRow(LabelMedi, 11); Grid.SetRow(MaitriseMede, 11); Grid.SetRow(Medecine, 11); Grid.SetRow(BaseMede, 11); Grid.SetRow(MagieMede, 11);
-				LabelNatu.Text = "   Nature"; Grid.SetRow(LabelNatu, 12); Grid.SetRow(MaitriseNatu, 12); Grid.SetRow(Nature, 12); Grid.SetRow(BaseNatu, 12); Grid.SetRow(MagieNatu, 12);
-				LabelPerc.Text = "   Perception"; Grid.SetRow(LabelPerc, 13); Grid.SetRow(MaitrisePerc, 13); Grid.SetRow(Perception, 13); Grid.SetRow(BasePerc, 13); Grid.SetRow(MagiePerc, 13);
-				LabelPerf.Text = "   Performance"; Grid.SetRow(LabelPerf, 14); Grid.SetRow(MaitriseRepr, 14); Grid.SetRow(Representation, 14); Grid.SetRow(BaseRepr, 14); Grid.SetRow(MagieRepr, 14);
-				LabelPers.Text = "   Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
-				LabelReli.Text = "   Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
-				LabelSlei.Text = "   Sleight of hand"; Grid.SetRow(LabelSlei, 17); Grid.SetRow(MaitriseEsca, 17); Grid.SetRow(Escamotage, 17); Grid.SetRow(BaseEsca, 17); Grid.SetRow(MagieEsca, 17);
-				LabelStea.Text = "   Stealth"; Grid.SetRow(LabelStea, 18); Grid.SetRow(MaitriseDisc, 18); Grid.SetRow(Discretion, 18); Grid.SetRow(BaseDisc, 18); Grid.SetRow(MagieDisc, 18);
-				LabelSurv.Text = "   Survival"; Grid.SetRow(LabelSurv, 19); Grid.SetRow(MaitriseSurv, 19); Grid.SetRow(Survie, 19); Grid.SetRow(BaseSurv, 19); Grid.SetRow(MagieSurv, 19);
+				LabelAcro.Text = "    Acrobatics"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
+				LabelAnim.Text = "    Animal Handling"; Grid.SetRow(LabelAnim, 3); Grid.SetRow(MaitriseDres, 3); Grid.SetRow(Dressage, 3); Grid.SetRow(BaseDres, 3); Grid.SetRow(MagieDres, 3);
+				LabelArca.Text = "    Arcana"; Grid.SetRow(LabelArca, 4); Grid.SetRow(MaitriseArca, 4); Grid.SetRow(Arcanes, 4); Grid.SetRow(BaseArca, 4); Grid.SetRow(MagieArca, 4);
+				LabelAthl.Text = "    Athletics"; Grid.SetRow(LabelAthl, 5); Grid.SetRow(MaitriseAthl, 5); Grid.SetRow(Athletisme, 5); Grid.SetRow(BaseAthl, 5); Grid.SetRow(MagieAthl, 5);
+				LabelDece.Text = "    Deception"; Grid.SetRow(LabelDece, 6); Grid.SetRow(MaitriseTrom, 6); Grid.SetRow(Tromperie, 6); Grid.SetRow(BaseTrom, 6); Grid.SetRow(MagieTrom, 6);
+				LabelHist.Text = "    History"; Grid.SetRow(LabelHist, 7); Grid.SetRow(MaitriseHist, 7); Grid.SetRow(Histoire, 7); Grid.SetRow(BaseHist, 7); Grid.SetRow(MagieHist, 7);
+				LabelInsi.Text = "    Insight"; Grid.SetRow(LabelInsi, 8); Grid.SetRow(MaitriseIntu, 8); Grid.SetRow(Intuition, 8); Grid.SetRow(BaseIntu, 8); Grid.SetRow(MagieIntu, 8);
+				LabelInti.Text = "    Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
+				LabelInve.Text = "    Investigation"; Grid.SetRow(LabelInve, 10); Grid.SetRow(MaitriseInve, 10); Grid.SetRow(Investigation, 10); Grid.SetRow(BaseInve, 10); Grid.SetRow(MagieInve, 10);
+				LabelMedi.Text = "    Medicine"; Grid.SetRow(LabelMedi, 11); Grid.SetRow(MaitriseMede, 11); Grid.SetRow(Medecine, 11); Grid.SetRow(BaseMede, 11); Grid.SetRow(MagieMede, 11);
+				LabelNatu.Text = "    Nature"; Grid.SetRow(LabelNatu, 12); Grid.SetRow(MaitriseNatu, 12); Grid.SetRow(Nature, 12); Grid.SetRow(BaseNatu, 12); Grid.SetRow(MagieNatu, 12);
+				LabelPerc.Text = "    Perception"; Grid.SetRow(LabelPerc, 13); Grid.SetRow(MaitrisePerc, 13); Grid.SetRow(Perception, 13); Grid.SetRow(BasePerc, 13); Grid.SetRow(MagiePerc, 13);
+				LabelPerf.Text = "    Performance"; Grid.SetRow(LabelPerf, 14); Grid.SetRow(MaitriseRepr, 14); Grid.SetRow(Representation, 14); Grid.SetRow(BaseRepr, 14); Grid.SetRow(MagieRepr, 14);
+				LabelPers.Text = "    Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
+				LabelReli.Text = "    Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
+				LabelSlei.Text = "    Sleight of hand"; Grid.SetRow(LabelSlei, 17); Grid.SetRow(MaitriseEsca, 17); Grid.SetRow(Escamotage, 17); Grid.SetRow(BaseEsca, 17); Grid.SetRow(MagieEsca, 17);
+				LabelStea.Text = "    Stealth"; Grid.SetRow(LabelStea, 18); Grid.SetRow(MaitriseDisc, 18); Grid.SetRow(Discretion, 18); Grid.SetRow(BaseDisc, 18); Grid.SetRow(MagieDisc, 18);
+				LabelSurv.Text = "    Survival"; Grid.SetRow(LabelSurv, 19); Grid.SetRow(MaitriseSurv, 19); Grid.SetRow(Survie, 19); Grid.SetRow(BaseSurv, 19); Grid.SetRow(MagieSurv, 19);
 
 				/// ### SPELL ### \\\
 				SpellcasterLabel.Text = "Spellcasting Ability";
@@ -492,24 +493,24 @@ namespace CharacterSheetManagement
 				LabelSkill.Text = "Compétences";
 				LabelNameSkill.Text = "Nom";
 				// Names. (Ordered by alphabetical order.)
-				LabelAcro.Text = "   Acrobatie"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
-				LabelArca.Text = "   Arcanes"; Grid.SetRow(LabelArca, 3); Grid.SetRow(MaitriseArca, 3); Grid.SetRow(Arcanes, 3); Grid.SetRow(BaseArca, 3); Grid.SetRow(MagieArca, 3);
-				LabelAthl.Text = "   Athlétisme"; Grid.SetRow(LabelAthl, 4); Grid.SetRow(MaitriseAthl, 4); Grid.SetRow(Athletisme, 4); Grid.SetRow(BaseAthl, 4); Grid.SetRow(MagieAthl, 4);
-				LabelStea.Text = "   Discrétion"; Grid.SetRow(LabelStea, 5); Grid.SetRow(MaitriseDisc, 5); Grid.SetRow(Discretion, 5); Grid.SetRow(BaseDisc, 5); Grid.SetRow(MagieDisc, 5);
-				LabelAnim.Text = "   Dressage"; Grid.SetRow(LabelAnim, 6); Grid.SetRow(MaitriseDres, 6); Grid.SetRow(Dressage, 6); Grid.SetRow(BaseDres, 6); Grid.SetRow(MagieDres, 6);
-				LabelSlei.Text = "   Escamotage"; Grid.SetRow(LabelSlei, 7); Grid.SetRow(MaitriseEsca, 7); Grid.SetRow(Escamotage, 7); Grid.SetRow(BaseEsca, 7); Grid.SetRow(MagieEsca, 7);
-				LabelHist.Text = "   Histoire"; Grid.SetRow(LabelHist, 8); Grid.SetRow(MaitriseHist, 8); Grid.SetRow(Histoire, 8); Grid.SetRow(BaseHist, 8); Grid.SetRow(MagieHist, 8);
-				LabelInti.Text = "   Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
-				LabelInsi.Text = "   Intuition"; Grid.SetRow(LabelInsi, 10); Grid.SetRow(MaitriseIntu, 10); Grid.SetRow(Intuition, 10); Grid.SetRow(BaseIntu, 10); Grid.SetRow(MagieIntu, 10);
-				LabelInve.Text = "   Investigation"; Grid.SetRow(LabelInve, 11); Grid.SetRow(MaitriseInve, 11); Grid.SetRow(Investigation, 11); Grid.SetRow(BaseInve, 11); Grid.SetRow(MagieInve, 11);
-				LabelMedi.Text = "   Médecine"; Grid.SetRow(LabelMedi, 12); Grid.SetRow(MaitriseMede, 12); Grid.SetRow(Medecine, 12); Grid.SetRow(BaseMede, 12); Grid.SetRow(MagieMede, 12);
-				LabelNatu.Text = "   Nature"; Grid.SetRow(LabelNatu, 13); Grid.SetRow(MaitriseNatu, 13); Grid.SetRow(Nature, 13); Grid.SetRow(BaseNatu, 13); Grid.SetRow(MagieNatu, 13);
-				LabelPerc.Text = "   Perception"; Grid.SetRow(LabelPerc, 14); Grid.SetRow(MaitrisePerc, 14); Grid.SetRow(Perception, 14); Grid.SetRow(BasePerc, 14); Grid.SetRow(MagiePerc, 14);
-				LabelPers.Text = "   Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
-				LabelReli.Text = "   Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
-				LabelPerf.Text = "   Représentation"; Grid.SetRow(LabelPerf, 17); Grid.SetRow(MaitriseRepr, 17); Grid.SetRow(Representation, 17); Grid.SetRow(BaseRepr, 17); Grid.SetRow(MagieRepr, 17);
-				LabelSurv.Text = "   Survie"; Grid.SetRow(LabelSurv, 18); Grid.SetRow(MaitriseSurv, 18); Grid.SetRow(Survie, 18); Grid.SetRow(BaseSurv, 18); Grid.SetRow(MagieSurv, 18);
-				LabelDece.Text = "   Tromperie"; Grid.SetRow(LabelDece, 19); Grid.SetRow(MaitriseTrom, 19); Grid.SetRow(Tromperie, 19); Grid.SetRow(BaseTrom, 19); Grid.SetRow(MagieTrom, 19);
+				LabelAcro.Text = "    Acrobatie"; Grid.SetRow(LabelAcro, 2); Grid.SetRow(MaitriseAcro, 2); Grid.SetRow(Acrobatie, 2); Grid.SetRow(BaseAcro, 2); Grid.SetRow(MagieAcro, 2);
+				LabelArca.Text = "    Arcanes"; Grid.SetRow(LabelArca, 3); Grid.SetRow(MaitriseArca, 3); Grid.SetRow(Arcanes, 3); Grid.SetRow(BaseArca, 3); Grid.SetRow(MagieArca, 3);
+				LabelAthl.Text = "    Athlétisme"; Grid.SetRow(LabelAthl, 4); Grid.SetRow(MaitriseAthl, 4); Grid.SetRow(Athletisme, 4); Grid.SetRow(BaseAthl, 4); Grid.SetRow(MagieAthl, 4);
+				LabelStea.Text = "    Discrétion"; Grid.SetRow(LabelStea, 5); Grid.SetRow(MaitriseDisc, 5); Grid.SetRow(Discretion, 5); Grid.SetRow(BaseDisc, 5); Grid.SetRow(MagieDisc, 5);
+				LabelAnim.Text = "    Dressage"; Grid.SetRow(LabelAnim, 6); Grid.SetRow(MaitriseDres, 6); Grid.SetRow(Dressage, 6); Grid.SetRow(BaseDres, 6); Grid.SetRow(MagieDres, 6);
+				LabelSlei.Text = "    Escamotage"; Grid.SetRow(LabelSlei, 7); Grid.SetRow(MaitriseEsca, 7); Grid.SetRow(Escamotage, 7); Grid.SetRow(BaseEsca, 7); Grid.SetRow(MagieEsca, 7);
+				LabelHist.Text = "    Histoire"; Grid.SetRow(LabelHist, 8); Grid.SetRow(MaitriseHist, 8); Grid.SetRow(Histoire, 8); Grid.SetRow(BaseHist, 8); Grid.SetRow(MagieHist, 8);
+				LabelInti.Text = "    Intimidation"; Grid.SetRow(LabelInti, 9); Grid.SetRow(MaitriseInti, 9); Grid.SetRow(Intimidation, 9); Grid.SetRow(BaseInti, 9); Grid.SetRow(MagieInti, 9);
+				LabelInsi.Text = "    Intuition"; Grid.SetRow(LabelInsi, 10); Grid.SetRow(MaitriseIntu, 10); Grid.SetRow(Intuition, 10); Grid.SetRow(BaseIntu, 10); Grid.SetRow(MagieIntu, 10);
+				LabelInve.Text = "    Investigation"; Grid.SetRow(LabelInve, 11); Grid.SetRow(MaitriseInve, 11); Grid.SetRow(Investigation, 11); Grid.SetRow(BaseInve, 11); Grid.SetRow(MagieInve, 11);
+				LabelMedi.Text = "    Médecine"; Grid.SetRow(LabelMedi, 12); Grid.SetRow(MaitriseMede, 12); Grid.SetRow(Medecine, 12); Grid.SetRow(BaseMede, 12); Grid.SetRow(MagieMede, 12);
+				LabelNatu.Text = "    Nature"; Grid.SetRow(LabelNatu, 13); Grid.SetRow(MaitriseNatu, 13); Grid.SetRow(Nature, 13); Grid.SetRow(BaseNatu, 13); Grid.SetRow(MagieNatu, 13);
+				LabelPerc.Text = "    Perception"; Grid.SetRow(LabelPerc, 14); Grid.SetRow(MaitrisePerc, 14); Grid.SetRow(Perception, 14); Grid.SetRow(BasePerc, 14); Grid.SetRow(MagiePerc, 14);
+				LabelPers.Text = "    Persuasion"; Grid.SetRow(LabelPers, 15); Grid.SetRow(MaitrisePers, 15); Grid.SetRow(Persuasion, 15); Grid.SetRow(BasePers, 15); Grid.SetRow(MagiePers, 15);
+				LabelReli.Text = "    Religion"; Grid.SetRow(LabelReli, 16); Grid.SetRow(MaitriseReli, 16); Grid.SetRow(Religion, 16); Grid.SetRow(BaseReli, 16); Grid.SetRow(MagieReli, 16);
+				LabelPerf.Text = "    Représentation"; Grid.SetRow(LabelPerf, 17); Grid.SetRow(MaitriseRepr, 17); Grid.SetRow(Representation, 17); Grid.SetRow(BaseRepr, 17); Grid.SetRow(MagieRepr, 17);
+				LabelSurv.Text = "    Survie"; Grid.SetRow(LabelSurv, 18); Grid.SetRow(MaitriseSurv, 18); Grid.SetRow(Survie, 18); Grid.SetRow(BaseSurv, 18); Grid.SetRow(MagieSurv, 18);
+				LabelDece.Text = "    Tromperie"; Grid.SetRow(LabelDece, 19); Grid.SetRow(MaitriseTrom, 19); Grid.SetRow(Tromperie, 19); Grid.SetRow(BaseTrom, 19); Grid.SetRow(MagieTrom, 19);
 
 				/// ### SPELL ### \\\
 				SpellcasterLabel.Text = "Caractéristique de lanceur de sort";
@@ -544,6 +545,28 @@ namespace CharacterSheetManagement
 				newInput = "0";
 
 			(sender as TextBox).Text = newInput;
+		}
+
+		/// <summary>
+		/// Enlève les espaces d'un string passé en argument ou les remet si le deuxième argument est passé à true; 
+		/// </summary>
+		/// <param name="ToTransform">Le string à transformer.</param>
+		/// <param name="Reverse">Activer le reverse false par défaut.</param>
+		/// <returns>Renvoie la châine de caractère transformé.</returns>
+		private string NoSpace(string ToTransform, bool Reverse = false)
+		{
+			string Transformed = "";
+			char from = ' ';
+			char to = '_';
+			if (Reverse)
+			{
+				from = '_'; to = ' ';
+			}
+			for (int i = 0; i < ToTransform.Length; i++)
+				if (ToTransform[i] == from) Transformed += to;
+				else Transformed += ToTransform[i];
+
+			return Transformed;
 		}
 
 		// ### Les Refresh ### \\
@@ -1262,7 +1285,138 @@ namespace CharacterSheetManagement
 		/// </summary>
 		private void ImportCharacter()
 		{
-			MessageBox.Show("Fonction non implémentée");
+			try
+			{
+				string PATH = "./" + NoSpace(Nom.Text) + ".dd5";
+				string[] Imported = System.IO.File.ReadAllLines(PATH);
+
+				if (Imported[0] == "FromCSM")
+				{
+					Nom.Text = NoSpace(Imported[1], true);
+					Classe.Text = Imported[2];
+					Level.Text = Imported[3];
+					Race.Text = Imported[4];
+					if (Imported[5] == "L") Loyal.IsChecked = true;
+					else if (Imported[5] == "N") FirstNeutre.IsChecked = true;
+					else if (Imported[5] == "C") Chaotique.IsChecked = true;
+
+					if (Imported[6] == "B") Bon.IsChecked = true;
+					else if (Imported[6] == "N") SecondNeutre.IsChecked = true;
+					else if (Imported[6] == "M") Mauvais.IsChecked = true;
+
+					/// ### VIE ###
+					HP.Text = Imported[7];
+					DVNow.Text = Imported[8];
+					DVType.Text = Imported[9];
+
+					/// ### STATS ###
+					// Base
+					BaseFor.Text = Imported[10];
+					BaseDex.Text = Imported[11];
+					BaseCon.Text = Imported[12];
+					BaseInt.Text = Imported[13];
+					BaseSag.Text = Imported[14];
+					BaseCha.Text = Imported[15];
+					// Level
+					LevelFor.Text = Imported[16];
+					LevelDex.Text = Imported[17];
+					LevelCon.Text = Imported[18];
+					LevelInt.Text = Imported[19];
+					LevelSag.Text = Imported[20];
+					LevelCha.Text = Imported[21];
+					// Magie
+					MagicFor.Text = Imported[22];
+					MagicDex.Text = Imported[23];
+					MagicCon.Text = Imported[24];
+					MagicInt.Text = Imported[25];
+					MagicSag.Text = Imported[26];
+					MagicCha.Text = Imported[27];
+					// Temp
+					TempFor.Text = Imported[28];
+					TempDex.Text = Imported[29];
+					TempCon.Text = Imported[30];
+					TempInt.Text = Imported[31];
+					TempSag.Text = Imported[32];
+					TempCha.Text = Imported[33];
+
+					/// ### JDS ###
+					// Magie
+					MagieJDSFor.Text = Imported[34];
+					MagieJDSDex.Text = Imported[35];
+					MagieJDSCon.Text = Imported[36];
+					MagieJDSInt.Text = Imported[37];
+					MagieJDSSag.Text = Imported[38];
+					MagieJDSCha.Text = Imported[39];
+					// Temp
+					TempJDSFor.Text = Imported[40];
+					TempJDSDex.Text = Imported[41];
+					TempJDSCon.Text = Imported[42];
+					TempJDSInt.Text = Imported[43];
+					TempJDSSag.Text = Imported[44];
+					TempJDSCha.Text = Imported[45];
+
+					/// ### INIT ###
+					BonusInit.Text = Imported[46];
+
+					/// ### VITESSE ###
+					Feet.Text = Imported[47];
+
+					/// ### CA ###
+					Armure.Text = Imported[48];
+					if (Imported[49] == "1") Bouclier.IsChecked = true;
+					else Bouclier.IsChecked = false;
+					if (Imported[50] == "1") Lourde.IsChecked = true;
+					else Lourde.IsChecked = false;
+					if (Imported[51] == "1") Intermediaire.IsChecked = true;
+					else Intermediaire.IsChecked = false;
+					MagieCA.Text = Imported[52];
+					TempCA.Text = Imported[53];
+
+					/// ### COMPETENCES ###
+					MagieAcro.Text = Imported[54];
+					MagieArca.Text = Imported[55];
+					MagieAthl.Text = Imported[56];
+					MagieDisc.Text = Imported[57];
+					MagieDres.Text = Imported[58];
+					MagieEsca.Text = Imported[59];
+					MagieHist.Text = Imported[60];
+					MagieInti.Text = Imported[61];
+					MagieIntu.Text = Imported[62];
+					MagieInve.Text = Imported[63];
+					MagieMede.Text = Imported[64];
+					MagieNatu.Text = Imported[65];
+					MagiePerc.Text = Imported[66];
+					MagiePers.Text = Imported[67];
+					MagieReli.Text = Imported[68];
+					MagieRepr.Text = Imported[69];
+					MagieSurv.Text = Imported[70];
+					MagieTrom.Text = Imported[71];
+
+					/// ### SORTS ###
+					if (Imported[72] == "1") SortINT.IsChecked = true;
+					else SortINT.IsChecked = false;
+					if (Imported[73] == "1") SortSAG.IsChecked = true;
+					else SortSAG.IsChecked = false;
+					if (Imported[74] == "1") SortCHA.IsChecked = true;
+					else SortCHA.IsChecked = false;
+
+					/// ### TOUCHERS ###
+					MagieMelee.Text = Imported[75];
+					MagieDistance.Text = Imported[76];
+
+					RefreshLink();
+
+					MessageBox.Show("Importation Réussie du personnage " + NoSpace(Imported[1], true));
+				}
+			}
+			catch (FileNotFoundException)
+			{
+				MessageBox.Show("Fichier non trouvé ! Pour importer un personnage activez le mode édition, renseignez son nom dans le champs nom, ajoutez le fichier .dd5 dans le répertoire d'installation puis cliquez sur  \"Importer\"");
+			}
+			catch
+			{
+				MessageBox.Show("Erreur inconnue !");
+			}
 		}
 
 		/// <summary>
@@ -1270,7 +1424,120 @@ namespace CharacterSheetManagement
 		/// </summary>
 		private void ExportCharacter()
 		{
-			MessageBox.Show("Fonction non implémentée");
+			string NameFile = NoSpace(Nom.Text);
+
+			string loyal = "";
+
+			if (Loyal.IsChecked == true) loyal = "L";
+			else if (FirstNeutre.IsChecked == true) loyal = "N";
+			else if (Chaotique.IsChecked == true) loyal = "C";
+
+			string bon = "";
+
+			if (Bon.IsChecked == true) bon = "B";
+			else if (SecondNeutre.IsChecked == true) bon = "N";
+			else if (Mauvais.IsChecked == true) bon = "M";
+
+			long lourde = 0;
+			long intermediaire = 0;
+			long bouclier = 0;
+
+			if (Lourde.IsChecked == true) lourde = 1;
+			else if (Intermediaire.IsChecked == true) intermediaire = 1;
+			else if (Bouclier.IsChecked == true) bouclier = 1;
+
+			long sortint = 0;
+			long sortsag = 0;
+			long sortcha = 0;
+
+			if (SortINT.IsChecked == true) sortint = 1;
+			else if (SortSAG.IsChecked == true) sortsag = 1;
+			else if (SortCHA.IsChecked == true) sortcha = 1;
+
+			string[] Tableau = {
+				"FromCSM",
+				Nom.Text,
+				Classe.Text,
+				Level.Text,
+				Race.Text,
+				loyal,
+				bon,
+				HP.Text,
+				DVNow.Text,
+				DVType.Text,
+				BaseFor.Text,
+				BaseDex.Text,
+				BaseCon.Text,
+				BaseInt.Text,
+				BaseSag.Text,
+				BaseCha.Text,
+				LevelFor.Text,
+				LevelDex.Text,
+				LevelCon.Text,
+				LevelInt.Text,
+				LevelSag.Text,
+				LevelCha.Text,
+				MagicFor.Text,
+				MagicDex.Text,
+				MagicCon.Text,
+				MagicInt.Text,
+				MagicSag.Text,
+				MagicCha.Text,
+				TempFor.Text,
+				TempDex.Text,
+				TempCon.Text,
+				TempInt.Text,
+				TempSag.Text,
+				TempCha.Text,
+				MagieJDSFor.Text,
+				MagieJDSDex.Text,
+				MagieJDSCon.Text,
+				MagieJDSInt.Text,
+				MagieJDSSag.Text,
+				MagieJDSCha.Text,
+				TempJDSFor.Text,
+				TempJDSDex.Text,
+				TempJDSCon.Text,
+				TempJDSInt.Text,
+				TempJDSSag.Text,
+				TempJDSCha.Text,
+				BonusInit.Text,
+				Feet.Text,
+				Armure.Text,
+				lourde.ToString(),
+				intermediaire.ToString(),
+				bouclier.ToString(),
+				MagieCA.Text,
+				TempCA.Text,
+				MagieAcro.Text,
+				MagieArca.Text,
+				MagieAthl.Text,
+				MagieDisc.Text,
+				MagieDres.Text,
+				MagieEsca.Text,
+				MagieHist.Text,
+				MagieInti.Text,
+				MagieIntu.Text,
+				MagieInve.Text,
+				MagieMede.Text,
+				MagieNatu.Text,
+				MagiePerc.Text,
+				MagiePers.Text,
+				MagieReli.Text,
+				MagieRepr.Text,
+				MagieSurv.Text,
+				MagieTrom.Text,
+				sortint.ToString(),
+				sortsag.ToString(),
+				sortcha.ToString(),
+				MagieMelee.Text,
+				MagieDistance.Text,
+				MagieSort.Text,
+			};
+
+			System.IO.File.WriteAllLines("./" + NameFile + ".dd5", Tableau);
+
+			MessageBox.Show("Personnage : " + Nom.Text + ", exporté avec succés dans le fichier " + NameFile + ".dd5");
 		}
 
 		// ### Fonctions de calculs ### \\
@@ -1422,7 +1689,7 @@ namespace CharacterSheetManagement
 		{
 			SwitchLanguage();
 		}
-		
+
 		// ### Checked ### \\
 		/// <summary>
 		/// Quand une des checkbox de l'armure est check.
