@@ -10,8 +10,5 @@ English Sample from Windows 7 Enterprise( ENG View ) :
 On start Sample from Windows 7 Enterprise( Vue FR ) :
 ![FrenchScreen](screenshots/onStartupSample.png)
 
-## Last (stable) Version Downloadable
-MediaFire : [CharacterSheetManagement_v0.13.exe](http://www.mediafire.com/file/mra2w2s63yvbky0/CharacterSheetManagement.exe "CSM v0.13")
-
 ## Requirements
 Tested on : Windows 7 Enterprise, Windows 10, Windows 10 Insider.
